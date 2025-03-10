@@ -1,0 +1,737 @@
+/* Estilos generales */
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  background-color: #f9fafc;
+}
+
+/* Estilos para el header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  color: #1e2f65;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+/* Estilos para el breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #757575;
+}
+
+.breadcrumb a {
+  color: #1e2f65;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+  color: #3f51b5;
+  text-decoration: underline;
+}
+
+.breadcrumb .MuiTypography-root {
+  color: #1e2f65;
+}
+
+/* Estilos para las tarjetas de estadísticas */
+.statsCard {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.statsCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.statsCardHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.statsCardIcon {
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+
+.statsCardValue {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.statsCardProgress {
+  margin-top: 1rem;
+  width: 100%;
+  height: 6px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.statsCardProgressBar {
+  width: 100%;
+  height: 6px;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.sectionCard {
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  font-size: 1.1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.sectionTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #3f51b5;
+  border-radius: 3px;
+}
+
+.searchFilterContainer {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.searchInput {
+  width: 100%;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background-color: #f9fafc;
+  padding: 0 42px 0 42px;
+  font-size: 0.875rem;
+  color: #333;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.searchInput:focus {
+  border-color: #3f51b5;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.1);
+  outline: none;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 14px;
+  color: #757575;
+  font-size: 1.25rem;
+  transition: color 0.2s ease;
+  pointer-events: none;
+}
+
+.searchInput:focus + .searchIcon {
+  color: #3f51b5;
+}
+
+.searchClearButton {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #757575;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.searchClearButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #3f51b5;
+}
+
+.searchClearButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+}
+
+.filterContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.filterTabs {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: -1px;
+}
+
+.filterTab {
+  padding: 0.75rem 0;
+  font-size: 0.875rem;
+  color: #666;
+  cursor: pointer;
+  border: none;
+  background: none;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.filterTab:hover {
+  color: #3f51b5;
+}
+
+.filterTab.active {
+  color: #3f51b5;
+  font-weight: 500;
+}
+
+.filterTab.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #3f51b5;
+  border-radius: 2px 2px 0 0;
+}
+
+.assigneeContainer {
+  display: flex;
+  align-items: center;
+}
+
+.assigneeAvatar {
+  width: 28px;
+  height: 28px;
+  font-size: 0.7rem;
+  margin-right: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.progressContainer {
+  display: flex;
+  align-items: center;
+  min-width: 100px;
+}
+
+.progressBar {
+  width: 100%;
+  margin-right: 0.75rem;
+  height: 8px;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  overflow: hidden;
+}
+
+/* Estilos para el paginador */
+.paginationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.paginationInfo {
+  font-size: 0.813rem;
+  color: #666;
+}
+
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.paginationButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  background-color: #fff;
+  color: #666;
+  font-size: 0.813rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.paginationButton:hover {
+  background-color: #f5f5f5;
+  border-color: #d0d0d0;
+}
+
+.paginationButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+}
+
+.paginationButton.active {
+  background-color: #3f51b5;
+  color: #fff;
+  border-color: #3f51b5;
+  font-weight: 500;
+}
+
+.paginationButton.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.paginationEllipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  color: #666;
+}
+
+/* Estilos para la sección de actividad reciente */
+.activityCard {
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.activityCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.activityCardFooter {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+/* Estilos para el timeline */
+.timelineContainer {
+  position: relative;
+  padding: 0.5rem 0;
+  min-height: 300px;
+}
+
+.timelineItem {
+  display: flex;
+  margin-bottom: 1.25rem;
+  position: relative;
+}
+
+.timelineItem:last-child {
+  margin-bottom: 0;
+}
+
+.timelineIconContainer {
+  position: relative;
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timelineAvatar {
+  width: 32px !important;
+  height: 32px !important;
+  font-size: 0.8rem !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.timelineConnector {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: calc(100% + 1.25rem);
+  background-color: #e0e0e0;
+  z-index: 1;
+}
+
+.timelineContent {
+  flex: 1;
+  background-color: #f9fafc;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+}
+
+.timelineContent:hover {
+  background-color: #f5f7fa;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06);
+}
+
+.timelineHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.timelineUser {
+  font-size: 0.875rem;
+  color: #333;
+}
+
+.timelineTime {
+  font-size: 0.75rem;
+  color: #757575;
+}
+
+.timelineBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.timelineProject {
+  font-size: 0.875rem;
+  color: #3f51b5;
+  font-weight: 500;
+}
+
+.viewAllButton {
+  margin-top: 1.25rem;
+  text-transform: none;
+  font-weight: 500;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.viewAllButton:hover {
+  background-color: rgba(63, 81, 181, 0.08);
+}
+
+/* Estilos para la tabla */
+.tableContainer {
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  min-height: 200px;
+}
+
+.tableHeader {
+  background-color: #f5f7fa;
+}
+
+.tableHeaderCell {
+  font-weight: 600;
+  color: #546e7a;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tableHeaderContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sortButton {
+  padding: 1px;
+  margin-left: 2px;
+  color: #757575;
+}
+
+.sortIconActive {
+  color: #3f51b5;
+  font-size: 0.75rem;
+}
+
+.sortIconInactive {
+  color: #bdbdbd;
+  font-size: 0.75rem;
+}
+
+.tableRow {
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: rgba(63, 81, 181, 0.04);
+}
+
+.tableCell {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.75rem;
+}
+
+/* Estilos para el estado de carga */
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-radius: 8px;
+}
+
+.timelineLoadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-radius: 8px;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3f51b5;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.loadingBar {
+  width: 60%;
+  max-width: 300px;
+  height: 4px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loadingBarProgress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #3f51b5;
+  border-radius: 4px;
+  animation: loadingProgress 2s ease-in-out infinite;
+}
+
+.loadingText {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loadingProgress {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 70%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* Estilos para las filas de esqueleto */
+.skeletonRow {
+  transition: background-color 0.2s ease;
+}
+
+.skeletonCell {
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  margin-right: 1rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonCell:last-child {
+  margin-right: 0;
+}
+
+.skeletonCell.small {
+  width: 60px;
+}
+
+.skeletonCell.medium {
+  width: 100px;
+}
+
+.skeletonCell.large {
+  width: 150px;
+}
+
+.skeletonAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  margin-right: 0.75rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonTimelineContent {
+  background-color: #f5f5f5;
+  box-shadow: none;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* Ajustar el esqueleto de carga para que coincida con el nuevo tamaño */
+.skeletonRow .tableCell .skeletonCell {
+  height: 16px;
+}
+
+.skeletonRow .tableCell .skeletonAvatar {
+  width: 28px;
+  height: 28px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 960px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .searchFilterContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .statsCard,
+  .sectionCard,
+  .activityCard {
+    padding: 1rem;
+  }
+
+  .filterTabs {
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  .filterTab {
+    white-space: nowrap;
+    font-size: 0.813rem;
+  }
+
+  .searchInput {
+    height: 38px;
+    font-size: 0.813rem;
+  }
+
+  .paginationContainer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .paginationInfo {
+    text-align: center;
+  }
+
+  .paginationControls {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .paginationButton {
+    min-width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+
+  .loadingBar {
+    width: 80%;
+  }
+
+  .timelineConnector {
+    height: calc(100% + 2rem);
+  }
+}
+

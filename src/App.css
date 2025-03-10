@@ -1,0 +1,19 @@
+body {
+  background-color: #f4f6fd;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-size: 0.700rem;
+}
+
+#root {
+  height: 100%;
+  padding: 1rem; /* Agregar padding para que el contenido no toque los bordes */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit; /* Asegurarse de que los encabezados hereden el tamaño de fuente global */
+}
+
+p, a, span, div, li, input, button {
+  font-size: inherit; /* Asegurarse de que otros elementos hereden el tamaño de fuente global */
+}
