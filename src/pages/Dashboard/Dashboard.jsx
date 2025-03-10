@@ -82,7 +82,7 @@ const Dashboard = () => {
     {
       id: 1,
       name: "Enterprise CRM Implementation",
-      client: "Client A",
+      client: "Client Inbursa",
       days: 14,
       assignee: {
         name: "Sarah Johnson",
