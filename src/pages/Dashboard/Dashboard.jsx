@@ -41,6 +41,7 @@ import {
   UnfoldMore as UnfoldMoreIcon,
 } from "@mui/icons-material"
 import styles from "./dashboard.module.css"
+import SummaryCharts from "../../components/Charts/SummaryCharts"
 
 const Dashboard = () => {
   const statsCards = [
@@ -1073,6 +1074,8 @@ const Dashboard = () => {
           </Paper>
         </Grid>
       </Grid>
+
+      <SummaryCharts />
     </Container>
   )
 }
