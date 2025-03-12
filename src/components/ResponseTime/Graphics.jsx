@@ -6,7 +6,6 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import styles from "./graphics.module.css";
 
-// Sample data for the charts (MODIFIED)
 const areaData = [
   { week: "Week 1", "MX": 15, "USA": 15, "SA": 15 },
   { week: "Week 2", "MX": 20, "USA": 15, "SA": 15 },
@@ -14,7 +13,6 @@ const areaData = [
   { week: "Week 4", "MX": 20, "USA": 20, "SA": 15 },
 ];
 
-// PM data for stacked bars (unchanged)
 const pmData = {
   area: [
     {
@@ -46,11 +44,10 @@ const pmData = {
   region: [],
 };
 
-// Updated color configurations with brighter colors (MODIFIED)
 const areaColors = {
-  "MX": "#B695C0", // Un tono más claro de verde
-  "USA": "#87CEEB", // Otro tono más claro
-  "SA": "#FFC0CB", // Un tono aún más clar
+  "MX": "#B695C0",
+  "USA": "#87CEEB",
+  "SA": "#FFC0CB",
 };
 
 const pmColors = {
@@ -64,7 +61,6 @@ const pmColors = {
   "Anna (Sales)": "#FFAB91",
 };
 
-// Function to calculate trend line data (unchanged)
 const calculateTrendLine = (data, key) => {
   const xValues = data.map((_, index) => index);
   const yValues = data.map((item) => item[key]);
@@ -84,7 +80,6 @@ const calculateTrendLine = (data, key) => {
   }));
 };
 
-// Custom tooltip component (unchanged)
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
@@ -106,7 +101,6 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
-// Componente para mostrar los porcentajes globales (unchanged)
 const GlobalPercentages = () => {
   return (
     <Box className={styles.globalPercentages}>
@@ -142,14 +136,6 @@ const ChartComponent = ({ title, data, colors, pmData, chartType }) => {
             </IconButton>
           </Tooltip>
         </Typography>
-        <Box className={styles.toggleContainer}>
-          <button
-            onClick={() => setViewMode('summary')}
-            className={`${styles.toggleButton} ${viewMode === 'summary' ? styles.toggleActive : ''}`}
-          >
-            Summary
-          </button>
-        </Box>
       </Box>
 
       <ResponsiveContainer width="100%" height={300}>

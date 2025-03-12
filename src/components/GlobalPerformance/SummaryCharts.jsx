@@ -309,7 +309,7 @@ const ChartComponent = ({ title, data, colors, pmData, chartType }) => {
             onClick={() => setViewMode('detailed')}
             className={`${styles.toggleButton} ${viewMode === 'detailed' ? styles.toggleActive : ''}`}
           >
-            By PM
+            By User
           </button>
         </Box>
       </Box>

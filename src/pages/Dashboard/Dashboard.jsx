@@ -41,8 +41,8 @@ import {
   UnfoldMore as UnfoldMoreIcon,
 } from "@mui/icons-material"
 import styles from "./dashboard.module.css"
-import SummaryCharts from "../../components/Charts/SummaryCharts"
-import Graphics from "../../components/Graphics/Graphics"
+import SummaryCharts from "../../components/GlobalPerformance/SummaryCharts"
+import Graphics from "../../components/ResponseTime/Graphics"
 
 const Dashboard = () => {
   const statsCards = [
