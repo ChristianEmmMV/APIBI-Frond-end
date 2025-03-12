@@ -42,6 +42,7 @@ import {
 } from "@mui/icons-material"
 import styles from "./dashboard.module.css"
 import SummaryCharts from "../../components/Charts/SummaryCharts"
+import Graphics from "../../components/Graphics/Graphics"
 
 const Dashboard = () => {
   const statsCards = [
@@ -1076,6 +1077,7 @@ const Dashboard = () => {
       </Grid>
 
       <SummaryCharts />
+    <Graphics/>
     </Container>
   )
 }
