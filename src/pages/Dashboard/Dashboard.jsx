@@ -44,6 +44,7 @@ import styles from "./dashboard.module.css"
 import SummaryCharts from "../../components/GlobalPerformance/SummaryCharts"
 import Graphics from "../../components/ResponseTime/Graphics"
 import PipeLine from "../../components/PipiLine/PipLine"
+import Compliance from "../../components/Compliance/Compliance"
 import { FileDownload, PictureAsPdf, TableChart } from "@mui/icons-material"
 import { Menu, MenuItem, ListItemIcon, ListItemText } from "@mui/material"
 
@@ -1081,6 +1082,7 @@ const Dashboard = () => {
       <SummaryCharts />
       <Graphics />
       <PipeLine />
+      <Compliance/>
     </Container>
   )
 }

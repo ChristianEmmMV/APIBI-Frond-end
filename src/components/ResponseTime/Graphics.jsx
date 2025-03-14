@@ -1,69 +1,38 @@
-"use client"
+"use client";
+
 
 import React, { useState, useMemo, useEffect } from "react";
 import { Paper, Typography, Grid, Box, Tooltip, IconButton } from "@mui/material";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, Line } from "recharts";
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as RechartsTooltip,
+  Legend,
+  ResponsiveContainer,
+  Line
+} from "recharts";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import styles from "./graphics.module.css";
 
 const areaData = [
-  { week: "Week 1", "MX": 15, "USA": 15, "SA": 15 },
-  { week: "Week 2", "MX": 20, "USA": 15, "SA": 15 },
-  { week: "Week 3", "MX": 10, "USA": 10, "SA": 15 },
-  { week: "Week 4", "MX": 20, "USA": 20, "SA": 15 },
+  { week: "Week 1", MX: 7, USA: 5, SA: 10 },
+  { week: "Week 2", MX: 8, USA: 4, SA: 10 },
+  { week: "Week 3", MX: 10, USA: 10, SA: 8 },
+  { week: "Week 4", MX: 20, USA: 20, SA: 15 }
 ];
 
-const pmData = {
-  area: [
-    {
-      week: "Week 1",
-      "John (Engineering)": 25,
-      "Sarah (Engineering)": 20,
-      "Mike (Design)": 15,
-    },
-    {
-      week: "Week 2",
-      "John (Engineering)": 30,
-      "Sarah (Engineering)": 20,
-      "Mike (Design)": 10,
-    },
-    {
-      week: "Week 3",
-      "John (Engineering)": 20,
-      "Sarah (Engineering)": 15,
-      "Mike (Design)": 25,
-    },
-    {
-      week: "Week 4",
-      "John (Engineering)": 35,
-      "Sarah (Engineering)": 20,
-      "Mike (Design)": 20,
-    },
-  ],
-  services: [],
-  region: [],
-};
-
 const areaColors = {
-  "MX": "#B695C0",
-  "USA": "#87CEEB",
-  "SA": "#FFC0CB",
+  MX: "#bb58ff",
+  USA: "#580790",
+  SA: "#e3bcff"
 };
 
-const pmColors = {
-  "John (Engineering)": "#66BB6A",
-  "Sarah (Engineering)": "#81C784",
-  "Mike (Design)": "#42A5F5",
-  "Lisa (Design)": "#64B5F6",
-  "Tom (Marketing)": "#FFD54F",
-  "Emma (Marketing)": "#FFE082",
-  "David (Sales)": "#FF8A65",
-  "Anna (Sales)": "#FFAB91",
-};
-
-const calculateTrendLine = (data, key) => {
+const calculateTrendLine = (data) => {
   const xValues = data.map((_, index) => index);
-  const yValues = data.map((item) => item[key]);
+  const yValues = data.map((item) => (item.MX + item.USA + item.SA) / 3); // Promedio por semana
 
   const n = xValues.length;
   const sumX = xValues.reduce((a, b) => a + b, 0);
@@ -76,7 +45,7 @@ const calculateTrendLine = (data, key) => {
 
   return data.map((item, index) => ({
     week: item.week,
-    trend: slope * index + intercept,
+    trend: slope * index + intercept
   }));
 };
 
@@ -101,36 +70,29 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
-const GlobalPercentages = () => {
+const FloatingCard = ({ avgDays }) => {
   return (
-    <Box className={styles.globalPercentages}>
-      <Grid container justifyContent="center" alignItems="center" style={{ width: '100%' }}>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <Paper elevation={2} className={styles.percentageCard}>
-            <Typography variant="h4" className={styles.percentageValue}>87%</Typography>
-            <Typography variant="body2">Effectiveness</Typography>
-          </Paper>
-        </Grid>
-      </Grid>
-    </Box>
+    <Paper elevation={3} className={styles.floatingCard}>
+      <Typography variant="h5" className={styles.floatingValue}>
+        {avgDays.toFixed(1)}
+      </Typography>
+      <Typography variant="body2">Avg. Days</Typography>
+    </Paper>
   );
 };
 
-// Componente de gráfica actualizado con botón de información (unchanged)
-const ChartComponent = ({ title, data, colors, pmData, chartType }) => {
-  const [viewMode, setViewMode] = useState('summary');
-  const trendData = useMemo(() => calculateTrendLine(data, Object.keys(colors)[0]), [data, colors]);
+const ChartComponent = ({ title, data, colors }) => {
+  const trendData = useMemo(() => calculateTrendLine(data), [data]);
 
-  const chartDescription = {
-    area: "This chart shows the distribution of work estimates across different areas of the company, including Engineering, Design, Marketing, and Sales.",
-  };
+  const avgTotalDays =
+    data.reduce((sum, item) => sum + (item.MX + item.USA + item.SA) / 3, 0) / data.length;
 
   return (
     <Box className={styles.chartContainer}>
       <Box className={styles.chartHeader}>
         <Typography variant="subtitle1" fontWeight={500}>
           {title}
-          <Tooltip title={chartDescription[chartType]} arrow placement="top">
+          <Tooltip title="This chart shows the average days by region." arrow placement="top">
             <IconButton size="small" className={styles.infoButton}>
               <InfoOutlinedIcon fontSize="small" />
             </IconButton>
@@ -138,43 +100,22 @@ const ChartComponent = ({ title, data, colors, pmData, chartType }) => {
         </Typography>
       </Box>
 
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="95%" height={300}>
         <BarChart
-          data={viewMode === 'summary' ? data : pmData[chartType]}
+          data={data}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-          barCategoryGap="%"
+          barCategoryGap="20%"
         >
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
           <XAxis dataKey="week" axisLine={false} tickLine={false} />
           <YAxis axisLine={false} tickLine={false} />
           <RechartsTooltip content={<CustomTooltip />} />
-          <Legend wrapperStyle={{ paddingTop: '20px' }} />
+          <Legend wrapperStyle={{ paddingTop: "20px" }} />
 
-          {viewMode === 'summary' ? (
-            Object.keys(colors).map((key) => (
-              <Bar
-                key={key}
-                dataKey={key}
-                fill={colors[key]}
-                animationDuration={300}
-                animationEasing="ease-in-out"
-                barSize={20}
-              />
-            ))
-          ) : (
-            Object.keys(pmColors)
-              .filter(key => key.includes(Object.keys(colors)[0]) || key.includes(Object.keys(colors)[1]) || key.includes(Object.keys(colors)[2]) || key.includes(Object.keys(colors)[3]))
-              .map((key) => (
-                <Bar
-                  key={key}
-                  dataKey={key}
-                  stackId="a"
-                  fill={pmColors[key]}
-                  animationDuration={300}
-                  animationEasing="ease-in-out"
-                />
-              ))
-          )}
+          {Object.keys(colors).map((key) => (
+            <Bar key={key} dataKey={key} fill={colors[key]} barSize={30} />
+          ))}
+
           <Line
             type="monotone"
             dataKey="trend"
@@ -186,12 +127,13 @@ const ChartComponent = ({ title, data, colors, pmData, chartType }) => {
           />
         </BarChart>
       </ResponsiveContainer>
+
+      <FloatingCard avgDays={avgTotalDays} />
     </Box>
   );
 };
 
 const SummaryCharts = () => {
-
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
 
@@ -216,7 +158,7 @@ const SummaryCharts = () => {
   return (
     <Paper elevation={0} className={styles.summaryContainer}>
       <Typography variant="h6" className={styles.sectionTitle}>
-        Response time
+        Response Time
       </Typography>
       <Typography variant="body2" color="text.secondary" className={styles.sectionSubtitle}>
         Summary of average days by region to deliver estimates
@@ -234,21 +176,11 @@ const SummaryCharts = () => {
           <div className={styles.loadingText}>Loading chart data...</div>
         </div>
       ) : (
-        <>
-          <GlobalPercentages />
-
-          <Grid container justifyContent="center">
-            <Grid item xs={12} md={8}>
-              <ChartComponent
-                title="By Region"
-                data={areaData}
-                colors={areaColors}
-                pmData={pmData}
-                chartType="area"
-              />
-            </Grid>
+        <Grid container spacing={3} justifyContent="center" alignItems="stretch">
+          <Grid item xs={12} md={12}>
+            <ChartComponent title="By Region" data={areaData} colors={areaColors} />
           </Grid>
-        </>
+        </Grid>
       )}
     </Paper>
   );
