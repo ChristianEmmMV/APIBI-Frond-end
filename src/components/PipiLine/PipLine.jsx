@@ -1,10 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Paper, Typography, Tooltip } from "@mui/material"
+import { Paper, Typography } from "@mui/material"
 import { Calendar, Clock, CheckCircle, AlertCircle, Send, FileText } from "lucide-react"
 import styles from "./pipeline.module.css"
 
+// Datos de ejemplo para el pipeline
 const pipelineData = [
   {
     id: 1,
@@ -16,7 +17,7 @@ const pipelineData = [
     estimacionTerminada: "",
     cambios: "",
     propuestaEnviada: "",
-    sla: "",
+    sla: "3 días",
   },
   {
     id: 2,
@@ -28,7 +29,7 @@ const pipelineData = [
     estimacionTerminada: "",
     cambios: "",
     propuestaEnviada: "",
-    sla: "",
+    sla: "4 días",
   },
   {
     id: 3,
@@ -64,7 +65,7 @@ const pipelineData = [
     estimacionTerminada: "Cancelada",
     cambios: "",
     propuestaEnviada: "",
-    sla: "",
+    sla: "18 días",
   },
   {
     id: 6,
@@ -170,7 +171,35 @@ const PipeLine = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [loadingProgress, setLoadingProgress] = useState(0)
   const [hoveredRow, setHoveredRow] = useState(null)
+  // Agregar un nuevo estado para controlar si la tabla está expandida
   const [isExpanded, setIsExpanded] = useState(false)
+  // Agregar un nuevo estado para controlar la visibilidad del modal y la información del modal
+  const [modalOpen, setModalOpen] = useState(false)
+  const [modalData, setModalData] = useState(null)
+
+  // Agregar esta función para abrir el modal con los datos de la oportunidad atrasada
+  const handleDelayedItemClick = (item) => {
+    // Calcular días de atraso (ejemplo)
+    const diasAtraso = item.delayedPhase === "estimacionTerminada" ? 5 : 3
+
+    setModalData({
+      client: item.client,
+      oppName: item.oppName,
+      sla: item.sla,
+      diasAtraso: diasAtraso,
+      phase: item.delayedPhase,
+      porQue:
+        "El equipo de desarrollo tuvo que atender una emergencia con otro cliente prioritario, lo que retrasó la estimación de este proyecto.",
+      quePodemos:
+        "Asignar recursos adicionales temporalmente para completar la fase atrasada. Comunicar al cliente la situación y establecer una nueva fecha de entrega realista.",
+    })
+    setModalOpen(true)
+  }
+
+  // Agregar esta función para cerrar el modal
+  const handleCloseModal = () => {
+    setModalOpen(false)
+  }
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -190,6 +219,7 @@ const PipeLine = () => {
     }
   }, [])
 
+  // Función para determinar el color de fondo de la celda SLA
   const getSlaColor = (sla) => {
     if (!sla) return ""
 
@@ -201,11 +231,13 @@ const PipeLine = () => {
     return styles.slaRed
   }
 
+  // Modificar la función getPhaseStatus para incluir el estado "delayed"
   const getPhaseStatus = (item, phase) => {
     if (phase === "estimacionTerminada" && item[phase] === "Cancelada") {
       return "canceled"
     }
 
+    // Verificar si la fase está atrasada
     if (item[phase] && item.isDelayed && phase === item.delayedPhase) {
       return "delayed"
     }
@@ -213,6 +245,7 @@ const PipeLine = () => {
     return item[phase] ? "completed" : "pending"
   }
 
+  // Función para obtener el icono de cada fase
   const getPhaseIcon = (phase) => {
     switch (phase) {
       case "solicitud":
@@ -230,23 +263,7 @@ const PipeLine = () => {
     }
   }
 
-  const getPhaseTooltip = (phase) => {
-    switch (phase) {
-      case "solicitud":
-        return "Solicitud recibida"
-      case "levantamiento":
-        return "Levantamiento de requerimientos"
-      case "estimacionTerminada":
-        return "Estimación completada"
-      case "cambios":
-        return "Cambios solicitados"
-      case "propuestaEnviada":
-        return "Propuesta enviada al cliente"
-      default:
-        return ""
-    }
-  }
-
+  // Renderizar el modal
   return (
     <Paper elevation={0} className={styles.pipelineContainer}>
       <div className={styles.headerContainer}>
@@ -287,8 +304,11 @@ const PipeLine = () => {
           <div className={styles.loadingText}>Cargando datos del pipeline...</div>
         </div>
       ) : (
+        // Modificar el return statement para incluir el efecto de desvanecido y el botón
+        // Reemplazar el div con className={styles.tableWrapper} con:
         <div className={`${styles.tableWrapper} ${!isExpanded ? styles.collapsedTable : ""}`}>
           <div className={styles.tableContainer}>
+            {/* Encabezados de la tabla */}
             <div className={styles.tableHeader}>
               <div className={styles.serviceTypeHeader}>Tipo</div>
               <div className={styles.clientHeader}>Cliente | Oportunidad</div>
@@ -320,6 +340,7 @@ const PipeLine = () => {
               </div>
             </div>
 
+            {/* Cuerpo de la tabla */}
             <div className={styles.tableBody}>
               {pipelineData.map((item) => (
                 <div
@@ -328,74 +349,101 @@ const PipeLine = () => {
                   onMouseEnter={() => setHoveredRow(item.id)}
                   onMouseLeave={() => setHoveredRow(null)}
                 >
+                  {/* Tipo de servicio */}
                   <div className={styles.serviceTypeCell}>
                     <div className={`${styles.serviceTypeIndicator} ${styles[`serviceType${item.serviceType}`]}`}></div>
                     <span className={styles.serviceTypeText}>{item.serviceType}</span>
                   </div>
 
+                  {/* Cliente y Oportunidad */}
                   <div className={styles.clientCell}>
                     <div className={styles.clientName}>{item.client}</div>
                     <div className={styles.oppName}>{item.oppName}</div>
                   </div>
 
+                  {/* Timeline */}
                   <div className={styles.timelineCell}>
+                    {/* Línea de tiempo con nodos */}
                     <div className={styles.timeline}>
+                      {/* Fase: Solicitud */}
                       <div className={styles.timelinePhase}>
-                        <Tooltip title={getPhaseTooltip("solicitud")} arrow placement="top">
-                          <div
-                            className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "solicitud")}`]}`}
-                          >
-                            {getPhaseStatus(item, "solicitud") === "completed" && getPhaseIcon("solicitud")}
-                            {item.solicitud && <div className={styles.dateLabel}>{item.solicitud}</div>}
-                          </div>
-                        </Tooltip>
+                        <div
+                          className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "solicitud")}`]}`}
+                        >
+                          {getPhaseStatus(item, "solicitud") === "completed" && getPhaseIcon("solicitud")}
+                          {item.solicitud && <div className={styles.dateLabel}>{item.solicitud}</div>}
+                        </div>
                         <div
                           className={`${styles.timelineConnector} ${getPhaseStatus(item, "solicitud") === "completed" && getPhaseStatus(item, "levantamiento") === "completed" ? styles.connectorCompleted : ""}`}
                         ></div>
                       </div>
 
+                      {/* Fase: Levantamiento */}
                       <div className={styles.timelinePhase}>
-                        <Tooltip title={getPhaseTooltip("levantamiento")} arrow placement="top">
-                          <div
-                            className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "levantamiento")}`]}`}
-                          >
-                            {getPhaseStatus(item, "levantamiento") === "completed" && getPhaseIcon("levantamiento")}
-                            {item.levantamiento && <div className={styles.dateLabel}>{item.levantamiento}</div>}
-                          </div>
-                        </Tooltip>
+                        <div
+                          className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "levantamiento")}`]}`}
+                        >
+                          {getPhaseStatus(item, "levantamiento") === "completed" && getPhaseIcon("levantamiento")}
+                          {item.levantamiento && (
+                            <div
+                              className={`${styles.dateLabel} ${
+                                item.isDelayed && item.delayedPhase === "levantamiento" ? styles.delayedLabel : ""
+                              }`}
+                              onClick={
+                                item.isDelayed && item.delayedPhase === "levantamiento"
+                                  ? () => handleDelayedItemClick(item)
+                                  : undefined
+                              }
+                              style={
+                                item.isDelayed && item.delayedPhase === "levantamiento" ? { cursor: "pointer" } : {}
+                              }
+                            >
+                              {item.levantamiento}
+                            </div>
+                          )}
+                        </div>
                         <div
                           className={`${styles.timelineConnector} ${getPhaseStatus(item, "levantamiento") === "completed" && getPhaseStatus(item, "estimacionTerminada") === "completed" ? styles.connectorCompleted : ""}`}
                         ></div>
                       </div>
 
+                      {/* Fase: Estimación Terminada */}
                       <div className={styles.timelinePhase}>
-                        <Tooltip title={getPhaseTooltip("estimacionTerminada")} arrow placement="top">
-                          <div
-                            className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "estimacionTerminada")}`]}`}
-                          >
-                            {getPhaseStatus(item, "estimacionTerminada") === "completed" &&
-                              getPhaseIcon("estimacionTerminada")}
-                            {getPhaseStatus(item, "estimacionTerminada") === "canceled" && (
-                              <AlertCircle size={14} className={styles.cancelIcon} />
-                            )}
-                            {getPhaseStatus(item, "estimacionTerminada") === "delayed" && (
-                              <AlertCircle size={14} className={styles.delayedIcon} />
-                            )}
-                            {item.estimacionTerminada && (
-                              <div
-                                className={`${styles.dateLabel} ${
-                                  item.estimacionTerminada === "Cancelada"
-                                    ? styles.canceledLabel
-                                    : item.isDelayed && item.delayedPhase === "estimacionTerminada"
-                                      ? styles.delayedLabel
-                                      : ""
-                                }`}
-                              >
-                                {item.estimacionTerminada}
-                              </div>
-                            )}
-                          </div>
-                        </Tooltip>
+                        <div
+                          className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "estimacionTerminada")}`]}`}
+                        >
+                          {getPhaseStatus(item, "estimacionTerminada") === "completed" &&
+                            getPhaseIcon("estimacionTerminada")}
+                          {getPhaseStatus(item, "estimacionTerminada") === "canceled" && (
+                            <AlertCircle size={14} className={styles.cancelIcon} />
+                          )}
+                          {getPhaseStatus(item, "estimacionTerminada") === "delayed" && (
+                            <AlertCircle size={14} className={styles.delayedIcon} />
+                          )}
+                          {item.estimacionTerminada && (
+                            <div
+                              className={`${styles.dateLabel} ${
+                                item.estimacionTerminada === "Cancelada"
+                                  ? styles.canceledLabel
+                                  : item.isDelayed && item.delayedPhase === "estimacionTerminada"
+                                    ? styles.delayedLabel
+                                    : ""
+                              }`}
+                              onClick={
+                                item.isDelayed && item.delayedPhase === "estimacionTerminada"
+                                  ? () => handleDelayedItemClick(item)
+                                  : undefined
+                              }
+                              style={
+                                item.isDelayed && item.delayedPhase === "estimacionTerminada"
+                                  ? { cursor: "pointer" }
+                                  : {}
+                              }
+                            >
+                              {item.estimacionTerminada}
+                            </div>
+                          )}
+                        </div>
                         <div
                           className={`${styles.timelineConnector} ${
                             getPhaseStatus(item, "estimacionTerminada") === "completed" &&
@@ -409,34 +457,32 @@ const PipeLine = () => {
                         ></div>
                       </div>
 
+                      {/* Fase: Cambios */}
                       <div className={styles.timelinePhase}>
-                        <Tooltip title={getPhaseTooltip("cambios")} arrow placement="top">
-                          <div
-                            className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "cambios")}`]}`}
-                          >
-                            {getPhaseStatus(item, "cambios") === "completed" && getPhaseIcon("cambios")}
-                            {item.cambios && <div className={styles.dateLabel}>{item.cambios}</div>}
-                          </div>
-                        </Tooltip>
+                        <div
+                          className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "cambios")}`]}`}
+                        >
+                          {getPhaseStatus(item, "cambios") === "completed" && getPhaseIcon("cambios")}
+                          {item.cambios && <div className={styles.dateLabel}>{item.cambios}</div>}
+                        </div>
                         <div
                           className={`${styles.timelineConnector} ${getPhaseStatus(item, "cambios") === "completed" && getPhaseStatus(item, "propuestaEnviada") === "completed" ? styles.connectorCompleted : ""}`}
                         ></div>
                       </div>
 
+                      {/* Fase: Propuesta Enviada */}
                       <div className={styles.timelinePhase}>
-                        <Tooltip title={getPhaseTooltip("propuestaEnviada")} arrow placement="top">
-                          <div
-                            className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "propuestaEnviada")}`]}`}
-                          >
-                            {getPhaseStatus(item, "propuestaEnviada") === "completed" &&
-                              getPhaseIcon("propuestaEnviada")}
-                            {item.propuestaEnviada && <div className={styles.dateLabel}>{item.propuestaEnviada}</div>}
-                          </div>
-                        </Tooltip>
+                        <div
+                          className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "propuestaEnviada")}`]}`}
+                        >
+                          {getPhaseStatus(item, "propuestaEnviada") === "completed" && getPhaseIcon("propuestaEnviada")}
+                          {item.propuestaEnviada && <div className={styles.dateLabel}>{item.propuestaEnviada}</div>}
+                        </div>
                       </div>
                     </div>
                   </div>
 
+                  {/* SLA */}
                   <div className={`${styles.slaCell} ${getSlaColor(item.sla)}`}>{item.sla}</div>
                 </div>
               ))}
@@ -446,6 +492,73 @@ const PipeLine = () => {
           <button className={styles.expandButton} onClick={() => setIsExpanded(!isExpanded)}>
             {isExpanded ? "Ver menos" : "Ver más"}
           </button>
+        </div>
+      )}
+
+      {/* Modal para SLA no cumplido */}
+      {modalOpen && modalData && (
+        <div className={styles.modalOverlay} onClick={handleCloseModal}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h3 className={styles.modalTitle}>SLA No Cumplido</h3>
+              <button className={styles.modalCloseButton} onClick={handleCloseModal}>
+                ×
+              </button>
+            </div>
+            <div className={styles.modalContent}>
+              <div className={styles.modalSection}>
+                <h4 className={styles.modalSectionTitle}>Información del Proyecto</h4>
+                <div className={styles.modalInfo}>
+                  <div className={styles.modalInfoItem}>
+                    <span className={styles.modalLabel}>Cliente:</span>
+                    <span className={styles.modalValue}>{modalData.client}</span>
+                  </div>
+                  <div className={styles.modalInfoItem}>
+                    <span className={styles.modalLabel}>Oportunidad:</span>
+                    <span className={styles.modalValue}>{modalData.oppName}</span>
+                  </div>
+                  <div className={styles.modalInfoItem}>
+                    <span className={styles.modalLabel}>SLA:</span>
+                    <span className={styles.modalValue}>{modalData.sla}</span>
+                  </div>
+                  <div className={styles.modalInfoItem}>
+                    <span className={styles.modalLabel}>Fase Atrasada:</span>
+                    <span className={styles.modalValue}>
+                      {modalData.phase === "estimacionTerminada"
+                        ? "Estimación"
+                        : modalData.phase === "levantamiento"
+                          ? "Levantamiento"
+                          : modalData.phase === "cambios"
+                            ? "Cambios"
+                            : modalData.phase === "propuestaEnviada"
+                              ? "Propuesta"
+                              : modalData.phase}
+                    </span>
+                  </div>
+                  <div className={styles.modalInfoItem}>
+                    <span className={styles.modalLabel}>Días de Atraso:</span>
+                    <span className={`${styles.modalValue} ${styles.delayedValue}`}>{modalData.diasAtraso} días</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.modalSection}>
+                <h4 className={styles.modalSectionTitle}>¿Por qué?</h4>
+                <p className={styles.modalText}>{modalData.porQue}</p>
+              </div>
+
+              <div className={styles.modalSection}>
+                <h4 className={styles.modalSectionTitle}>¿Qué podemos hacer?</h4>
+                <p className={styles.modalText}>{modalData.quePodemos}</p>
+              </div>
+
+              <div className={styles.modalActions}>
+                <button className={styles.modalActionButton} onClick={handleCloseModal}>
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </Paper>
