@@ -269,10 +269,10 @@ const PipeLine = () => {
       <div className={styles.headerContainer}>
         <div className={styles.titleContainer}>
           <Typography variant="h6" className={styles.sectionTitle}>
-            Pipeline
+            Pipe Line
           </Typography>
           <Typography variant="body2" color="text.secondary" className={styles.sectionSubtitle}>
-            Seguimiento de oportunidades por tipo de servicio, cliente y fases del proceso
+          Tracking opportunities by type of service, client, and process phases
           </Typography>
         </div>
         <div className={styles.legendContainer}>
