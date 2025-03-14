@@ -196,12 +196,11 @@ const SummaryCharts = () => {
   const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
-    // Simular carga de datos
     const timer = setInterval(() => {
       setLoadingProgress((oldProgress) => {
         if (oldProgress === 100) {
           clearInterval(timer);
-          setTimeout(() => setIsLoading(false), 500); // Pequeño retraso antes de mostrar los datos
+          setTimeout(() => setIsLoading(false), 500);
           return 100;
         }
         const diff = Math.random() * 10;

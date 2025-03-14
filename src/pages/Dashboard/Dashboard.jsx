@@ -190,7 +190,6 @@ const Dashboard = () => {
     },
   ]
 
-  // Modificar la función renderPriorityChip para chips más pequeños
   const renderPriorityChip = (priority) => {
     let color, bgColor
 
@@ -232,7 +231,6 @@ const Dashboard = () => {
     )
   }
 
-  // Modificar la función renderStatusChip para chips más pequeños
   const renderStatusChip = (status) => {
     let color, icon, bgColor
 
@@ -280,7 +278,6 @@ const Dashboard = () => {
     )
   }
 
-  // Función para renderizar el chip de acción en el timeline
   const renderActionChip = (action) => {
     let color, icon, bgColor, label
 
@@ -337,7 +334,6 @@ const Dashboard = () => {
 
   const [searchQuery, setSearchQuery] = React.useState("")
   const [activeFilter, setActiveFilter] = React.useState("all")
-  // Modificar los estados de carga para separar la tabla del timeline
   const [isTableLoading, setIsTableLoading] = React.useState(false)
   const [isTimelineLoading, setIsTimelineLoading] = React.useState(false)
   const [tableLoadingProgress, setTableLoadingProgress] = React.useState(0)
@@ -347,9 +343,7 @@ const Dashboard = () => {
   const [orderBy, setOrderBy] = React.useState("name")
   const [orderDirection, setOrderDirection] = React.useState("asc")
 
-  // Añadir estas variables de estado para la paginación
   const [currentPage, setCurrentPage] = React.useState(1)
-  // Modificar el itemsPerPage para mostrar más elementos por página
   const itemsPerPage = 7
 
   const filterButtons = [
@@ -359,14 +353,11 @@ const Dashboard = () => {
     { id: "pending", label: "Pending" },
   ]
 
-  // Reemplazar la función simulateLoading por dos funciones separadas
-  // Función para simular la carga de la tabla
   const simulateTableLoading = () => {
     setIsTableLoading(true)
     setTableLoadingProgress(0)
     setTableLoadingText("Loading data...")
 
-    // Simular progreso de carga
     const interval = setInterval(() => {
       setTableLoadingProgress((prevProgress) => {
         const newProgress = prevProgress + 10
@@ -384,13 +375,11 @@ const Dashboard = () => {
     }, 200)
   }
 
-  // Función para simular la carga del timeline
   const simulateTimelineLoading = () => {
     setIsTimelineLoading(true)
     setTimelineLoadingProgress(0)
     setTimelineLoadingText("Loading activity...")
 
-    // Simular progreso de carga
     const interval = setInterval(() => {
       setTimelineLoadingProgress((prevProgress) => {
         const newProgress = prevProgress + 12
@@ -408,7 +397,6 @@ const Dashboard = () => {
     }, 180)
   }
 
-  // Función para manejar el cambio de ordenación
   const handleSort = (column) => {
     const isAsc = orderBy === column && orderDirection === "asc"
     setOrderDirection(isAsc ? "desc" : "asc")
@@ -416,12 +404,10 @@ const Dashboard = () => {
     simulateTableLoading()
   }
 
-  // Función para ordenar los proyectos
   const sortProjects = (projects) => {
     return [...projects].sort((a, b) => {
       let valueA, valueB
 
-      // Determinar los valores a comparar según la columna
       switch (orderBy) {
         case "name":
           valueA = a.name
@@ -440,13 +426,11 @@ const Dashboard = () => {
           valueB = b.assignee.name
           break
         case "priority":
-          // Ordenar por prioridad (High > Medium > Low)
           const priorityOrder = { High: 3, Medium: 2, Low: 1 }
           valueA = priorityOrder[a.priority] || 0
           valueB = priorityOrder[b.priority] || 0
           break
         case "status":
-          // Ordenar por estado (Completed > In Progress > Pending)
           const statusOrder = { Completed: 3, "In Progress": 2, Pending: 1 }
           valueA = statusOrder[a.status] || 0
           valueB = statusOrder[b.status] || 0
@@ -456,7 +440,6 @@ const Dashboard = () => {
           valueB = b.name
       }
 
-      // Comparar los valores según la dirección de ordenación
       if (typeof valueA === "string" && typeof valueB === "string") {
         return orderDirection === "asc" ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA)
       } else {
@@ -465,15 +448,12 @@ const Dashboard = () => {
     })
   }
 
-  // Modificar la función de filtrado para incluir la paginación
   const filteredProjects = projects.filter((project) => {
-    // Filtro por estado
     if (activeFilter !== "all") {
       const status = project.status.toLowerCase().replace(" ", "-")
       if (status !== activeFilter) return false
     }
 
-    // Filtro por búsqueda
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase()
       return (
@@ -486,23 +466,17 @@ const Dashboard = () => {
     return true
   })
 
-  // Ordenar los proyectos filtrados
   const sortedProjects = sortProjects(filteredProjects)
 
-  // Calcular el número total de páginas
   const totalPages = Math.ceil(sortedProjects.length / itemsPerPage)
 
-  // Obtener los proyectos para la página actual
   const currentProjects = sortedProjects.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
-  // Modificar las llamadas a las funciones de carga
-  // Reemplazar las referencias a simulateLoading en las funciones de manejo de eventos
   const handlePageChange = (page) => {
     setCurrentPage(page)
     simulateTableLoading()
   }
 
-  // Función para ir a la página anterior
   const goToPreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1)
@@ -510,7 +484,6 @@ const Dashboard = () => {
     }
   }
 
-  // Función para ir a la página siguiente
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1)
@@ -532,39 +505,12 @@ const Dashboard = () => {
     simulateTableLoading()
   }
 
-  // Función para simular la carga de datos
-  /*const simulateLoading = () => {
-    setIsLoading(true)
-    setIsTimelineLoading(true)
-    setLoadingProgress(0)
-    setLoadingText("Loading data...")
 
-    // Simular progreso de carga
-    const interval = setInterval(() => {
-      setLoadingProgress((prevProgress) => {
-        const newProgress = prevProgress + 10
-
-        if (newProgress >= 100) {
-          clearInterval(interval)
-          setTimeout(() => {
-            setIsLoading(false)
-            setIsTimelineLoading(false)
-            setLoadingText("Data loaded successfully!")
-          }, 500)
-        }
-
-        return newProgress
-      })
-    }, 200)
-  }*/
-
-  // Simular carga inicial
   React.useEffect(() => {
     simulateTableLoading()
     simulateTimelineLoading()
   }, [])
 
-  // Componente para mostrar filas de esqueleto durante la carga
   const SkeletonRows = () => {
     return Array(5)
       .fill(0)
@@ -598,7 +544,6 @@ const Dashboard = () => {
       ))
   }
 
-  // Componente para mostrar esqueleto del timeline durante la carga
   const SkeletonTimeline = () => {
     return Array(4)
       .fill(0)
@@ -622,7 +567,6 @@ const Dashboard = () => {
       ))
   }
 
-  // Función para renderizar el icono de ordenación
   const renderSortIcon = (column) => {
     if (orderBy !== column) {
       return <UnfoldMoreIcon fontSize="small" className={styles.sortIconInactive} />
@@ -636,7 +580,6 @@ const Dashboard = () => {
 
   return (
     <Container maxWidth="xl" className={styles.container}>
-      {/* Título y breadcrumb */}
       <Box className={styles.header}>
         <Typography variant="h4" component="h1" fontWeight="bold">
           Dashboard
@@ -650,7 +593,6 @@ const Dashboard = () => {
         </Breadcrumbs>
       </Box>
 
-      {/* Tarjetas de estadísticas */}
       <Grid container spacing={3} mb={4}>
         {statsCards.map((card, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
@@ -703,7 +645,6 @@ const Dashboard = () => {
         ))}
       </Grid>
 
-      {/* Sección de Work Estimates */}
       <Grid container spacing={4}>
         <Grid item xs={12} lg={8}>
           <Paper elevation={0} className={styles.sectionCard}>
@@ -714,7 +655,6 @@ const Dashboard = () => {
               Overview of surveys and time estimates for employees
             </Typography>
 
-            {/* Barra de búsqueda mejorada */}
             <div className={styles.searchContainer}>
               <input
                 type="text"
@@ -745,7 +685,6 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {/* Tabla de proyectos con estado de carga */}
             <TableContainer className={styles.tableContainer}>
               {isTableLoading && (
                 <div className={styles.loadingOverlay}>
@@ -757,7 +696,6 @@ const Dashboard = () => {
                 </div>
               )}
 
-              {/* Modificar el componente Table para usar un tamaño más compacto */}
               <Table size="small" sx={{ "& .MuiTableCell-root": { py: 0.75 } }}>
                 <TableHead className={styles.tableHeader}>
                   <TableRow>
@@ -877,7 +815,6 @@ const Dashboard = () => {
               </Table>
             </TableContainer>
 
-            {/* Mensaje cuando no hay resultados */}
             {!isTableLoading && sortedProjects.length === 0 && (
               <Box sx={{ textAlign: "center", py: 4, color: "text.secondary" }}>
                 <Typography variant="body1">No projects found matching your criteria</Typography>
@@ -896,7 +833,6 @@ const Dashboard = () => {
               </Box>
             )}
 
-            {/* Botón para refrescar datos */}
             <Box sx={{ display: "flex", justifyContent: "center", mt: 2, mb: 2 }}>
               <Button
                 variant="outlined"
@@ -914,7 +850,6 @@ const Dashboard = () => {
               </Button>
             </Box>
 
-            {/* Paginación */}
             {!isTableLoading && sortedProjects.length > 0 && (
               <Box className={styles.paginationContainer}>
                 <div className={styles.paginationInfo}>
@@ -938,7 +873,6 @@ const Dashboard = () => {
                   {[...Array(totalPages)].map((_, index) => {
                     const pageNumber = index + 1
 
-                    // Mostrar siempre la primera página, la última página y las páginas alrededor de la actual
                     if (
                       pageNumber === 1 ||
                       pageNumber === totalPages ||
@@ -955,7 +889,6 @@ const Dashboard = () => {
                       )
                     }
 
-                    // Mostrar puntos suspensivos para páginas omitidas
                     if (
                       (pageNumber === 2 && currentPage > 3) ||
                       (pageNumber === totalPages - 1 && currentPage < totalPages - 2)
@@ -984,7 +917,6 @@ const Dashboard = () => {
           </Paper>
         </Grid>
 
-        {/* Sección de actividad reciente con diseño mejorado */}
         <Grid item xs={12} lg={4}>
           <Paper elevation={0} className={styles.activityCard}>
             <Box className={styles.activityCardHeader}>
@@ -1006,7 +938,6 @@ const Dashboard = () => {
               </Button>
             </Box>
 
-            {/* Contenedor del timeline con estado de carga */}
             <div className={styles.timelineContainer}>
               {isTimelineLoading && (
                 <div className={styles.timelineLoadingOverlay}>
