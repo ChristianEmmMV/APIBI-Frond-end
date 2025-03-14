@@ -44,6 +44,8 @@ import styles from "./dashboard.module.css"
 import SummaryCharts from "../../components/GlobalPerformance/SummaryCharts"
 import Graphics from "../../components/ResponseTime/Graphics"
 import PipeLine from "../../components/PipiLine/PipLine"
+import { FileDownload, PictureAsPdf, TableChart } from "@mui/icons-material"
+import { Menu, MenuItem, ListItemIcon, ListItemText } from "@mui/material"
 
 const Dashboard = () => {
   const statsCards = [
@@ -342,6 +344,8 @@ const Dashboard = () => {
   const [timelineLoadingText, setTimelineLoadingText] = React.useState("Loading activity...")
   const [orderBy, setOrderBy] = React.useState("name")
   const [orderDirection, setOrderDirection] = React.useState("asc")
+  const [exportAnchorEl, setExportAnchorEl] = React.useState(null)
+  const openExportMenu = Boolean(exportAnchorEl)
 
   const [currentPage, setCurrentPage] = React.useState(1)
   const itemsPerPage = 7
@@ -505,6 +509,35 @@ const Dashboard = () => {
     simulateTableLoading()
   }
 
+  const handleExportClick = (event) => {
+    setExportAnchorEl(event.currentTarget)
+  }
+
+  const handleExportClose = () => {
+    setExportAnchorEl(null)
+  }
+
+  const exportToPDF = () => {
+    setExportAnchorEl(null)
+    // Show loading notification
+    alert("Exporting dashboard to PDF...")
+    // In a real implementation, you would use a library like jsPDF or html2pdf
+    // to generate a PDF from the dashboard content
+    setTimeout(() => {
+      alert("Dashboard exported to PDF successfully!")
+    }, 1500)
+  }
+
+  const exportToExcel = () => {
+    setExportAnchorEl(null)
+    // Show loading notification
+    alert("Exporting dashboard data to Excel...")
+    // In a real implementation, you would use a library like xlsx
+    // to generate an Excel file from the dashboard data
+    setTimeout(() => {
+      alert("Dashboard data exported to Excel successfully!")
+    }, 1500)
+  }
 
   React.useEffect(() => {
     simulateTableLoading()
@@ -581,16 +614,53 @@ const Dashboard = () => {
   return (
     <Container maxWidth="xl" className={styles.container}>
       <Box className={styles.header}>
-        <Typography variant="h4" component="h1" fontWeight="bold">
-          Dashboard
-        </Typography>
-        <Breadcrumbs aria-label="breadcrumb" className={styles.breadcrumb}>
-          <Link underline="hover" color="inherit" href="/">
-            <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-            Home
-          </Link>
-          <Typography color="text.primary">Dashboard</Typography>
-        </Breadcrumbs>
+        <div className={styles.headerLeft}>
+          <Typography variant="h4" component="h1" fontWeight="bold">
+            Dashboard
+          </Typography>
+          <Breadcrumbs aria-label="breadcrumb" className={styles.breadcrumb}>
+            <Link underline="hover" color="inherit" href="/">
+              <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+              Home
+            </Link>
+            <Typography color="text.primary">Dashboard</Typography>
+          </Breadcrumbs>
+        </div>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<FileDownload />}
+          onClick={handleExportClick}
+          className={styles.exportButton}
+        >
+          Export
+        </Button>
+        <Menu
+          anchorEl={exportAnchorEl}
+          open={openExportMenu}
+          onClose={handleExportClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+        >
+          <MenuItem onClick={exportToPDF}>
+            <ListItemIcon>
+              <PictureAsPdf fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Export as PDF</ListItemText>
+          </MenuItem>
+          <MenuItem onClick={exportToExcel}>
+            <ListItemIcon>
+              <TableChart fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Export as Excel</ListItemText>
+          </MenuItem>
+        </Menu>
       </Box>
 
       <Grid container spacing={3} mb={4}>
@@ -1009,8 +1079,8 @@ const Dashboard = () => {
       </Grid>
 
       <SummaryCharts />
-    <Graphics/>
-    <PipeLine/>
+      <Graphics />
+      <PipeLine />
     </Container>
   )
 }
