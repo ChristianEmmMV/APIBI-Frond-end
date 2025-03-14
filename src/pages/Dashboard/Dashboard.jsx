@@ -43,6 +43,7 @@ import {
 import styles from "./dashboard.module.css"
 import SummaryCharts from "../../components/GlobalPerformance/SummaryCharts"
 import Graphics from "../../components/ResponseTime/Graphics"
+import PipeLine from "../../components/PipiLine/PipLine"
 
 const Dashboard = () => {
   const statsCards = [
@@ -1078,6 +1079,7 @@ const Dashboard = () => {
 
       <SummaryCharts />
     <Graphics/>
+    <PipeLine/>
     </Container>
   )
 }

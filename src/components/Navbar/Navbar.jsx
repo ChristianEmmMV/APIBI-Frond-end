@@ -44,7 +44,6 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
   return (
     <AppBar position="fixed" color="inherit" elevation={0} className={styles.navbar}>
       <div className={`${styles.navbarContent} ${isSidebarOpen ? styles.navbarContentShifted : ""}`}>
-        {/* Botón de menú */}
         <div className={styles.navbarItem}>
           <IconButton
             color="inherit"
@@ -60,7 +59,6 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
             <MenuIcon />
           </IconButton>
         </div>
-        {/* Barra de búsqueda */}
         <div className={styles.searchContainer}>
           <input type="text" placeholder="Search here..." className={styles.searchInput} />
           <SearchIcon className={styles.searchIcon} />
@@ -152,7 +150,6 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
         </div>
       </Menu>
 
-      {/* Menú de Perfil */}
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
