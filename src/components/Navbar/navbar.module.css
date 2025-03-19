@@ -4,7 +4,7 @@
   justify-content: flex-start;
   height: 64px;
   background-color: #fff;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid rgba(99, 98, 231, 0.1);
   position: fixed;
   top: 0;
   right: 0;
@@ -12,7 +12,7 @@
   z-index: 1000;
   padding: 0;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 10px rgba(99, 98, 231, 0.05);
 }
 
 .navbarContent {
@@ -20,12 +20,28 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  transition: margin-left 0.3s ease;
+  transition: all 0.3s ease;
   padding: 0 16px;
 }
 
-.navbarContentShifted {
-  margin-left: 430px;
+.navbarLeft {
+  display: flex;
+  align-items: center;
+  transition: margin-left 0.3s ease;
+}
+
+.navbarLeftShifted {
+  margin-left: 240px; /* Sidebar width */
+}
+
+.navbarRightItems {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .navbarItem {
@@ -42,12 +58,13 @@
   flex-grow: 1;
   max-width: 600px;
   margin: 0 16px;
+  transition: all 0.3s ease;
 }
 
 .searchIcon {
   position: absolute;
   left: 16px;
-  color: #757575;
+  color: #94a3b8;
   transition: color 0.2s ease;
 }
 
@@ -55,8 +72,8 @@
   width: 100%;
   height: 40px;
   border-radius: 20px;
-  border: 1px solid #e0e0e0;
-  background-color: #f5f5f5;
+  border: 1px solid rgba(99, 98, 231, 0.1);
+  background-color: #f8fafc;
   padding: 0 16px 0 42px;
   font-size: 14px;
   outline: none;
@@ -65,22 +82,16 @@
 
 .searchInput:focus {
   background-color: #fff;
-  border-color: #3f51b5;
-  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+  border-color: #6362e7;
+  box-shadow: 0 0 0 2px rgba(99, 98, 231, 0.2);
 }
 
 .searchInput:focus + .searchIcon {
-  color: #3f51b5;
-}
-
-.navbarRightItems {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
+  color: #6362e7;
 }
 
 .iconButton {
-  color: #546e7a;
+  color: #64748b;
   border-radius: 12px;
   padding: 8px;
   margin: 0 4px;
@@ -88,24 +99,29 @@
 }
 
 .iconButton:hover {
-  background-color: rgba(0, 0, 0, 0.04);
-  color: #3f51b5;
+  background-color: rgba(99, 98, 231, 0.05);
+  color: #6362e7;
 }
 
 .avatar {
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   border: 2px solid transparent;
 }
 
 .avatar:hover {
   transform: scale(1.05);
-  border-color: #3f51b5;
+  box-shadow: 0 0 0 2px rgba(99, 98, 231, 0.3);
 }
 
 .notificationItem {
   padding: 12px 16px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid rgba(99, 98, 231, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+.notificationItem:hover {
+  background-color: rgba(99, 98, 231, 0.03);
 }
 
 .notificationText {
@@ -115,7 +131,7 @@
 
 .notificationTime {
   font-size: 12px;
-  color: #757575;
+  color: #94a3b8;
 }
 
 .menuItem {
@@ -124,12 +140,16 @@
 }
 
 .menuItem:hover {
-  background-color: rgba(63, 81, 181, 0.08);
+  background-color: rgba(99, 98, 231, 0.05);
 }
 
 .menuIcon {
-  color: #546e7a;
+  color: #64748b;
   margin-right: 12px;
+}
+
+.menuItem:hover .menuIcon {
+  color: #6362e7;
 }
 
 @media (max-width: 768px) {
@@ -142,8 +162,15 @@
     margin: 0 8px;
   }
 
-  .navbarContentShifted {
+  .navbarLeftShifted {
     margin-left: 0;
+  }
+
+  .navbarRightItems {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
   }
 
   .iconButton {

@@ -5,6 +5,7 @@ import Home from './pages/Home/Home'
 import Navbar from './components/Navbar/Navbar'
 import Sidebar from './components/Sidebar/Sidebar'
 import Dashboard from './pages/Dashboard/Dashboard'
+import Projects from './pages/Projects/Projects'
 import './App.css'
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
       <main
         style={{
           marginTop: "45px",
-          marginLeft: isSidebarOpen ? "220px" : "0", // Ancho del sidebar
+          marginLeft: isSidebarOpen ? "220px" : "0",
           transition: "margin-left 0.3s ease",
           padding: "5px",
         }}
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/projects" element={<Projects/>} />
         </Routes>
       </main>
     </div>

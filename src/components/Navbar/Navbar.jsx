@@ -10,7 +10,6 @@ import {
   Settings as SettingsIcon,
   Person as PersonIcon,
   Logout as LogoutIcon,
-  Dashboard as DashboardIcon,
   Help as HelpIcon,
 } from "@mui/icons-material"
 import styles from "./navbar.module.css"
@@ -43,25 +42,27 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
 
   return (
     <AppBar position="fixed" color="inherit" elevation={0} className={styles.navbar}>
-      <div className={`${styles.navbarContent} ${isSidebarOpen ? styles.navbarContentShifted : ""}`}>
-        <div className={styles.navbarItem}>
-          <IconButton
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleSidebar}
-            size="large"
-            className={styles.iconButton}
-            sx={{
-              backgroundColor: isSidebarOpen ? "rgba(63, 81, 181, 0.08)" : "transparent",
-              color: isSidebarOpen ? "#3f51b5" : "#546e7a",
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-        </div>
-        <div className={styles.searchContainer}>
-          <input type="text" placeholder="Search here..." className={styles.searchInput} />
-          <SearchIcon className={styles.searchIcon} />
+      <div className={styles.navbarContent}>
+        <div className={`${styles.navbarLeft} ${isSidebarOpen ? styles.navbarLeftShifted : ""}`}>
+          <div className={styles.navbarItem}>
+            <IconButton
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleSidebar}
+              size="large"
+              className={styles.iconButton}
+              sx={{
+                backgroundColor: isSidebarOpen ? "rgba(99, 98, 231, 0.08)" : "transparent",
+                color: isSidebarOpen ? "#6362e7" : "#64748b",
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </div>
+          <div className={styles.searchContainer}>
+            <input type="text" placeholder="Search here..." className={styles.searchInput} />
+            <SearchIcon className={styles.searchIcon} />
+          </div>
         </div>
 
         <div className={styles.navbarRightItems}>
@@ -93,6 +94,7 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
                       height: "18px",
                       minWidth: "18px",
                       padding: "0 4px",
+                      backgroundColor: "#6362e7",
                     },
                   }}
                 >
@@ -125,15 +127,17 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
             maxWidth: "100%",
             mt: 1.5,
             borderRadius: "12px",
-            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+            boxShadow: "0 4px 20px rgba(99, 98, 231, 0.1)",
             overflow: "hidden",
           },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <div style={{ padding: "12px 16px", borderBottom: "1px solid #f0f0f0", backgroundColor: "#f9fafc" }}>
-          <div style={{ fontWeight: 600, fontSize: "16px" }}>Notifications</div>
+        <div
+          style={{ padding: "12px 16px", borderBottom: "1px solid rgba(99, 98, 231, 0.1)", backgroundColor: "#f8fafc" }}
+        >
+          <div style={{ fontWeight: 600, fontSize: "16px", color: "#1e293b" }}>Notifications</div>
         </div>
         {notifications.map((notification) => (
           <MenuItem key={notification.id} className={styles.notificationItem} onClick={handleNotificationsClose}>
@@ -143,8 +147,8 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
             </div>
           </MenuItem>
         ))}
-        <div style={{ padding: "10px 16px", textAlign: "center", borderTop: "1px solid #f0f0f0" }}>
-          <a href="#" style={{ color: "#3f51b5", textDecoration: "none", fontSize: "14px", fontWeight: 500 }}>
+        <div style={{ padding: "10px 16px", textAlign: "center", borderTop: "1px solid rgba(99, 98, 231, 0.1)" }}>
+          <a href="#" style={{ color: "#6362e7", textDecoration: "none", fontSize: "14px", fontWeight: 500 }}>
             View all notifications
           </a>
         </div>
@@ -159,18 +163,25 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
             width: 220,
             mt: 1.5,
             borderRadius: "12px",
-            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+            boxShadow: "0 4px 20px rgba(99, 98, 231, 0.1)",
             overflow: "hidden",
           },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <div style={{ padding: "16px", display: "flex", alignItems: "center", borderBottom: "1px solid #f0f0f0" }}>
+        <div
+          style={{
+            padding: "16px",
+            display: "flex",
+            alignItems: "center",
+            borderBottom: "1px solid rgba(99, 98, 231, 0.1)",
+          }}
+        >
           <Avatar src="/placeholder.svg?height=40&width=40" sx={{ width: 40, height: 40, mr: 2 }} />
           <div>
-            <div style={{ fontWeight: 600, fontSize: "14px" }}>John Doe</div>
-            <div style={{ fontSize: "12px", color: "#757575" }}>Administrator</div>
+            <div style={{ fontWeight: 600, fontSize: "14px", color: "#1e293b" }}>John Doe</div>
+            <div style={{ fontSize: "12px", color: "#64748b" }}>Administrator</div>
           </div>
         </div>
         <MenuItem onClick={handleClose} className={styles.menuItem}>
@@ -185,7 +196,7 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <Divider sx={{ margin: "4px 0" }} />
+        <Divider sx={{ margin: "4px 0", borderColor: "rgba(99, 98, 231, 0.1)" }} />
         <MenuItem onClick={handleClose} className={styles.menuItem}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" className={styles.menuIcon} />
