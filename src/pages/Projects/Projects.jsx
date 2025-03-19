@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import {
   Box,
   Container,
@@ -39,8 +39,10 @@ import {
   UnfoldMore as UnfoldMoreIcon,
   Business,
   CalendarToday,
+  Add as AddIcon,
 } from "@mui/icons-material"
 import styles from "./projects.module.css"
+import AddProjectModal from "../../components/Projects/AddProjectModal"
 
 const Projects = () => {
   // Sample data for projects
@@ -136,6 +138,9 @@ const Projects = () => {
   const openExportMenu = Boolean(exportAnchorEl)
   const [currentPage, setCurrentPage] = React.useState(1)
   const itemsPerPage = 5
+
+  // New project modal state
+  const [openModal, setOpenModal] = useState(false)
 
   // Filter buttons
   const filterButtons = [
@@ -293,20 +298,26 @@ const Projects = () => {
     setExportAnchorEl(null)
   }
 
-  const exportToPDF = () => {
-    setExportAnchorEl(null)
-    alert("Exporting projects to PDF...")
-    setTimeout(() => {
-      alert("Projects exported to PDF successfully!")
-    }, 1500)
+
+  // Modal handlers
+  const handleOpenModal = () => {
+    setOpenModal(true)
   }
 
-  const exportToExcel = () => {
-    setExportAnchorEl(null)
-    alert("Exporting projects data to Excel...")
-    setTimeout(() => {
-      alert("Projects data exported to Excel successfully!")
-    }, 1500)
+  const handleCloseModal = () => {
+    setOpenModal(false)
+  }
+
+  const handleSaveProject = (projectData) => {
+    // Here you would typically send the data to your backend
+    console.log("New project data:", projectData)
+
+    // For demo purposes, we'll just close the modal and show an alert
+    alert(`Project "${projectData.projectName}" registered successfully!`)
+    setOpenModal(false)
+
+    // Refresh the table
+    simulateTableLoading()
   }
 
   // Initialize loading on component mount
@@ -417,43 +428,20 @@ const Projects = () => {
               Home
             </Link>
             <Typography color="text.primary">Projects</Typography>
+            <Typography color="text.primary">Manage Projects</Typography>
           </Breadcrumbs>
         </div>
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<FileDownload />}
-          onClick={handleExportClick}
-          className={styles.exportButton}
-        >
-          Export
-        </Button>
-        <Menu
-          anchorEl={exportAnchorEl}
-          open={openExportMenu}
-          onClose={handleExportClose}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-        >
-          <MenuItem onClick={exportToPDF}>
-            <ListItemIcon>
-              <PictureAsPdf fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Export as PDF</ListItemText>
-          </MenuItem>
-          <MenuItem onClick={exportToExcel}>
-            <ListItemIcon>
-              <TableChart fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Export as Excel</ListItemText>
-          </MenuItem>
-        </Menu>
+        <div>
+          <Button
+            variant="contained"
+            color="#6362e7"
+            startIcon={<AddIcon />}
+            onClick={handleOpenModal}
+            className={styles.createButton}
+          >
+            New project
+          </Button>
+        </div>
       </Box>
 
       <Paper elevation={0} className={styles.sectionCard}>
@@ -704,6 +692,9 @@ const Projects = () => {
           </Box>
         )}
       </Paper>
+
+      {/* Use the AddProjectModal component */}
+      <AddProjectModal open={openModal} onClose={handleCloseModal} onSave={handleSaveProject} />
     </Container>
   )
 }
