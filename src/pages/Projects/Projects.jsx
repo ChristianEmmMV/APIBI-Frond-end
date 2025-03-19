@@ -19,10 +19,6 @@ import {
   Button,
   IconButton,
   Tooltip,
-  Menu,
-  MenuItem,
-  ListItemIcon,
-  ListItemText,
 } from "@mui/material"
 import {
   ArrowDownward,
@@ -33,16 +29,16 @@ import {
   ArrowBackIos,
   ArrowForwardIos,
   Refresh as RefreshIcon,
-  FileDownload,
-  PictureAsPdf,
-  TableChart,
   UnfoldMore as UnfoldMoreIcon,
   Business,
   CalendarToday,
   Add as AddIcon,
+  ViewCarousel as ViewCarouselIcon,
+  KeyboardArrowDown as ArrowDownIcon,
 } from "@mui/icons-material"
 import styles from "./projects.module.css"
 import AddProjectModal from "../../components/Projects/AddProjectModal"
+import CarruselProjects from "../../components/Projects/CarruselProjects"
 
 const Projects = () => {
   // Sample data for projects
@@ -124,6 +120,39 @@ const Projects = () => {
       creationDate: "2024-02-08",
       status: "levantamiento",
     },
+    {
+      id: 8,
+      company: "Horizon Tech",
+      accountManager: {
+        name: "James Brown",
+        avatar: "JB",
+        color: "#009688",
+      },
+      creationDate: "2024-02-15",
+      status: "solicitud",
+    },
+    {
+      id: 9,
+      company: "Apex Solutions",
+      accountManager: {
+        name: "Linda Martinez",
+        avatar: "LM",
+        color: "#673ab7",
+      },
+      creationDate: "2024-02-20",
+      status: "estimación",
+    },
+    {
+      id: 10,
+      company: "Fusion Industries",
+      accountManager: {
+        name: "Thomas Clark",
+        avatar: "TC",
+        color: "#3f51b5",
+      },
+      creationDate: "2024-03-01",
+      status: "propuesta",
+    },
   ]
 
   // State variables
@@ -138,6 +167,7 @@ const Projects = () => {
   const openExportMenu = Boolean(exportAnchorEl)
   const [currentPage, setCurrentPage] = React.useState(1)
   const itemsPerPage = 5
+  const [showCarousel, setShowCarousel] = useState(true)
 
   // New project modal state
   const [openModal, setOpenModal] = useState(false)
@@ -298,7 +328,6 @@ const Projects = () => {
     setExportAnchorEl(null)
   }
 
-
   // Modal handlers
   const handleOpenModal = () => {
     setOpenModal(true)
@@ -318,6 +347,11 @@ const Projects = () => {
 
     // Refresh the table
     simulateTableLoading()
+  }
+
+  // Toggle carousel visibility
+  const toggleCarousel = () => {
+    setShowCarousel(!showCarousel)
   }
 
   // Initialize loading on component mount
@@ -434,7 +468,17 @@ const Projects = () => {
         <div>
           <Button
             variant="contained"
-            color="#6362e7"
+            className={styles.toggleButton}
+            onClick={toggleCarousel}
+            startIcon={<ViewCarouselIcon />}
+            endIcon={<ArrowDownIcon className={`${styles.toggleButtonIcon} ${showCarousel ? styles.open : ""}`} />}
+            sx={{ mr: 1 }}
+          >
+            {showCarousel ? "Hide Carousel" : "Show Carousel"}
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
             startIcon={<AddIcon />}
             onClick={handleOpenModal}
             className={styles.createButton}
@@ -443,6 +487,11 @@ const Projects = () => {
           </Button>
         </div>
       </Box>
+
+      {/* Carousel Component */}
+      <div className={`${styles.carouselContainer} ${!showCarousel ? styles.hidden : ""}`}>
+        {showCarousel && <CarruselProjects projects={projects} />}
+      </div>
 
       <Paper elevation={0} className={styles.sectionCard}>
         <Typography variant="h6" className={styles.sectionTitle}>
