@@ -13,6 +13,8 @@ import {
   School as SchoolIcon,
   ArrowForward as ArrowForwardIcon,
   FolderOff as FolderOffIcon,
+  PlayArrow as PlayIcon,
+  Pause as PauseIcon,
 } from "@mui/icons-material"
 import styles from "./carrusellprojects.module.css"
 
@@ -21,7 +23,12 @@ const CarruselProjects = ({ projects }) => {
   const [activeFilter, setActiveFilter] = useState("all")
   const [currentIndex, setCurrentIndex] = useState(0)
   const [visibleCards, setVisibleCards] = useState(3)
+  const [autoplay, setAutoplay] = useState(true)
+  const [isHovering, setIsHovering] = useState(false)
+  const [touchStartX, setTouchStartX] = useState(0)
   const trackRef = useRef(null)
+  const autoplayTimerRef = useRef(null)
+  const containerRef = useRef(null)
 
   // Filter categories
   const filterCategories = [
@@ -74,6 +81,63 @@ const CarruselProjects = ({ projects }) => {
       trackRef.current.style.transform = `translateX(0px)`
     }
   }, [activeFilter])
+
+  // Autoplay functionality
+  useEffect(() => {
+    if (!autoplay || isHovering || filteredProjects.length <= visibleCards) {
+      clearInterval(autoplayTimerRef.current)
+      return
+    }
+
+    autoplayTimerRef.current = setInterval(() => {
+      if (currentIndex < filteredProjects.length - visibleCards) {
+        handleNext()
+      } else {
+        // Reset to beginning when reaching the end
+        setCurrentIndex(0)
+        if (trackRef.current) {
+          trackRef.current.style.transform = `translateX(0px)`
+        }
+      }
+    }, 5000) // Change slide every 5 seconds
+
+    return () => clearInterval(autoplayTimerRef.current)
+  }, [autoplay, currentIndex, isHovering, filteredProjects.length, visibleCards])
+
+  // Handle mouse hover
+  const handleMouseEnter = () => {
+    setIsHovering(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovering(false)
+  }
+
+  // Handle touch events for mobile
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX)
+    setIsHovering(true) // Pause autoplay on touch
+  }
+
+  const handleTouchEnd = (e) => {
+    const touchEndX = e.changedTouches[0].clientX
+    const diff = touchStartX - touchEndX
+
+    if (diff > 50) {
+      // Swipe left
+      handleNext()
+    } else if (diff < -50) {
+      // Swipe right
+      handlePrev()
+    }
+
+    setIsHovering(false) // Resume autoplay after touch
+  }
+
+  // Toggle autoplay
+  const toggleAutoplay = () => {
+    setAutoplay(!autoplay)
+  }
 
   // Handle filter change
   const handleFilterChange = (filterId) => {
@@ -172,11 +236,27 @@ const CarruselProjects = ({ projects }) => {
   const paginationDots = Math.ceil((filteredProjects.length - visibleCards + 1) / 1)
 
   return (
-    <div className={styles.carouselContainer}>
+    <div
+      className={`${styles.carouselContainer} ${autoplay ? styles.autoplayActive : ""}`}
+      ref={containerRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className={styles.carouselHeader}>
         <Typography className={styles.carouselTitle}>Recently Added Projects</Typography>
         <div className={styles.carouselControls}>
-          <Tooltip title="Previous">
+          <Tooltip title={autoplay ? "Pause autoplay" : "Play autoplay"} arrow placement="top">
+            <button
+              className={`${styles.playPauseButton} ${!autoplay ? styles.paused : ""}`}
+              onClick={toggleAutoplay}
+              aria-label={autoplay ? "Pause autoplay" : "Play autoplay"}
+            >
+              {autoplay ? <PauseIcon fontSize="small" /> : <PlayIcon fontSize="small" />}
+            </button>
+          </Tooltip>
+          <Tooltip title="Previous" arrow placement="top">
             <button
               className={styles.carouselButton}
               onClick={handlePrev}
@@ -186,7 +266,7 @@ const CarruselProjects = ({ projects }) => {
               <ChevronLeftIcon fontSize="small" />
             </button>
           </Tooltip>
-          <Tooltip title="Next">
+          <Tooltip title="Next" arrow placement="top">
             <button
               className={styles.carouselButton}
               onClick={handleNext}
@@ -207,7 +287,7 @@ const CarruselProjects = ({ projects }) => {
             onClick={() => handleFilterChange(category.id)}
           >
             {category.icon}
-            {category.label}
+            <span>{category.label}</span>
           </button>
         ))}
       </div>
@@ -239,9 +319,10 @@ const CarruselProjects = ({ projects }) => {
                 </div>
                 <div className={styles.carouselCardFooter}>
                   <button className={styles.carouselCardButton}>
-                    View Details <ArrowForwardIcon fontSize="small" />
+                    <span>View Details</span> <ArrowForwardIcon fontSize="small" />
                   </button>
                 </div>
+                <div className={styles.autoplayIndicator}></div>
               </div>
             ))}
           </div>
@@ -253,6 +334,7 @@ const CarruselProjects = ({ projects }) => {
                   key={index}
                   className={`${styles.carouselPaginationDot} ${currentIndex === index ? styles.active : ""}`}
                   onClick={() => handleDotClick(index)}
+                  style={{ position: "relative" }}
                 />
               ))}
             </div>

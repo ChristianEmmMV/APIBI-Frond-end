@@ -467,7 +467,7 @@ const Projects = () => {
         </div>
         <div>
           <Button
-            variant="contained"
+            variant="outlined"
             className={styles.toggleButton}
             onClick={toggleCarousel}
             startIcon={<ViewCarouselIcon />}
