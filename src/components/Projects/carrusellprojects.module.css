@@ -1,326 +1,561 @@
 .carouselContainer {
-    margin-bottom: 2rem;
-    overflow: hidden;
-    position: relative;
-    border-radius: 12px;
-    background-color: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 1.5rem;
-    transition: all 0.3s ease;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.carouselHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.carouselTitle {
+  font-weight: 600;
+  font-size: 1.1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.carouselTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #6362e7;
+  border-radius: 3px;
+}
+
+.carouselControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Mejorado: Botones de navegación */
+.carouselButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f7fa;
+  color: #64748b;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.carouselButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #6362e7;
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 0;
+}
+
+.carouselButton:hover {
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(99, 98, 231, 0.3);
+}
+
+.carouselButton:hover::before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.carouselButton svg {
+  position: relative;
+  z-index: 1;
+}
+
+.carouselButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.carouselButton:disabled:hover::before {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.carouselFilterContainer {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  padding-bottom: 0.5rem;
+}
+
+.carouselFilterContainer::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Mejorado: Botones de filtro */
+.carouselFilter {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background-color: #f5f7fa;
+  color: #64748b;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+
+.carouselFilter::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #6362e7;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.carouselFilter:hover {
+  background-color: rgba(99, 98, 231, 0.08);
+  color: #6362e7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(99, 98, 231, 0.15);
+}
+
+.carouselFilter:hover::after {
+  width: 80%;
+  left: 10%;
+}
+
+.carouselFilter.active {
+  background-color: #6362e7;
+  color: white;
+  box-shadow: 0 4px 12px rgba(99, 98, 231, 0.25);
+}
+
+.carouselFilter.active::after {
+  width: 0;
+}
+
+.carouselFilter svg {
+  transition: transform 0.3s ease;
+}
+
+.carouselFilter:hover svg {
+  transform: scale(1.2);
+}
+
+.carouselTrack {
+  display: flex;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.carouselCard {
+  min-width: 280px;
+  margin-right: 1.5rem;
+  border-radius: 10px;
+  background-color: #f9fafc;
+  border: 1px solid rgba(99, 98, 231, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  transform: scale(0.98);
+  opacity: 0.8;
+  position: relative;
+}
+
+.carouselCard:hover {
+  transform: translateY(-5px) scale(1);
+  box-shadow: 0 10px 20px rgba(99, 98, 231, 0.1);
+  border-color: rgba(99, 98, 231, 0.3);
+  opacity: 1;
+}
+
+.carouselCardHeader {
+  padding: 1rem;
+  background-color: #f5f7fa;
+  border-bottom: 1px solid rgba(99, 98, 231, 0.1);
+}
+
+.carouselCardCompany {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #1e2f65;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.carouselCardType {
+  font-size: 0.75rem;
+  color: #6362e7;
+  font-weight: 500;
+}
+
+.carouselCardBody {
+  padding: 1rem;
+}
+
+.carouselCardManager {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.carouselCardAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  margin-right: 0.75rem;
+}
+
+.carouselCardManagerName {
+  font-size: 0.813rem;
+  color: #64748b;
+}
+
+.carouselCardDate {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+
+.carouselCardDateIcon {
+  margin-right: 0.5rem;
+  font-size: 0.875rem;
+  color: #6362e7;
+}
+
+.carouselCardStatus {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.carouselCardFooter {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid rgba(99, 98, 231, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Mejorado: Botón de detalles */
+.carouselCardButton {
+  background: none;
+  border: none;
+  color: #6362e7;
+  font-size: 0.813rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.carouselCardButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(99, 98, 231, 0.1);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  z-index: 0;
+  border-radius: 4px;
+}
+
+.carouselCardButton:hover {
+  color: #5251c5;
+}
+
+.carouselCardButton:hover::before {
+  transform: scaleX(1);
+}
+
+.carouselCardButton svg {
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.carouselCardButton:hover svg {
+  transform: translateX(3px);
+}
+
+.carouselCardButton span {
+  position: relative;
+  z-index: 1;
+}
+
+.carouselPagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Mejorado: Puntos de paginación */
+.carouselPaginationDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.carouselPaginationDot:hover {
+  background-color: #bdbdbd;
+  transform: scale(1.2);
+}
+
+.carouselPaginationDot.active {
+  background-color: #6362e7;
+  transform: scale(1.3);
+}
+
+.carouselPaginationDot.active::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background-color: rgba(99, 98, 231, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 2s infinite;
+  z-index: -1;
+}
+
+.toggleButton {
+  background-color: #6362e7 !important;
+  color: white !important;
+  border-radius: 8px !important;
+  text-transform: none !important;
+  padding: 8px 16px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 8px rgba(99, 98, 231, 0.25) !important;
+  transition: all 0.2s ease !important;
+  margin-right: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.toggleButton:hover {
+  background-color: #5251c5 !important;
+  box-shadow: 0 4px 12px rgba(99, 98, 231, 0.35) !important;
+  transform: translateY(-2px) !important;
+}
+
+.toggleButtonIcon {
+  transition: transform 0.3s ease;
+}
+
+.toggleButtonIcon.open {
+  transform: rotate(180deg);
+}
+
+.carouselContainer.hidden {
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  opacity: 0;
+}
+
+.noProjects {
+  text-align: center;
+  padding: 2rem;
+  color: #64748b;
+}
+
+.noProjectsIcon {
+  font-size: 3rem;
+  color: #e0e0e0;
+  margin-bottom: 1rem;
+}
+
+/* Mejorado: Botón de reproducción/pausa */
+.playPauseButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f7fa;
+  color: #64748b;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  margin-right: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.playPauseButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #6362e7;
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 0;
+}
+
+.playPauseButton:hover {
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(99, 98, 231, 0.3);
+}
+
+.playPauseButton:hover::before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.playPauseButton svg {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.playPauseButton:hover svg {
+  transform: scale(1.2);
+}
+
+.playPauseButton.paused {
+  background-color: #e0e0e0;
+}
+
+.playPauseButton.paused:hover::before {
+  background-color: #5251c5;
+}
+
+.carouselContainer:hover .carouselTrack {
+  transition-duration: 0.4s;
+}
+
+.autoplayIndicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: #6362e7;
+  transition: width 0.1s linear;
+}
+
+.autoplayActive .autoplayIndicator {
+  animation: progressBar 5s linear forwards;
+}
+
+.carouselContainer:hover .autoplayIndicator {
+  animation-play-state: paused;
+}
+
+@keyframes progressBar {
+  0% {
+    width: 0;
   }
-  
-  .carouselHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
+  100% {
+    width: 100%;
   }
-  
-  .carouselTitle {
-    font-weight: 600;
-    font-size: 1.1rem;
-    position: relative;
-    padding-bottom: 0.5rem;
-  }
-  
-  .carouselTitle::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background-color: #6362e7;
-    border-radius: 3px;
-  }
-  
-  .carouselControls {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .carouselButton {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f5f7fa;
-    color: #64748b;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .carouselButton:hover {
-    background-color: #6362e7;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(99, 98, 231, 0.25);
-  }
-  
-  .carouselButton:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-  }
-  
-  .carouselFilterContainer {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    overflow-x: auto;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-    padding-bottom: 0.5rem;
-  }
-  
-  .carouselFilterContainer::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-  }
-  
-  .carouselFilter {
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    background-color: #f5f7fa;
-    color: #64748b;
-    border: none;
-    cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: 500;
-    white-space: nowrap;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .carouselFilter:hover {
-    background-color: rgba(99, 98, 231, 0.1);
-    color: #6362e7;
-  }
-  
-  .carouselFilter.active {
-    background-color: #6362e7;
-    color: white;
-  }
-  
-  .carouselTrack {
-    display: flex;
-    transition: transform 0.5s ease;
-  }
-  
-  .carouselCard {
-    min-width: 280px;
-    margin-right: 1.5rem;
-    border-radius: 10px;
-    background-color: #f9fafc;
-    border: 1px solid rgba(99, 98, 231, 0.1);
-    overflow: hidden;
-    transition: all 0.3s ease;
-    transform: scale(0.98);
-    opacity: 0.8;
-  }
-  
-  .carouselCard:hover {
-    transform: translateY(-5px) scale(1);
-    box-shadow: 0 10px 20px rgba(99, 98, 231, 0.1);
-    border-color: rgba(99, 98, 231, 0.3);
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
     opacity: 1;
   }
-  
-  .carouselCardHeader {
-    padding: 1rem;
-    background-color: #f5f7fa;
-    border-bottom: 1px solid rgba(99, 98, 231, 0.1);
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.5;
   }
-  
-  .carouselCardCompany {
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #1e2f65;
-    margin-bottom: 0.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .carouselCardType {
-    font-size: 0.75rem;
-    color: #6362e7;
-    font-weight: 500;
-  }
-  
-  .carouselCardBody {
-    padding: 1rem;
-  }
-  
-  .carouselCardManager {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.75rem;
-  }
-  
-  .carouselCardAvatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: white;
-    margin-right: 0.75rem;
-  }
-  
-  .carouselCardManagerName {
-    font-size: 0.813rem;
-    color: #64748b;
-  }
-  
-  .carouselCardDate {
-    display: flex;
-    align-items: center;
-    font-size: 0.75rem;
-    color: #64748b;
-    margin-bottom: 0.75rem;
-  }
-  
-  .carouselCardDateIcon {
-    margin-right: 0.5rem;
-    font-size: 0.875rem;
-    color: #6362e7;
-  }
-  
-  .carouselCardStatus {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 500;
-  }
-  
-  .carouselCardFooter {
-    padding: 0.75rem 1rem;
-    border-top: 1px solid rgba(99, 98, 231, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .carouselCardButton {
-    background: none;
-    border: none;
-    color: #6362e7;
-    font-size: 0.813rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.25rem 0;
-    transition: all 0.2s ease;
-  }
-  
-  .carouselCardButton:hover {
-    color: #5251c5;
-    text-decoration: underline;
-  }
-  
-  .carouselPagination {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
-  }
-  
-  .carouselPaginationDot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #e0e0e0;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .carouselPaginationDot.active {
-    background-color: #6362e7;
-    transform: scale(1.3);
-  }
-  
-  .toggleButton {
-    background-color: #6362e7 !important;
-    color: white !important;
-    border-radius: 8px !important;
-    text-transform: none !important;
-    padding: 8px 16px !important;
-    font-weight: 500 !important;
-    box-shadow: 0 2px 8px rgba(99, 98, 231, 0.25) !important;
-    transition: all 0.2s ease !important;
-    margin-right: 10px !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-  }
-  
-  .toggleButton:hover {
-    background-color: #5251c5 !important;
-    box-shadow: 0 4px 12px rgba(99, 98, 231, 0.35) !important;
-    transform: translateY(-2px) !important;
-  }
-  
-  .toggleButtonIcon {
-    transition: transform 0.3s ease;
-  }
-  
-  .toggleButtonIcon.open {
-    transform: rotate(180deg);
-  }
-  
-  .carouselContainer.hidden {
-    height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-bottom: 0;
+  100% {
+    transform: translate(-50%, -50%) scale(1);
     opacity: 0;
   }
-  
-  .noProjects {
-    text-align: center;
-    padding: 2rem;
-    color: #64748b;
+}
+
+@media (max-width: 768px) {
+  .carouselCard {
+    min-width: 240px;
   }
-  
-  .noProjectsIcon {
-    font-size: 3rem;
-    color: #e0e0e0;
-    margin-bottom: 1rem;
+}
+
+@media (max-width: 480px) {
+  .carouselCard {
+    min-width: 200px;
   }
-  
-  @media (max-width: 768px) {
-    .carouselCard {
-      min-width: 240px;
-    }
+
+  .carouselHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
-  
-  @media (max-width: 480px) {
-    .carouselCard {
-      min-width: 200px;
-    }
-  
-    .carouselHeader {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-  
-    .carouselControls {
-      align-self: flex-end;
-    }
+
+  .carouselControls {
+    align-self: flex-end;
   }
-  
-  
+}
+
