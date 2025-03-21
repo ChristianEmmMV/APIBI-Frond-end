@@ -6,6 +6,7 @@ import Navbar from './components/Navbar/Navbar'
 import Sidebar from './components/Sidebar/Sidebar'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Projects from './pages/Projects/Projects'
+import Pocs from './pages/PocsInformation/Pocs'
 import './App.css'
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/projects" element={<Projects/>} />
+          <Route path="/pocs" element={<Pocs/>} />
         </Routes>
       </main>
     </div>
