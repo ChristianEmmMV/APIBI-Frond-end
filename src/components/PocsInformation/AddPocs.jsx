@@ -1,10 +1,11 @@
 "use client"
 
 import React, { useState } from "react"
-import { Modal, Typography, Button, Box } from "@mui/material"
-import { Add as AddIcon } from "@mui/icons-material"
+import { Modal, Typography, Button, Box, MenuItem, FormControl, InputLabel, Select} from "@mui/material"
+import { Add as AddIcon, AccountCircle, Timer, Info, Settings } from "@mui/icons-material"
 import styles from "./addPocs.module.css"
 import { v4 as uuidv4 } from "uuid"
+import { Form } from "react-router-dom"
 
 const AddPocs = ({ open, onClose, onSave }) => {
   const [formData, setFormData] = useState({
@@ -19,6 +20,11 @@ const AddPocs = ({ open, onClose, onSave }) => {
     etc: "",
     hoursDesviation: "",
   })
+
+  const deliveryManager = ["Alexis Silveira", "Karina Quintero", "Luis García"]
+  const accountManager = ["Isvi Acuña", "Deyanira Colchado", "Fernanda Ramos"]
+  const status = ["Intake", "TDB", "Finalizado"]
+  const projectID = ["TDB", "COP.001"]
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -94,40 +100,82 @@ const AddPocs = ({ open, onClose, onSave }) => {
         <div className={styles.formRow}>
           <div className={styles.formCol}>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Delivery Manager</label>
-              <input
-                type="text"
-                name="deliveryManager"
-                value={formData.deliveryManager}
-                onChange={handleInputChange}
-                placeholder="Enter Delivery Manager name"
-                className={styles.formInput}
-              />
+              <label className={styles.formLabel}>
+              <AccountCircle style={{ marginRight: '5px', verticalAlign: 'middle' }} />
+                Delivery Manager
+              </label>
+              <FormControl fullWidth className={styles.formControl}>
+                <InputLabel id="delivey-manager-label" className={styles.selectLabel}>Select....</InputLabel>
+                <Select
+                  labelId="delivery-managerlabel"
+                  id="delivery-manager"
+                  name="deliveryManager"
+                  value={formData.deliveryManager}
+                  label="Delivery Manager"
+                  onChange={handleInputChange}
+                  className={styles.selectInput}
+                >
+                  {deliveryManager.map((manager) => (
+                    <MenuItem key={manager} value={manager}>
+                      {manager}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Account Manager</label>
-              <input
-                type="text"
-                name="accountManager"
-                value={formData.accountManager}
-                onChange={handleInputChange}
-                placeholder="Enter Account Manager name"
-                className={styles.formInput}
-              />
+              <label className={styles.formLabel}>
+              <AccountCircle style={{ marginRight: '5px', verticalAlign: 'middle' }} />
+                Account Manager
+                </label>
+              <FormControl fullWidth className={styles.formControl}>
+                <InputLabel id="account-manager-label" className={styles.selectLabel}>Select....</InputLabel>
+                <Select
+                  labelId="account-managerlabel"
+                  id="account-manager"
+                  name="accountManager"
+                  value={formData.accountManager}
+                  label="Account Manager"
+                  onChange={handleInputChange}
+                  className={styles.selectInput}
+                >
+                  {accountManager.map((accountManager) => (
+                    <MenuItem key={accountManager} value={accountManager}>
+                      {accountManager}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Project ID</label>
-              <input
-                type="text"
-                name="projectID"
-                value={formData.projectID}
-                onChange={handleInputChange}
-                placeholder="Enter Project ID"
-                className={styles.formInput}
-              />
+              <label className={styles.formLabel}>
+              <Info style={{ marginRight: '5px', verticalAlign: 'middle' }} />
+                Project ID
+                </label>
+              <FormControl fullWidth className={styles.formControl}>
+                <InputLabel id="projectID-label" className={styles.selectLabel}>Select....</InputLabel>
+                <Select
+                  labelId="projectID-label"
+                  id="projectID"
+                  name="projectID"
+                  value={formData.projectID}
+                  label="Project ID"
+                  onChange={handleInputChange}
+                  className={styles.selectInput}
+                >
+                  {projectID.map((projectID) => (
+                    <MenuItem key={projectID} value={projectID}>
+                      {projectID}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Service</label>
+              <label className={styles.formLabel}>
+               <Settings style={{ marginRight: '5px', verticalAlign: 'middle' }} />
+                Service
+                </label>
               <input
                 type="text"
                 name="service"
@@ -138,7 +186,10 @@ const AddPocs = ({ open, onClose, onSave }) => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Project Name</label>
+              <label className={styles.formLabel}>
+              <Info style={{ marginRight: '5px', verticalAlign: 'middle' }} />
+                Project Name
+                </label>
               <input
                 type="text"
                 name="projectName"
@@ -149,18 +200,34 @@ const AddPocs = ({ open, onClose, onSave }) => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Status</label>
-              <input
-                type="text"
-                name="status"
-                value={formData.status}
-                onChange={handleInputChange}
-                placeholder="Enter Status"
-                className={styles.formInput}
-              />
+              <label className={styles.formLabel}>
+              <Info style={{ marginRight: '5px', verticalAlign: 'middle' }} />
+              Status
+              </label>
+              <FormControl fullWidth className={styles.formControl}>
+                <InputLabel id="status-label" className={styles.selectLabel}>Select....</InputLabel>
+                <Select
+                  labelId="status-label"
+                  id="status"
+                  name="status"
+                  value={formData.status}
+                  label="Status"
+                  onChange={handleInputChange}
+                  className={styles.selectInput}
+                >
+                  {status.map((status) => (
+                    <MenuItem key={status} value={status}>
+                      {status}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Budget</label>
+              <label className={styles.formLabel}>
+              <Info style={{ marginRight: '5px', verticalAlign: 'middle' }}/>
+                Budget
+                </label>
               <input
                 type="number"
                 step="0.01"
@@ -172,7 +239,10 @@ const AddPocs = ({ open, onClose, onSave }) => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Burn</label>
+              <label className={styles.formLabel}>
+              <Info style={{ marginRight: '5px', verticalAlign: 'middle' }} />
+                Burn
+                </label>
               <input
                 type="number"
                 step="0.01"
@@ -184,7 +254,10 @@ const AddPocs = ({ open, onClose, onSave }) => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>ETC</label>
+              <label className={styles.formLabel}>
+              <Info style={{ marginRight: '5px', verticalAlign: 'middle' }} />
+                ETC
+                </label>
               <input
                 type="number"
                 step="0.01"
@@ -196,7 +269,10 @@ const AddPocs = ({ open, onClose, onSave }) => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Hours Desviation</label>
+              <label className={styles.formLabel}>
+              <Timer style={{ marginRight: '5px', verticalAlign: 'middle' }} />
+                Hours Desviation
+                </label>
               <input
                 type="number"
                 step="0.01"
