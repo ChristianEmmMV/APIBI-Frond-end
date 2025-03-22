@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { Link as RouterLink } from "react-router-dom";
 import {
   Box,
   Container,
@@ -46,6 +47,7 @@ import {
   Timer as TimerIcon,
 } from "@mui/icons-material"
 import styles from "./clientsurvey.module.css"
+import AddClientSurvey from "../Add Client Survey/AddClientSurvey"
 
 const ClientSurvey = () => {
   // Modificar los datos de muestra para que parezcan más ingresados por el usuario
@@ -602,7 +604,8 @@ const ClientSurvey = () => {
           </Breadcrumbs>
         </div>
         <div>
-          <Button variant="contained" color="primary" startIcon={<AddIcon />} className={styles.addButton}>
+          <Button variant="contained" color="primary" startIcon={<AddIcon />} className={styles.addButton} 
+          component={RouterLink} to="/add-client-survey">
             Add Survey
           </Button>
         </div>
