@@ -16,6 +16,7 @@ import {
   Timeline as MeddpiccIcon,
 } from "@mui/icons-material"
 import styles from "./sidebar.module.css"
+import Logo from "../../../public/assets/logo.png"
 
 const Sidebar = ({ isOpen }) => {
   const [expandedItems, setExpandedItems] = useState({
@@ -50,8 +51,7 @@ const Sidebar = ({ isOpen }) => {
   return (
     <div className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ""}`}>
       <div className={styles.logo}>
-        <img src="/placeholder.svg?height=32&width=32" alt="Beecker" style={{ width: 32, height: 32 }} />
-        <span className={styles.logoText}>Beecker</span>
+        <img src={Logo} alt="Beecker" style={{ width: 150, height: 34 }} />
       </div>
 
       <nav className={styles.menu}>

@@ -7,6 +7,8 @@ import Sidebar from './components/Sidebar/Sidebar'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Projects from './pages/Projects/Projects'
 import Pocs from './pages/PocsInformation/Pocs'
+import ClientSurvey from './pages/Client Survey/ClientSurvey'
+import AddClientSurvey from './pages/Add Client Survey/AddClientSurvey'
 import './App.css'
 
 function App() {
@@ -32,6 +34,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/projects" element={<Projects/>} />
           <Route path="/pocs" element={<Pocs/>} />
+          <Route path="/client-survey" element={<ClientSurvey/>} />
+          <Route path="/add-client-survey" element={<AddClientSurvey/>} />
         </Routes>
       </main>
     </div>

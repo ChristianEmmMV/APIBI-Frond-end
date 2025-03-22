@@ -1,0 +1,808 @@
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  background-color: #f9fafc;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  color: #1e2f65;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #757575;
+}
+
+.breadcrumb a {
+  color: #1e2f65;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+  color: #6362e7;
+  text-decoration: underline;
+}
+
+.breadcrumb .MuiTypography-root {
+  color: #1e2f65;
+}
+
+/* Modificar el contenedor del formulario para maximizar el espacio */
+.formCard {
+  padding: 2rem;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+  background-color: white;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+  min-height: calc(100vh - 150px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Aumentar el espacio entre el título y el timeline */
+.formTitle {
+  font-weight: 600;
+  margin-bottom: 2.5rem;
+  font-size: 1.2rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+  text-align: center;
+}
+
+.formTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background-color: #6362e7;
+  border-radius: 3px;
+}
+
+/* Mejorar la alineación del timeline */
+.timelineContainer {
+  margin-top: 10px;
+  margin-bottom: 4rem;
+  position: relative;
+  padding: 0 1rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+}
+
+/* Mejorar los estilos de la scrollbar */
+.timelineContainer::-webkit-scrollbar {
+  height: 10px;
+}
+
+.timelineContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(99, 98, 231, 0.6);
+  border-radius: 10px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.timelineContainer::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(99, 98, 231, 0.8);
+}
+
+.timelineContainer::-webkit-scrollbar-track {
+  background-color: rgba(240, 240, 240, 0.5);
+  border-radius: 10px;
+  margin: 0 60px;
+}
+
+/* Aumentar el espacio entre los pasos del timeline */
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-bottom: 3rem;
+  min-width: 1800px;
+  padding:15px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  right: 40px;
+  height: 3px;
+  background-color: #e0e0e0;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.timelineProgress {
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  height: 3px;
+  background-color: #6362e7;
+  transform: translateY(-50%);
+  z-index: 1;
+  transition: width 0.5s ease;
+}
+
+.timelineStep {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  border: 2px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #757575;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+  margin: 0 35px;
+  scroll-margin: 0 50px;
+}
+
+.timelineStep.active {
+  background-color: #6362e7;
+  border-color: #6362e7;
+  color: white;
+  transform: scale(1.2);
+  box-shadow: 0 0 0 5px rgba(99, 98, 231, 0.2);
+}
+
+.timelineStep.completed {
+  background-color: #6362e7;
+  border-color: #6362e7;
+  color: white;
+}
+
+.timelineStepLabel {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: #757575;
+  white-space: nowrap;
+  text-align: center;
+  width: 130px;
+  font-weight: 500;
+}
+
+.timelineStep.active .timelineStepLabel {
+  color: #6362e7;
+  font-weight: 600;
+}
+
+/* Asegurar que el contenido del formulario tenga altura fija y consistente */
+.formContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 2rem;
+  min-height: 400px;
+}
+
+/* Mejorar la alineación de los pasos del formulario */
+.formStep {
+  display: none;
+  animation: fadeIn 0.5s ease;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 50%;
+}
+
+.formStep.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Mejorar la alineación de los grupos de formulario */
+.formGroup {
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Mejorar la alineación de las etiquetas */
+.formLabel {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1e2f65;
+  text-align: left;
+}
+
+/* Mejorar la alineación de los campos de entrada */
+.formInput,
+.formTextarea,
+.formSelect {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background-color: #f9fafc;
+  font-size: 1rem;
+  color: #333;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.formInput {
+  height: 56px;
+  padding: 0 20px;
+}
+
+.formTextarea {
+  min-height: 160px;
+  padding: 20px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.formSelect {
+  height: 56px;
+  padding: 0 20px;
+}
+
+/* Mejorar la alineación de los botones de acción */
+.formActions {
+  display: flex;
+  justify-content:space-evenly;
+  margin-top: 5px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* Ajustar los botones para mejor alineación */
+.buttonPrimary,
+.buttonSecondary {
+  min-width: 180px;
+  font-size: 1rem !important;
+}
+
+.buttonPrimary {
+  background-color: #6362e7 !important;
+  color: white !important;
+  border-radius: 10px !important;
+  text-transform: none !important;
+  padding: 12px 28px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 15px rgba(99, 98, 231, 0.25) !important;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+}
+
+.buttonPrimary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #5251c5, #7170f0);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.buttonPrimary:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 20px rgba(99, 98, 231, 0.4) !important;
+}
+
+.buttonPrimary:hover::before {
+  opacity: 1;
+}
+
+.buttonPrimary:active {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 10px rgba(99, 98, 231, 0.3) !important;
+}
+
+.buttonSecondary {
+  background-color: #f8f9fa !important;
+  color: #6362e7 !important;
+  border: 2px solid #6362e7 !important;
+  border-radius: 10px !important;
+  text-transform: none !important;
+  padding: 11px 22px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 8px rgba(99, 98, 231, 0.1) !important;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.buttonSecondary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #6362e7;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.buttonSecondary:hover {
+  color: white !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(99, 98, 231, 0.2) !important;
+}
+
+.buttonSecondary:hover::before {
+  opacity: 1;
+}
+
+.buttonSecondary:active {
+  transform: translateY(-1px) !important;
+}
+
+/* Mejorar la alineación del selector de idioma */
+.languageSelector {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin: 3rem auto;
+  max-width: 500px;
+}
+
+.languageButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 2px solid #e0e0e0;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 180px;
+}
+
+.languageButton:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(99, 98, 231, 0.15);
+  border-color: #6362e7;
+}
+
+.languageButton.selected {
+  border-color: #6362e7;
+  background-color: rgba(99, 98, 231, 0.05);
+}
+
+.languageIcon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  color: #6362e7;
+}
+
+.languageName {
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: #1e2f65;
+}
+
+/* Centrar el mensaje de bienvenida */
+.welcomeMessage {
+  text-align: center;
+  margin: 3rem auto;
+  max-width: 700px;
+}
+
+.welcomeTitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1e2f65;
+  margin-bottom: 1.5rem;
+}
+
+.welcomeText {
+  font-size: 1.1rem;
+  color: #64748b;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+
+.startButton {
+  margin-top: 2rem !important;
+  padding: 14px 32px !important;
+  font-size: 1.1rem !important;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+}
+
+.radioLabel:hover {
+  background-color: rgba(99, 98, 231, 0.05);
+}
+
+.radioLabel.selected {
+  background-color: rgba(99, 98, 231, 0.1);
+  border-color: #6362e7;
+}
+
+.radioInput {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  margin: 0;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.radioInput:checked {
+  border-color: #6362e7;
+}
+
+.radioInput:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #6362e7;
+}
+
+.radioText {
+  font-size: 0.875rem;
+  color: #1e2f65;
+}
+
+/* Mejorar el resumen final */
+.summaryContainer {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2.5rem;
+  background-color: #f9fafc;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 500px;
+  overflow-y: auto;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.03);
+  scroll-behavior: smooth;
+}
+
+/* Mejorar los estilos de la scrollbar del resumen */
+.summaryContainer::-webkit-scrollbar {
+  width: 12px;
+}
+
+.summaryContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(99, 98, 231, 0.6);
+  border-radius: 10px;
+  border: 4px solid #f9fafc;
+  background-clip: padding-box;
+}
+
+.summaryContainer::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(99, 98, 231, 0.8);
+}
+
+.summaryContainer::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+.summaryTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e2f65;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.summaryItem {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e0e0e0;
+  scroll-margin-top: 1rem;
+}
+
+.summaryItem:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.summaryQuestion {
+  font-weight: 600;
+  color: #1e2f65;
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  background-color: rgba(99, 98, 231, 0.08);
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #6362e7;
+}
+
+.summaryAnswer {
+  color: #64748b;
+  padding: 0 1rem;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Crear un contenedor específico para los botones del resumen */
+.summaryActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+  border-top: 1px solid #f0f0f0;
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.errorText {
+  color: #f44336;
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Añadir animación de scroll */
+@keyframes scrollIndicator {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Media queries para responsividad */
+@media (max-width: 1200px) {
+  .formCard {
+    padding: 1.5rem;
+  }
+
+  .formGroup {
+    max-width: 700px;
+  }
+
+  .summaryContainer,
+  .summaryActions {
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 992px) {
+  .formGroup {
+    max-width: 600px;
+  }
+
+  .summaryContainer,
+  .summaryActions {
+    max-width: 600px;
+  }
+
+  .languageSelector {
+    gap: 2rem;
+  }
+
+  .languageButton {
+    width: 160px;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  .formCard {
+    padding: 1.5rem;
+    min-height: calc(100vh - 120px);
+  }
+
+  .formGroup {
+    max-width: 100%;
+  }
+
+  .summaryContainer,
+  .summaryActions {
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+
+  .timelineStep {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
+  .timelineStepLabel {
+    font-size: 0.7rem;
+    width: 80px;
+  }
+
+  .languageSelector {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .languageButton {
+    width: 200px;
+  }
+
+  .welcomeMessage {
+    margin: 2rem auto;
+  }
+
+  .welcomeTitle {
+    font-size: 1.5rem;
+  }
+
+  .welcomeText {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .header {
+    padding: 0 0.5rem;
+  }
+
+  .formCard {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .formTitle {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .timelineContainer {
+    margin-bottom: 2.5rem;
+  }
+
+  .timeline {
+    min-width: 800px;
+  }
+
+  .formLabel {
+    font-size: 1rem;
+  }
+
+  .formInput,
+  .formSelect {
+    height: 50px;
+  }
+
+  .formActions {
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+
+  .buttonPrimary,
+  .buttonSecondary {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .summaryContainer {
+    padding: 1.5rem 1rem;
+  }
+
+  .summaryQuestion {
+    font-size: 0.95rem;
+    padding: 0.75rem;
+  }
+
+  .summaryAnswer {
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
+  }
+
+  .summaryActions {
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+}
+
+/* Estilos para pantallas muy pequeñas */
+@media (max-width: 360px) {
+  .formCard {
+    padding: 0.75rem;
+  }
+
+  .timeline {
+    min-width: 600px;
+  }
+
+  .timelineStep {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+    margin: 0 25px;
+  }
+
+  .timelineStepLabel {
+    font-size: 0.6rem;
+    width: 60px;
+  }
+}
+
