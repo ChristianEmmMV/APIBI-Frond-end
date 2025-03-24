@@ -326,12 +326,12 @@ const PipeLine = () => {
                   <span>Estimación</span>
                 </div>
                 <div className={styles.phaseLabel}>
-                  <AlertCircle size={14} className={styles.headerIcon} />
-                  <span>Cambios</span>
-                </div>
-                <div className={styles.phaseLabel}>
                   <Send size={14} className={styles.headerIcon} />
                   <span>Propuesta</span>
+                </div>
+                <div className={styles.phaseLabel}>
+                  <AlertCircle size={14} className={styles.headerIcon} />
+                  <span>Cambios</span>
                 </div>
               </div>
               <div className={styles.slaHeader}>
@@ -363,7 +363,6 @@ const PipeLine = () => {
 
                   {/* Timeline */}
                   <div className={styles.timelineCell}>
-                    {/* Línea de tiempo con nodos */}
                     <div className={styles.timeline}>
                       {/* Fase: Solicitud */}
                       <div className={styles.timelinePhase}>
@@ -447,26 +446,13 @@ const PipeLine = () => {
                         <div
                           className={`${styles.timelineConnector} ${
                             getPhaseStatus(item, "estimacionTerminada") === "completed" &&
-                            getPhaseStatus(item, "cambios") === "completed"
+                            getPhaseStatus(item, "propuestaEnviada") === "completed"
                               ? styles.connectorCompleted
                               : getPhaseStatus(item, "estimacionTerminada") === "delayed" &&
-                                  getPhaseStatus(item, "cambios") === "completed"
+                                  getPhaseStatus(item, "propuestaEnviada") === "completed"
                                 ? styles.connectorDelayed
                                 : ""
                           }`}
-                        ></div>
-                      </div>
-
-                      {/* Fase: Cambios */}
-                      <div className={styles.timelinePhase}>
-                        <div
-                          className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "cambios")}`]}`}
-                        >
-                          {getPhaseStatus(item, "cambios") === "completed" && getPhaseIcon("cambios")}
-                          {item.cambios && <div className={styles.dateLabel}>{item.cambios}</div>}
-                        </div>
-                        <div
-                          className={`${styles.timelineConnector} ${getPhaseStatus(item, "cambios") === "completed" && getPhaseStatus(item, "propuestaEnviada") === "completed" ? styles.connectorCompleted : ""}`}
                         ></div>
                       </div>
 
@@ -477,6 +463,19 @@ const PipeLine = () => {
                         >
                           {getPhaseStatus(item, "propuestaEnviada") === "completed" && getPhaseIcon("propuestaEnviada")}
                           {item.propuestaEnviada && <div className={styles.dateLabel}>{item.propuestaEnviada}</div>}
+                        </div>
+                        <div
+                          className={`${styles.timelineConnector} ${getPhaseStatus(item, "propuestaEnviada") === "completed" && getPhaseStatus(item, "cambios") === "completed" ? styles.connectorCompleted : ""}`}
+                        ></div>
+                      </div>
+
+                      {/* Fase: Cambios */}
+                      <div className={styles.timelinePhase}>
+                        <div
+                          className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "cambios")}`]}`}
+                        >
+                          {getPhaseStatus(item, "cambios") === "completed" && getPhaseIcon("cambios")}
+                          {item.cambios && <div className={styles.dateLabel}>{item.cambios}</div>}
                         </div>
                       </div>
                     </div>
