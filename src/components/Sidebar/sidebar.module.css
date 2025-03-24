@@ -31,6 +31,79 @@
   color: #6362e7;
 }
 
+/* Enhanced toggle button styles */
+.toggleContainer {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid rgba(99, 98, 231, 0.1);
+  display: flex;
+  justify-content: center;
+}
+
+.toggleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba(99, 98, 231, 0.2);
+  background: rgba(99, 98, 231, 0.03);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  height: 38px;
+  box-shadow: 0 2px 8px rgba(99, 98, 231, 0.05);
+}
+
+.toggleButton:hover {
+  box-shadow: 0 4px 12px rgba(99, 98, 231, 0.1);
+  transform: translateY(-1px);
+}
+
+.toggleButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(99, 98, 231, 0.1);
+}
+
+.toggleSlider {
+  position: absolute;
+  width: 50%;
+  height: 85%;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6362e7 0%, #7978f0 100%);
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(99, 98, 231, 0.3);
+}
+
+.toggleSliderBi {
+  left: calc(50% - 2px);
+}
+
+.toggleOption {
+  flex: 1;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #64748b;
+  z-index: 2;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.25rem 0;
+  user-select: none;
+}
+
+.toggleOptionActive {
+  color: white;
+  font-weight: 600;
+  transform: scale(1.05);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
 .menu {
   padding: 1.25rem 1rem;
   flex: 1;
@@ -143,5 +216,23 @@
   .sidebarOpen {
     left: 0;
   }
+}
+
+/* Animation for toggle button */
+@keyframes pulse {
+  0% {
+    transform: scale(1) translateY(-50%);
+  }
+  50% {
+    transform: scale(1.02) translateY(-50%);
+  }
+  100% {
+    transform: scale(1) translateY(-50%);
+  }
+}
+
+.toggleButton:hover .toggleSlider {
+  animation: pulse 1s infinite;
+  box-shadow: 0 4px 12px rgba(99, 98, 231, 0.4);
 }
 
