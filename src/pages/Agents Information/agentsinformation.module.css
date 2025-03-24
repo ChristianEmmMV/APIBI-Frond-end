@@ -1,0 +1,482 @@
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    background-color: #f9fafc;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    color: #1e2f65;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .headerLeft {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #757575;
+  }
+  
+  .breadcrumb a {
+    color: #1e2f65;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .breadcrumb a:hover {
+    color: #6362e7;
+    text-decoration: underline;
+  }
+  
+  .breadcrumb .MuiTypography-root {
+    color: #1e2f65;
+  }
+  
+  .sectionCard {
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+  }
+  
+  .sectionTitle {
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    font-size: 1.1rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+  
+  .sectionTitle::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: #6362e7;
+    border-radius: 3px;
+  }
+  
+  .searchContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+  
+  .searchInput {
+    width: 100%;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    background-color: #f9fafc;
+    padding: 0 42px 0 42px;
+    font-size: 0.875rem;
+    color: #333;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  }
+  
+  .searchInput:focus {
+    border-color: #6362e7;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(99, 98, 231, 0.1);
+    outline: none;
+  }
+  
+  .searchIcon {
+    position: absolute;
+    left: 14px;
+    color: #757575;
+    font-size: 1.25rem;
+    transition: color 0.2s ease;
+    pointer-events: none;
+  }
+  
+  .searchInput:focus + .searchIcon {
+    color: #6362e7;
+  }
+  
+  .searchClearButton {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #757575;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  
+  .searchClearButton:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #6362e7;
+  }
+  
+  .searchClearButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(99, 98, 231, 0.2);
+  }
+  
+  .filterContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .filterTabs {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: -1px;
+  }
+  
+  .filterTab {
+    padding: 0.75rem 0;
+    font-size: 0.875rem;
+    color: #666;
+    cursor: pointer;
+    border: none;
+    background: none;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  
+  .filterTab:hover {
+    color: #6362e7;
+  }
+  
+  .filterTab.active {
+    color: #6362e7;
+    font-weight: 500;
+  }
+  
+  .filterTab.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #6362e7;
+    border-radius: 2px 2px 0 0;
+  }
+  
+  .addButton {
+    background-color: #6362e7 !important;
+    color: white !important;
+    border-radius: 10px !important;
+    text-transform: none !important;
+    padding: 10px 20px !important;
+    font-weight: 500 !important;
+    box-shadow: 0 4px 15px rgba(99, 98, 231, 0.25) !important;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
+  }
+  
+  .addButton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #5251c5, #7170f0);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+  
+  .addButton:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 6px 20px rgba(99, 98, 231, 0.4) !important;
+  }
+  
+  .addButton:hover::before {
+    opacity: 1;
+  }
+  
+  .addButton:active {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 3px 10px rgba(99, 98, 231, 0.3) !important;
+  }
+  
+  /* Estilos específicos para las tarjetas de agentes */
+  .agentsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  .agentCard {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .agentCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(99, 98, 231, 0.15);
+  }
+  
+  .agentCardHeader {
+    position: relative;
+    overflow: hidden;
+    height: 160px;
+    background-color: #f5f7fa;
+  }
+  
+  .agentImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .agentCard:hover .agentImage {
+    transform: scale(1.05);
+  }
+  
+  .agentCardBody {
+    padding: 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .agentName {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e2f65;
+    margin-bottom: 0.5rem;
+  }
+  
+  .agentFunctionality {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+    flex: 1;
+    line-height: 1.5;
+  }
+  
+  .agentStats {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+  
+  .agentStatValue {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #6362e7;
+  }
+  
+  .agentStatLabel {
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+  
+  .agentCardFooter {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid rgba(99, 98, 231, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .agentType {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background-color: rgba(99, 98, 231, 0.1);
+    color: #6362e7;
+  }
+  
+  .agentTypeIcon {
+    margin-right: 0.25rem;
+    font-size: 0.875rem;
+  }
+  
+  .agentActions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .agentActionButton {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f7fa;
+    color: #64748b;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .agentActionButton:hover {
+    background-color: #6362e7;
+    color: white;
+  }
+  
+  .loadingOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    border-radius: 8px;
+  }
+  
+  .loadingSpinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #6362e7;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  .loadingBar {
+    width: 60%;
+    max-width: 300px;
+    height: 4px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .loadingBarProgress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #6362e7;
+    border-radius: 4px;
+    animation: loadingProgress 2s ease-in-out infinite;
+  }
+  
+  .loadingText {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: #666;
+  }
+  
+  .noResults {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #64748b;
+  }
+  
+  .noResultsIcon {
+    font-size: 3rem;
+    color: #e0e0e0;
+    margin-bottom: 1rem;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes loadingProgress {
+    0% {
+      width: 0%;
+    }
+    50% {
+      width: 70%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 960px) {
+    .container {
+      padding: 1rem;
+    }
+  
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  
+    .headerLeft {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  
+    .agentsGrid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .filterTabs {
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+  
+    .filterTab {
+      white-space: nowrap;
+      font-size: 0.813rem;
+    }
+  
+    .searchInput {
+      height: 38px;
+      font-size: 0.813rem;
+    }
+  
+    .agentsGrid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  

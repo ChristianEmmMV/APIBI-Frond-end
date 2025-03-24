@@ -14,6 +14,7 @@ import {
   Poll as SurveyIcon,
   Info as InfoIcon,
   Timeline as MeddpiccIcon,
+  
 } from "@mui/icons-material"
 import styles from "./sidebar.module.css"
 import Logo from "../../../public/assets/logo.png"
@@ -40,11 +41,14 @@ const Sidebar = ({ isOpen }) => {
       subItems: [
         { icon: <ProjectIcon />, text: "Manage Project's", path: "/projects" },
         { icon: <SurveyIcon />, text: "Client Survey", path: "/client-survey" },
-        { icon: <InfoIcon />, text: "Presales Information", path: "/presales-info" },
-        { icon: <MeddpiccIcon />, text: "Meddpicc", path: "/meddpicc" },
+        { icon: <InfoIcon />, text: "Presales Information", path: "/presales-information" },
       ],
     },
-    { icon: <AssignmentIcon />, text: "Ajents' Information", path: "/ajents" },
+    { icon: <AssignmentIcon />, text: "Ajents'", expandable: true, id: "agents",
+      subItems: [
+        { icon: <MeddpiccIcon />, text: "Agents' Information", path: "/agents-information" },
+        { icon: <MailIcon />, text: "Potential Agents", path: "/potential-agents" },
+      ] },
     { icon: <MailIcon />, text: "PoCs Information", path: "/pocs" },
   ]
 

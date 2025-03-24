@@ -9,6 +9,9 @@ import Projects from './pages/Projects/Projects'
 import Pocs from './pages/PocsInformation/Pocs'
 import ClientSurvey from './pages/Client Survey/ClientSurvey'
 import AddClientSurvey from './pages/Add Client Survey/AddClientSurvey'
+import PresalesInformation from './pages/Presales Information/PresalesInformation'
+import AgentsInformation from './pages/Agents Information/AgentsInformation'
+import PotentialAgents from './pages/Potential Agents/PotentialAgents'
 import './App.css'
 
 function App() {
@@ -36,6 +39,9 @@ function App() {
           <Route path="/pocs" element={<Pocs/>} />
           <Route path="/client-survey" element={<ClientSurvey/>} />
           <Route path="/add-client-survey" element={<AddClientSurvey/>} />
+          <Route path="/presales-information" element={<PresalesInformation/>} />
+          <Route path="/agents-information" element={<AgentsInformation/>} />
+          <Route path="/potential-agents" element={<PotentialAgents/>} />
         </Routes>
       </main>
     </div>
