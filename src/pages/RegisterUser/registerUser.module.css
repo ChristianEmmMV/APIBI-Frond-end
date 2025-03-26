@@ -57,25 +57,25 @@
   }
   
   .sectionCard {
-    width: 500px; /* Ancho fijo para el formulario (ajusta según tus necesidades) */
+    width: 500px; 
     padding: 30px;
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    background-color: white; /* Fondo blanco */
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    background-color: white; 
   }
     
   .sectionCardContainer {
-    display: flex; /* Usamos flexbox para centrar sectionCard */
-    justify-content: center; /* Centrar horizontalmente */
+    display: flex;
+    justify-content: center; 
   }
   
   .sectionCard {
-    width: 500px; /* Ancho fijo para el formulario */
+    width: 500px; 
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: white;
-    margin-top: 20px; /* Espacio superior */
+    margin-top: 20px; 
   }
   
   .form {
@@ -107,12 +107,11 @@
   
   .dataIntegrity {
     margin-top: 20px;
-    text-align: left; /* Alineado a la izquierda */
+    text-align: left; 
     font-style: italic;
     color: #555;
   }
   
-  /* Estilos adicionales para los inputs */
   .form input,
   .form select {
     padding: 10px;
