@@ -18,16 +18,24 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import styles from "./graphics.module.css";
 
 const areaData = [
-  { week: "Week 1", MX: 7, USA: 5, SA: 10 },
-  { week: "Week 2", MX: 8, USA: 4, SA: 10 },
-  { week: "Week 3", MX: 10, USA: 10, SA: 8 },
-  { week: "Week 4", MX: 20, USA: 20, SA: 15 }
+  { week: "Jan W1", MX: 7, USA: 5, SA: 10 },
+  { week: "Jan W2", MX: 8, USA: 4, SA: 10 },
+  { week: "Jan W3", MX: 10, USA: 10, SA: 8 },
+  { week: "Jan W4", MX: 20, USA: 20, SA: 15 },
+  { week: "Feb W1", MX: 7, USA: 5, SA: 10 },
+  { week: "Feb W2", MX: 8, USA: 4, SA: 10 },
+  { week: "Feb W3", MX: 10, USA: 10, SA: 8 },
+  { week: "Feb W4", MX: 20, USA: 20, SA: 15 },
+  { week: "Mar W1", MX: 7, USA: 5, SA: 10 },
+  { week: "Mar W2", MX: 8, USA: 4, SA: 10 },
+  { week: "Mar W3", MX: 10, USA: 10, SA: 8 },
+  { week: "Mar W4", MX: 20, USA: 20, SA: 15 },
 ];
 
 const areaColors = {
-  MX: "#bb58ff",
-  USA: "#580790",
-  SA: "#e3bcff"
+  MX: "#F44336",
+  USA: "#3F51B5",
+  SA: "#009688"
 };
 
 const calculateTrendLine = (data) => {
