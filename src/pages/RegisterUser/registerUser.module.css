@@ -1,3 +1,7 @@
+.container {
+  padding: 20px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -6,111 +10,32 @@
   margin-bottom: 2rem;
 }
 
-.sectionTitle {
-  font-weight: 600;
-  margin-bottom: 1.25rem;
-  font-size: 1.1rem;
-  position: relative;
-  padding-bottom: 0.5rem;
+.headerLeft {
+  display: flex;
+  flex-direction: column;
 }
 
-.sectionTitle::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 40px;
-  height: 3px;
-  background-color: #6362e7;
-  border-radius: 3px;
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #757575;
 }
 
-  .headerLeft {
-    display: flex;
-    flex-direction: column;
-  }
+.breadcrumb a {
+  color: #1e2f65;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
 
-  .breadcrumb {
-    display: flex;
-    align-items: center;
-    font-size: 0.8rem;
-    color: #757575;
-  }
+.breadcrumb a:hover {
+  color: #6362e7;
+  text-decoration: underline;
+}
 
-  .breadcrumb a {
-    color: #1e2f65;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .breadcrumb a:hover {
-    color: #6362e7;
-    text-decoration: underline;
-  }
-
-  .breadcrumb .MuiTypography-root {
-    color: #1e2f65;
-  }
-
-  .container {
-    padding: 20px;
-  }
-  
-  .sectionCard {
-    width: 500px; 
-    padding: 30px;
-    border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    background-color: white; 
-  }
-    
-  .sectionCardContainer {
-    display: flex;
-    justify-content: center; 
-  }
-  
-  .sectionCard {
-    width: 500px; 
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    margin-top: 20px; 
-  }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form > * {
-    margin-bottom: 10px;
-  }
-  
-  .form button[type="submit"] {
-    background-color: #9d00ff;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  .form select {
-    margin-bottom: 5px; 
-  }
-  
-  .form button[type="submit"]:hover {
-    background-color: #b545ff;
-  }
-  
-  .dataIntegrity {
-    margin-top: 20px;
-    text-align: left; 
-    font-style: italic;
-    color: #555;
-  }
+.breadcrumb .MuiTypography-root {
+  color: #1e2f65;
+}
   
   .form input,
   .form select {
@@ -118,4 +43,53 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     border-left: 4px solid #6362e7; 
+  }
+    
+  .formRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  
+  .formCol {
+    width: 48%; 
+  }
+
+  .iconTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e2f65;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .formInput,
+  .formSelect {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 8px;
+    border: 1px solid #aa45fd;
+    border-radius: 20px;
+    box-sizing: border-box; 
+  }
+  
+  .formLabel {
+    display: flex;
+    margin-bottom: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #1e2f65;
+  }
+  .requiredField::after {
+    content: "*";
+    color: #f44336;
+    margin-left: 4px;
+  }
+
+  .formSelect {
+    height: 44px;
+    width: 100%;
+    
   }
