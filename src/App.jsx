@@ -12,6 +12,7 @@ import AddClientSurvey from './pages/Add Client Survey/AddClientSurvey'
 import PresalesInformation from './pages/Presales Information/PresalesInformation'
 import AgentsInformation from './pages/Agents Information/AgentsInformation'
 import PotentialAgents from './pages/Potential Agents/PotentialAgents'
+import RegisterUser from './pages/RegisterUser/RegisterUser'
 import './App.css'
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           <Route path="/presales-information" element={<PresalesInformation/>} />
           <Route path="/agents-information" element={<AgentsInformation/>} />
           <Route path="/potential-agents" element={<PotentialAgents/>} />
+          <Route path="/register-user" element={<RegisterUser/>} />
         </Routes>
       </main>
     </div>
