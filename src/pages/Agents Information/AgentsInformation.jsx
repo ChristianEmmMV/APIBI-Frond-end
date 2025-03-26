@@ -10,19 +10,14 @@ import {
   SmartToy as SmartToyIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
-  BarChart as BarChartIcon,
-  Code as CodeIcon,
-  Chat as ChatIcon,
-  DataObject as DataObjectIcon,
-  Psychology as PsychologyIcon,
-  SentimentSatisfiedAlt as SentimentIcon,
-  FindInPage as FindInPageIcon,
+  Inventory as InventoryIcon,
+  AccountBalance as AccountBalanceIcon,
+  Savings as SavingsIcon,
 } from "@mui/icons-material"
 import Bot from "../../../public/assets/bot.png"
 import styles from "./agentsinformation.module.css"
 
 const AgentsInformation = () => {
-  // Sample data for agents
   const agentsData = [
     {
       id: 1,
@@ -30,68 +25,67 @@ const AgentsInformation = () => {
       functionality:
         "Conversational AI assistant for customer service with natural language understanding capabilities",
       totalEstimates: 1250,
-      type: "Chatbot",
-      typeIcon: <ChatIcon />,
+      type: "Order to Cash",
+      typeIcon: <InventoryIcon />,
     },
     {
       id: 2,
       name: "DataBot",
       functionality: "Data extraction and processing agent specialized in unstructured document analysis",
       totalEstimates: 876,
-      type: "Data Processing",
-      typeIcon: <DataObjectIcon />,
+      type: "Procure to Pay",
+      typeIcon: <AccountBalanceIcon />,
     },
     {
       id: 3,
       name: "CodeAssist",
       functionality: "AI-powered code generation and debugging assistant for developers",
       totalEstimates: 1540,
-      type: "Development",
-      typeIcon: <CodeIcon />,
+      type: "Order to Cash",
+      typeIcon: <InventoryIcon />,
     },
     {
       id: 4,
-      name: "AnalyticsBot",
+      name: "Procure to PayBot",
       functionality: "Business intelligence agent that generates reports and insights from company data",
       totalEstimates: 932,
-      type: "Analytics",
-      typeIcon: <BarChartIcon />,
+      type: "Procure to Pay",
+      typeIcon: <AccountBalanceIcon />,
     },
     {
       id: 5,
       name: "SentimentAI",
       functionality: "Sentiment analysis agent for social media monitoring and brand reputation management",
       totalEstimates: 645,
-      type: "Analytics",
-      typeIcon: <SentimentIcon />,
+      type: "Procure to Pay",
+      typeIcon: <AccountBalanceIcon />,
     },
     {
       id: 6,
       name: "DocuBot",
       functionality: "Document processing agent for automated form filling and data extraction from PDFs",
       totalEstimates: 1120,
-      type: "Data Processing",
-      typeIcon: <FindInPageIcon />,
+      type: "Procure to Pay",
+      typeIcon: <AccountBalanceIcon />,
     },
     {
       id: 7,
       name: "CogniAgent",
-      functionality: "Cognitive agent for complex problem-solving and decision support in enterprise environments",
+      functionality: "Hire to Retire agent for complex problem-solving and decision support in enterprise environments",
       totalEstimates: 780,
-      type: "Cognitive",
-      typeIcon: <PsychologyIcon />,
+      type: "Hire to Retire",
+      typeIcon: <SavingsIcon />,
     },
     {
       id: 8,
       name: "AssistantPro",
       functionality: "Virtual assistant for scheduling, email management, and administrative tasks",
       totalEstimates: 1680,
-      type: "Chatbot",
-      typeIcon: <ChatIcon />,
+      type: "Order to Cash",
+      typeIcon: <InventoryIcon />,
     },
   ]
 
-  // State variables
   const [searchQuery, setSearchQuery] = useState("")
   const [activeFilter, setActiveFilter] = useState("all")
   const [isLoading, setIsLoading] = useState(false)
@@ -99,17 +93,13 @@ const AgentsInformation = () => {
   const [loadingText, setLoadingText] = useState("Loading data...")
   const [agents, setAgents] = useState([...agentsData])
 
-  // Filter buttons
   const filterButtons = [
     { id: "all", label: "All Agents" },
-    { id: "Chatbot", label: "Chatbots" },
-    { id: "Data Processing", label: "Data Processing" },
-    { id: "Analytics", label: "Analytics" },
-    { id: "Development", label: "Development" },
-    { id: "Cognitive", label: "Cognitive" },
+    { id: "Order to Cash", label: "Order to Cashs" },
+    { id: "Procure to Pay", label: "Procure to Pay" },
+    { id: "Hire to Retire", label: "Hire to Retire" },
   ]
 
-  // Simulate loading
   const simulateLoading = () => {
     setIsLoading(true)
     setLoadingProgress(0)
@@ -132,14 +122,11 @@ const AgentsInformation = () => {
     }, 200)
   }
 
-  // Filter agents
   const filteredAgents = agents.filter((agent) => {
-    // Filter by type if not "all"
     if (activeFilter !== "all" && agent.type !== activeFilter) {
       return false
     }
 
-    // Filter by search query
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase()
       return (
@@ -152,7 +139,6 @@ const AgentsInformation = () => {
     return true
   })
 
-  // Search handlers
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value)
   }
@@ -162,13 +148,11 @@ const AgentsInformation = () => {
     simulateLoading()
   }
 
-  // Filter handlers
   const handleFilterChange = (filterId) => {
     setActiveFilter(filterId)
     simulateLoading()
   }
 
-  // Initialize loading on component mount
   useEffect(() => {
     simulateLoading()
   }, [])
@@ -236,7 +220,6 @@ const AgentsInformation = () => {
 
         <div className={styles.agentsGrid}>
           {isLoading ? (
-            // Loading state
             <>
               <div className={styles.loadingOverlay}>
                 <div className={styles.loadingSpinner}></div>
@@ -245,7 +228,6 @@ const AgentsInformation = () => {
                 </div>
                 <div className={styles.loadingText}>{loadingText}</div>
               </div>
-              {/* Skeleton cards while loading */}
               {[1, 2, 3, 4].map((index) => (
                 <div key={index} className={styles.agentCard} style={{ opacity: 0.5 }}>
                   <div className={styles.agentCardHeader}>
@@ -268,7 +250,6 @@ const AgentsInformation = () => {
               ))}
             </>
           ) : filteredAgents.length > 0 ? (
-            // Actual agent cards
             filteredAgents.map((agent) => (
               <div key={agent.id} className={styles.agentCard}>
                 <div className={styles.agentCardHeader}>
@@ -306,7 +287,6 @@ const AgentsInformation = () => {
               </div>
             ))
           ) : (
-            // No results state
             <div className={styles.noResults}>
               <SmartToyIcon className={styles.noResultsIcon} />
               <Typography variant="h6">No agents found</Typography>

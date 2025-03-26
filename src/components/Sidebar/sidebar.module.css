@@ -218,7 +218,6 @@
   }
 }
 
-/* Animation for toggle button */
 @keyframes pulse {
   0% {
     transform: scale(1) translateY(-50%);

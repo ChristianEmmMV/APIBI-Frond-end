@@ -521,10 +521,7 @@ const Dashboard = () => {
 
   const exportToPDF = () => {
     setExportAnchorEl(null)
-    // Show loading notification
     alert("Exporting dashboard to PDF...")
-    // In a real implementation, you would use a library like jsPDF or html2pdf
-    // to generate a PDF from the dashboard content
     setTimeout(() => {
       alert("Dashboard exported to PDF successfully!")
     }, 1500)
@@ -532,10 +529,7 @@ const Dashboard = () => {
 
   const exportToExcel = () => {
     setExportAnchorEl(null)
-    // Show loading notification
     alert("Exporting dashboard data to Excel...")
-    // In a real implementation, you would use a library like xlsx
-    // to generate an Excel file from the dashboard data
     setTimeout(() => {
       alert("Dashboard data exported to Excel successfully!")
     }, 1500)

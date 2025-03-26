@@ -45,11 +45,11 @@
     display: flex;
     border-bottom: 1px solid rgba(99, 98, 231, 0.1);
     overflow-x: auto;
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none;
   }
   
   .formTabs::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
+    display: none;
   }
   
   .formTab {

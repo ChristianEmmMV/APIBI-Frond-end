@@ -85,7 +85,6 @@
   font-size: 0.9rem;
 }
 
-/* Table wrapper with shadow effect */
 .tableWrapper {
   border-radius: 8px;
   overflow: hidden;
@@ -94,7 +93,6 @@
   transition: max-height 0.5s ease;
 }
 
-/* Table container */
 .tableContainer {
   width: 100%;
   overflow-x: auto;
@@ -115,7 +113,6 @@
   border-radius: 3px;
 }
 
-/* Table header */
 .tableHeader {
   display: flex;
   background-color: #f5f0ff;
@@ -174,7 +171,6 @@
   gap: 0.25rem;
 }
 
-/* Table body */
 .tableBody {
   background-color: #fff;
 }
@@ -200,7 +196,6 @@
   border-bottom: none;
 }
 
-/* Service type cell - new design */
 .serviceTypeCell {
   flex: 0 0 120px;
   display: flex;
@@ -238,7 +233,6 @@
   background-color: #e91e63;
 }
 
-/* Client cell */
 .clientCell {
   flex: 0 0 300px;
   padding: 0.75rem 1rem;
@@ -268,14 +262,12 @@
   font-size: 0.8rem;
 }
 
-/* Timeline cell */
 .timelineCell {
   flex: 1;
   padding: 0.5rem;
   position: relative;
 }
 
-/* Timeline styling */
 .timeline {
   display: flex;
   justify-content: space-between;
@@ -334,7 +326,6 @@
   border-color: #e0e0e0;
 }
 
-/* Agregar estilo para el nodo atrasado */
 .node-delayed {
   background-color: #ff9800;
   border-color: #f57c00;
@@ -369,7 +360,6 @@
   background-color: #7e57c2;
 }
 
-/* Agregar estilo para el conector atrasado si es necesario */
 .connectorDelayed {
   background-color: #ff9800;
 }
@@ -393,7 +383,6 @@
   background-color: #ff8a65;
 }
 
-/* Modificar el estilo de la etiqueta de fecha para el estado atrasado */
 .delayedLabel {
   background-color: #ff9800;
 }
@@ -402,7 +391,6 @@
   color: white;
 }
 
-/* Agregar estilo para el icono de atrasado */
 .delayedIcon {
   color: white;
 }
@@ -411,7 +399,6 @@
   color: white;
 }
 
-/* SLA cell */
 .slaCell {
   flex: 0 0 100px;
   text-align: center;
@@ -427,7 +414,6 @@
   transition: all 0.2s ease;
 }
 
-/* SLA colors */
 .slaGreen {
   background-color: #c5e1a5;
   color: #33691e;
@@ -443,7 +429,6 @@
   color: #bf360c;
 }
 
-/* Estilos para la barra de carga */
 .loadingOverlay {
   position: absolute;
   top: 0;
@@ -500,7 +485,6 @@
   }
 }
 
-/* Responsive adjustments */
 @media (max-width: 1200px) {
   .tableContainer {
     overflow-x: auto;
@@ -545,16 +529,13 @@
   }
 }
 
-/* Agregar estilos para el efecto de desvanecido y el botón de expandir */
 
-/* Tabla colapsada */
 .collapsedTable {
   max-height: 400px;
   overflow: hidden;
   position: relative;
 }
 
-/* Overlay con efecto de desvanecido */
 .fadeOverlay {
   position: absolute;
   bottom: 0;
@@ -571,7 +552,6 @@
   z-index: 5;
 }
 
-/* Botón para expandir/contraer */
 .expandButton {
   position: absolute;
   bottom: 0;
@@ -601,7 +581,6 @@
   outline: none;
 }
 
-/* Ajustar la posición del botón cuando la tabla está expandida */
 .tableWrapper:not(.collapsedTable) .expandButton {
   position: relative;
   display: block;
@@ -610,17 +589,14 @@
   left: auto;
 }
 
-/* Agregar estilo para el punto de leyenda atrasado */
 .legendDelayed {
   background-color: #ff9800;
 }
 
-/* Agregar estilo para el punto de leyenda atrasado */
 .legendDelayed {
   background-color: #ff9800;
 }
 
-/* Estilos para el modal */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -776,7 +752,6 @@
   transform: translateY(-2px);
 }
 
-/* Hacer que la etiqueta de fecha atrasada sea clickeable */
 .delayedLabel {
   background-color: #ff9800;
   cursor: pointer;

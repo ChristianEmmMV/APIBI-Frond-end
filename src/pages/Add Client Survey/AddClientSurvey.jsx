@@ -29,23 +29,18 @@ import Swal from "sweetalert2"
 import styles from "./addclientsurveymodal.module.css"
 
 const AddClientSurvey = () => {
-  // Detectar tamaño de pantalla para ajustes responsivos
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"))
 
-  // Estado para el idioma seleccionado
   const [language, setLanguage] = useState("")
 
-  // Estado para el paso actual del formulario
   const [currentStep, setCurrentStep] = useState(0)
 
-  // Referencias para el scroll
   const formCardRef = useRef(null)
   const formContentRef = useRef(null)
   const timelineRef = useRef(null)
 
-  // Estado para los datos del formulario
   const [formData, setFormData] = useState({
     email: "",
     company: "",
@@ -62,10 +57,8 @@ const AddClientSurvey = () => {
     transactionTime: "",
   })
 
-  // Estado para los errores de validación
   const [errors, setErrors] = useState({})
 
-  // Textos según el idioma seleccionado
   const texts = {
     en: {
       title: "Add Client Survey",
@@ -238,23 +231,18 @@ const AddClientSurvey = () => {
     },
   }
 
-  // Obtener los textos según el idioma seleccionado
   const t = language ? texts[language] : texts.en
 
-  // Efecto para manejar el scroll automático cuando cambia el paso
   useEffect(() => {
     if (currentStep > 0) {
-      // Solo hacer scroll en el timeline, no en la página completa
       setTimeout(() => {
         if (timelineRef.current) {
-          // Calcular la posición del paso actual en el timeline
           const stepElements = timelineRef.current.querySelectorAll(`.${styles.timelineStep}`)
           if (stepElements.length > 0 && stepElements[currentStep]) {
             const stepElement = stepElements[currentStep]
             const timelineContainer = stepElement.closest(`.${styles.timelineContainer}`)
 
             if (timelineContainer) {
-              // Calcular la posición para centrar el paso actual
               const containerWidth = timelineContainer.offsetWidth
               const stepLeft = stepElement.offsetLeft
               const stepWidth = stepElement.offsetWidth
@@ -271,13 +259,11 @@ const AddClientSurvey = () => {
     }
   }, [currentStep])
 
-  // Función para manejar el cambio de idioma
   const handleLanguageChange = (lang) => {
     setLanguage(lang)
-    setCurrentStep(1) // Avanzar al paso de bienvenida
+    setCurrentStep(1)
   }
 
-  // Función para manejar el cambio en los campos del formulario
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData({
@@ -285,7 +271,6 @@ const AddClientSurvey = () => {
       [name]: value,
     })
 
-    // Limpiar el error cuando el usuario escribe
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -294,80 +279,79 @@ const AddClientSurvey = () => {
     }
   }
 
-  // Función para validar el paso actual
   const validateStep = () => {
     const newErrors = {}
 
     switch (currentStep) {
-      case 2: // Email
+      case 2:
         if (!formData.email) {
           newErrors.email = t.validation.required
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
           newErrors.email = t.validation.email
         }
         break
-      case 3: // Company
+      case 3:
         if (!formData.company) {
           newErrors.company = t.validation.required
         }
         break
-      case 4: // Process Name
+      case 4:
         if (!formData.processName) {
           newErrors.processName = t.validation.required
         }
         break
-      case 5: // Department
+      case 5:
         if (!formData.department) {
           newErrors.department = t.validation.required
         }
         break
-      case 6: // Participants
+      case 6:
         if (!formData.participants) {
           newErrors.participants = t.validation.required
         }
         break
-      case 7: // Hours Per Day
+      case 7:
         if (!formData.hoursPerDay) {
           newErrors.hoursPerDay = t.validation.required
         } else if (isNaN(formData.hoursPerDay) || formData.hoursPerDay <= 0) {
           newErrors.hoursPerDay = t.validation.number
         }
         break
-      case 8: // Frequency
+      case 8:
         if (!formData.frequency) {
           newErrors.frequency = t.validation.required
         }
         break
-      case 9: // Employees
+      case 9:
         if (!formData.employees) {
           newErrors.employees = t.validation.required
         } else if (isNaN(formData.employees) || formData.employees <= 0) {
           newErrors.employees = t.validation.number
         }
         break
-      case 10: // Risks
+      case 10:
         if (!formData.risks) {
           newErrors.risks = t.validation.required
         }
         break
-      case 11: // Impact
+      case 11:
         if (!formData.impact) {
           newErrors.impact = t.validation.required
         }
         break
-      case 12: // Delay Risks
+      case 12:
         if (!formData.delayRisks) {
           newErrors.delayRisks = t.validation.required
         }
         break
-      case 13: // Transactions
+      case 13:
         if (!formData.transactions) {
           newErrors.transactions = t.validation.required
         } else if (isNaN(formData.transactions) || formData.transactions <= 0) {
           newErrors.transactions = t.validation.number
         }
         break
-      case 14: // Transaction Time
+      case 14:
         if (!formData.transactionTime) {
           newErrors.transactionTime = t.validation.required
         } else if (isNaN(formData.transactionTime) || formData.transactionTime <= 0) {
@@ -382,28 +366,23 @@ const AddClientSurvey = () => {
     return Object.keys(newErrors).length === 0
   }
 
-  // Función para avanzar al siguiente paso
   const handleNext = () => {
     if (validateStep()) {
       setCurrentStep(currentStep + 1)
     }
   }
 
-  // Función para retroceder al paso anterior
   const handlePrevious = () => {
     setCurrentStep(currentStep - 1)
   }
 
-  // Función para manejar el envío del formulario
   const handleSubmit = () => {
-    // Aquí se enviaría la información a la base de datos o API
     Swal.fire({
       title: t.alerts.success.title,
       text: t.alerts.success.text,
       icon: "success",
       confirmButtonColor: "#6362e7",
     }).then(() => {
-      // Reiniciar el formulario y volver al inicio
       setFormData({
         email: "",
         company: "",
@@ -424,17 +403,15 @@ const AddClientSurvey = () => {
     })
   }
 
-  // Calcular el progreso del timeline
   const calculateProgress = () => {
-    const totalSteps = 16 // Total de pasos en el formulario
+    const totalSteps = 16
     const progress = (currentStep / (totalSteps - 1)) * 100
     return `${progress}%`
   }
 
-  // Renderizar el paso actual del formulario
   const renderStep = () => {
     switch (currentStep) {
-      case 0: // Selección de idioma
+      case 0:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <Typography variant="h6" align="center" sx={{ mb: 3 }}>
@@ -461,7 +438,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 1: // Bienvenida
+      case 1:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.welcomeMessage}>
@@ -486,7 +463,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 2: // Email
+      case 2:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -507,7 +484,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 3: // Company
+      case 3:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -528,7 +505,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 4: // Process Name
+      case 4:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -549,7 +526,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 5: // Department
+      case 5:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -570,7 +547,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 6: // Participants
+      case 6:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -595,7 +572,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 7: // Hours Per Day
+      case 7:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -618,7 +595,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 8: // Frequency
+      case 8:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -645,7 +622,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 9: // Employees
+      case 9:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -668,7 +645,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 10: // Risks
+      case 10: 
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -691,7 +668,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 11: // Impact
+      case 11:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -714,7 +691,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 12: // Delay Risks
+      case 12:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -737,7 +714,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 13: // Transactions
+      case 13:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -760,7 +737,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 14: // Transaction Time
+      case 14:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -783,7 +760,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 15: // Summary
+      case 15:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <Typography variant="h6" align="center" sx={{ mb: 1 }}>
@@ -862,7 +839,6 @@ const AddClientSurvey = () => {
               </div>
             </div>
 
-            {/* Botones específicos para el resumen, fuera del contenedor de resumen */}
             <div className={styles.summaryActions}>
               <Button
                 variant="outlined"
@@ -892,13 +868,9 @@ const AddClientSurvey = () => {
     }
   }
 
-  // Renderizar los pasos del timeline
   const renderTimelineSteps = () => {
-    // Solo mostrar el timeline después de seleccionar el idioma
     if (currentStep === 0) return null
 
-    // Calcular cuántos pasos mostrar en el timeline
-    // Para simplificar la visualización, podemos mostrar solo algunos pasos clave
     const visibleSteps = t.steps.map((step, index) => ({
       label: step,
       index: index,
@@ -939,7 +911,6 @@ const AddClientSurvey = () => {
           {renderStep()}
         </div>
 
-        {/* Mostrar los botones de acción solo para pasos que no son el resumen */}
         {currentStep > 0 && currentStep < 15 && (
           <div className={styles.formActions}>
             {currentStep > 1 && (

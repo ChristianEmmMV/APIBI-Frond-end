@@ -5,7 +5,6 @@ import { Paper, Typography } from "@mui/material"
 import { Calendar, Clock, CheckCircle, AlertCircle, Send, FileText } from "lucide-react"
 import styles from "./pipeline.module.css"
 
-// Datos de ejemplo para el pipeline
 const pipelineData = [
   {
     id: 1,
@@ -171,15 +170,11 @@ const PipeLine = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [loadingProgress, setLoadingProgress] = useState(0)
   const [hoveredRow, setHoveredRow] = useState(null)
-  // Agregar un nuevo estado para controlar si la tabla está expandida
   const [isExpanded, setIsExpanded] = useState(false)
-  // Agregar un nuevo estado para controlar la visibilidad del modal y la información del modal
   const [modalOpen, setModalOpen] = useState(false)
   const [modalData, setModalData] = useState(null)
 
-  // Agregar esta función para abrir el modal con los datos de la oportunidad atrasada
   const handleDelayedItemClick = (item) => {
-    // Calcular días de atraso (ejemplo)
     const diasAtraso = item.delayedPhase === "estimacionTerminada" ? 5 : 3
 
     setModalData({
@@ -196,7 +191,6 @@ const PipeLine = () => {
     setModalOpen(true)
   }
 
-  // Agregar esta función para cerrar el modal
   const handleCloseModal = () => {
     setModalOpen(false)
   }
@@ -219,7 +213,6 @@ const PipeLine = () => {
     }
   }, [])
 
-  // Función para determinar el color de fondo de la celda SLA
   const getSlaColor = (sla) => {
     if (!sla) return ""
 
@@ -231,13 +224,11 @@ const PipeLine = () => {
     return styles.slaRed
   }
 
-  // Modificar la función getPhaseStatus para incluir el estado "delayed"
   const getPhaseStatus = (item, phase) => {
     if (phase === "estimacionTerminada" && item[phase] === "Cancelada") {
       return "canceled"
     }
 
-    // Verificar si la fase está atrasada
     if (item[phase] && item.isDelayed && phase === item.delayedPhase) {
       return "delayed"
     }
@@ -245,7 +236,6 @@ const PipeLine = () => {
     return item[phase] ? "completed" : "pending"
   }
 
-  // Función para obtener el icono de cada fase
   const getPhaseIcon = (phase) => {
     switch (phase) {
       case "solicitud":
@@ -263,7 +253,6 @@ const PipeLine = () => {
     }
   }
 
-  // Renderizar el modal
   return (
     <Paper elevation={0} className={styles.pipelineContainer}>
       <div className={styles.headerContainer}>
@@ -304,11 +293,8 @@ const PipeLine = () => {
           <div className={styles.loadingText}>Cargando datos del pipeline...</div>
         </div>
       ) : (
-        // Modificar el return statement para incluir el efecto de desvanecido y el botón
-        // Reemplazar el div con className={styles.tableWrapper} con:
         <div className={`${styles.tableWrapper} ${!isExpanded ? styles.collapsedTable : ""}`}>
           <div className={styles.tableContainer}>
-            {/* Encabezados de la tabla */}
             <div className={styles.tableHeader}>
               <div className={styles.serviceTypeHeader}>Tipo</div>
               <div className={styles.clientHeader}>Cliente | Oportunidad</div>
@@ -340,7 +326,6 @@ const PipeLine = () => {
               </div>
             </div>
 
-            {/* Cuerpo de la tabla */}
             <div className={styles.tableBody}>
               {pipelineData.map((item) => (
                 <div
@@ -349,22 +334,18 @@ const PipeLine = () => {
                   onMouseEnter={() => setHoveredRow(item.id)}
                   onMouseLeave={() => setHoveredRow(null)}
                 >
-                  {/* Tipo de servicio */}
                   <div className={styles.serviceTypeCell}>
                     <div className={`${styles.serviceTypeIndicator} ${styles[`serviceType${item.serviceType}`]}`}></div>
                     <span className={styles.serviceTypeText}>{item.serviceType}</span>
                   </div>
 
-                  {/* Cliente y Oportunidad */}
                   <div className={styles.clientCell}>
                     <div className={styles.clientName}>{item.client}</div>
                     <div className={styles.oppName}>{item.oppName}</div>
                   </div>
 
-                  {/* Timeline */}
                   <div className={styles.timelineCell}>
                     <div className={styles.timeline}>
-                      {/* Fase: Solicitud */}
                       <div className={styles.timelinePhase}>
                         <div
                           className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "solicitud")}`]}`}
@@ -377,7 +358,6 @@ const PipeLine = () => {
                         ></div>
                       </div>
 
-                      {/* Fase: Levantamiento */}
                       <div className={styles.timelinePhase}>
                         <div
                           className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "levantamiento")}`]}`}
@@ -406,7 +386,6 @@ const PipeLine = () => {
                         ></div>
                       </div>
 
-                      {/* Fase: Estimación Terminada */}
                       <div className={styles.timelinePhase}>
                         <div
                           className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "estimacionTerminada")}`]}`}
@@ -456,7 +435,6 @@ const PipeLine = () => {
                         ></div>
                       </div>
 
-                      {/* Fase: Propuesta Enviada */}
                       <div className={styles.timelinePhase}>
                         <div
                           className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "propuestaEnviada")}`]}`}
@@ -469,7 +447,6 @@ const PipeLine = () => {
                         ></div>
                       </div>
 
-                      {/* Fase: Cambios */}
                       <div className={styles.timelinePhase}>
                         <div
                           className={`${styles.timelineNode} ${styles[`node-${getPhaseStatus(item, "cambios")}`]}`}
@@ -481,7 +458,6 @@ const PipeLine = () => {
                     </div>
                   </div>
 
-                  {/* SLA */}
                   <div className={`${styles.slaCell} ${getSlaColor(item.sla)}`}>{item.sla}</div>
                 </div>
               ))}
@@ -494,7 +470,6 @@ const PipeLine = () => {
         </div>
       )}
 
-      {/* Modal para SLA no cumplido */}
       {modalOpen && modalData && (
         <div className={styles.modalOverlay} onClick={handleCloseModal}>
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>

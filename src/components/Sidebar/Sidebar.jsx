@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import {
-  Dashboard as DashboardIcon,
-  Person as PersonIcon,
-  Assignment as AssignmentIcon,
+  SpaceDashboard as DashboardIcon,
+  Api as ApiIcon,
+  SmartToy as SmartToyIcon,
+  AccountTree as AccountTreeIcon,
+  DeveloperBoard as DeveloperBoardIcon,
   Mail as MailIcon,
   Help as HelpIcon,
   KeyboardArrowDown as ArrowDownIcon,
@@ -29,9 +31,7 @@ const Sidebar = ({ isOpen }) => {
     analytics: false,
   })
 
-  // Add state to track whether we're in Presales or BI mode
   const [mode, setMode] = useState("presales")
-  // Add state for animation
   const [isAnimating, setIsAnimating] = useState(false)
 
   const toggleExpand = (item) => {
@@ -41,11 +41,10 @@ const Sidebar = ({ isOpen }) => {
     }))
   }
 
-  // Define menu items for Presales
   const presalesMenuItems = [
     { icon: <DashboardIcon />, text: "Dashboard", path: "/dashboard", active: false },
     {
-      icon: <PersonIcon />,
+      icon: <ApiIcon />,
       text: "Projects",
       expandable: true,
       id: "projects",
@@ -56,19 +55,18 @@ const Sidebar = ({ isOpen }) => {
       ],
     },
     {
-      icon: <AssignmentIcon />,
-      text: "Ajents'",
+      icon: <SmartToyIcon />,
+      text: "Agents'",
       expandable: true,
       id: "agents",
       subItems: [
-        { icon: <MeddpiccIcon />, text: "Agents' Information", path: "/agents-information" },
-        { icon: <MailIcon />, text: "Potential Agents", path: "/potential-agents" },
+        { icon: <AccountTreeIcon />, text: "Agents' Information", path: "/agents-information" },
+        { icon: <DeveloperBoardIcon />, text: "Potential Agent's", path: "/potential-agents" },
       ],
     },
     { icon: <MailIcon />, text: "PoCs Information", path: "/pocs" },
   ]
 
-  // Define menu items for BI
   const biMenuItems = [
     { icon: <DashboardIcon />, text: "BI Dashboard", path: "/bi-dashboard", active: false },
     {
@@ -85,23 +83,19 @@ const Sidebar = ({ isOpen }) => {
     { icon: <CompareArrowsIcon />, text: "Comparisons", path: "/comparisons" },
   ]
 
-  // Select the appropriate menu items based on the current mode
   const menuItems = mode === "presales" ? presalesMenuItems : biMenuItems
 
-  // Toggle between Presales and BI modes with enhanced animation
   const toggleMode = () => {
-    if (isAnimating) return // Prevent multiple clicks during animation
+    if (isAnimating) return
 
     setIsAnimating(true)
     setMode(mode === "presales" ? "bi" : "presales")
 
-    // Reset animation state after animation completes
     setTimeout(() => {
       setIsAnimating(false)
-    }, 600) // Match this with the CSS transition duration
+    }, 600)
   }
 
-  // Add effect to animate menu items when mode changes
   useEffect(() => {
     const menuContainer = document.querySelector(`.${styles.menu}`)
     if (menuContainer) {
@@ -114,7 +108,6 @@ const Sidebar = ({ isOpen }) => {
         menuContainer.style.transform = "translateY(0)"
       }, 50)
 
-      // Reset transition after animation completes
       setTimeout(() => {
         menuContainer.style.transition = ""
       }, 350)
@@ -127,7 +120,6 @@ const Sidebar = ({ isOpen }) => {
         <img src={Logo || "/placeholder.svg"} alt="Beecker" style={{ width: 150, height: 34 }} />
       </div>
 
-      {/* Add the toggle button */}
       <div className={styles.toggleContainer}>
         <button
           onClick={toggleMode}

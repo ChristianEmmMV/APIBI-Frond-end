@@ -41,7 +41,6 @@ import AddProjectModal from "../../components/Projects/AddProjectModal"
 import CarruselProjects from "../../components/Projects/CarruselProjects"
 
 const Projects = () => {
-  // Sample data for projects
   const projects = [
     {
       id: 1,
@@ -53,6 +52,7 @@ const Projects = () => {
       },
       creationDate: "2023-10-15",
       status: "propuesta",
+      type: "Estimation",
     },
     {
       id: 2,
@@ -64,10 +64,11 @@ const Projects = () => {
       },
       creationDate: "2023-11-02",
       status: "levantamiento",
+      type: "SaaS",
     },
     {
       id: 3,
-      company: "Global Enterprises",
+      company: "Global Estimations",
       accountManager: {
         name: "Emily Rodriguez",
         avatar: "ER",
@@ -75,6 +76,7 @@ const Projects = () => {
       },
       creationDate: "2023-11-20",
       status: "solicitud",
+      type: "Forensic Analysis",
     },
     {
       id: 4,
@@ -86,6 +88,7 @@ const Projects = () => {
       },
       creationDate: "2023-12-05",
       status: "estimación",
+      type: "Estimation",
     },
     {
       id: 5,
@@ -97,6 +100,7 @@ const Projects = () => {
       },
       creationDate: "2024-01-10",
       status: "en cambios",
+      type: "SaaS",
     },
     {
       id: 6,
@@ -108,6 +112,7 @@ const Projects = () => {
       },
       creationDate: "2024-01-25",
       status: "propuesta",
+      type: "Forensic Analysis",
     },
     {
       id: 7,
@@ -119,6 +124,7 @@ const Projects = () => {
       },
       creationDate: "2024-02-08",
       status: "levantamiento",
+      type: "Estimation",
     },
     {
       id: 8,
@@ -130,6 +136,7 @@ const Projects = () => {
       },
       creationDate: "2024-02-15",
       status: "solicitud",
+      type: "SaaS",
     },
     {
       id: 9,
@@ -141,6 +148,7 @@ const Projects = () => {
       },
       creationDate: "2024-02-20",
       status: "estimación",
+      type: "Forensic Analysis",
     },
     {
       id: 10,
@@ -152,10 +160,10 @@ const Projects = () => {
       },
       creationDate: "2024-03-01",
       status: "propuesta",
+      type: "Estimation",
     },
   ]
 
-  // State variables
   const [searchQuery, setSearchQuery] = React.useState("")
   const [activeFilter, setActiveFilter] = React.useState("all")
   const [isTableLoading, setIsTableLoading] = React.useState(false)
@@ -166,13 +174,11 @@ const Projects = () => {
   const [exportAnchorEl, setExportAnchorEl] = React.useState(null)
   const openExportMenu = Boolean(exportAnchorEl)
   const [currentPage, setCurrentPage] = React.useState(1)
-  const itemsPerPage = 5
+  const [itemsPerPage, setItemsPerPage] = useState(5)
   const [showCarousel, setShowCarousel] = useState(true)
 
-  // New project modal state
   const [openModal, setOpenModal] = useState(false)
 
-  // Filter buttons
   const filterButtons = [
     { id: "all", label: "All Projects" },
     { id: "solicitud", label: "Solicitud" },
@@ -182,7 +188,6 @@ const Projects = () => {
     { id: "en cambios", label: "En Cambios" },
   ]
 
-  // Calculate days passed
   const calculateDaysPassed = (dateString) => {
     const creationDate = new Date(dateString)
     const today = new Date()
@@ -191,13 +196,11 @@ const Projects = () => {
     return diffDays
   }
 
-  // Format date
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "short", day: "numeric" }
     return new Date(dateString).toLocaleDateString("en-US", options)
   }
 
-  // Simulate loading
   const simulateTableLoading = () => {
     setIsTableLoading(true)
     setTableLoadingProgress(0)
@@ -220,7 +223,6 @@ const Projects = () => {
     }, 200)
   }
 
-  // Handle sorting
   const handleSort = (column) => {
     const isAsc = orderBy === column && orderDirection === "asc"
     setOrderDirection(isAsc ? "desc" : "asc")
@@ -228,7 +230,6 @@ const Projects = () => {
     simulateTableLoading()
   }
 
-  // Sort projects
   const sortProjects = (projects) => {
     return [...projects].sort((a, b) => {
       let valueA, valueB
@@ -245,6 +246,10 @@ const Projects = () => {
         case "time":
           valueA = new Date(a.creationDate)
           valueB = new Date(b.creationDate)
+          break
+        case "type":
+          valueA = a.type || "SaaS"
+          valueB = b.type || "SaaS"
           break
         case "status":
           valueA = a.status
@@ -265,7 +270,6 @@ const Projects = () => {
     })
   }
 
-  // Filter projects
   const filteredProjects = projects.filter((project) => {
     if (activeFilter !== "all") {
       if (project.status !== activeFilter) return false
@@ -283,7 +287,6 @@ const Projects = () => {
   const totalPages = Math.ceil(sortedProjects.length / itemsPerPage)
   const currentProjects = sortedProjects.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
-  // Pagination handlers
   const handlePageChange = (page) => {
     setCurrentPage(page)
     simulateTableLoading()
@@ -303,7 +306,6 @@ const Projects = () => {
     }
   }
 
-  // Search handlers
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value)
   }
@@ -313,13 +315,11 @@ const Projects = () => {
     simulateTableLoading()
   }
 
-  // Filter handlers
   const handleFilterChange = (filterId) => {
     setActiveFilter(filterId)
     simulateTableLoading()
   }
 
-  // Export handlers
   const handleExportClick = (event) => {
     setExportAnchorEl(event.currentTarget)
   }
@@ -328,7 +328,6 @@ const Projects = () => {
     setExportAnchorEl(null)
   }
 
-  // Modal handlers
   const handleOpenModal = () => {
     setOpenModal(true)
   }
@@ -338,28 +337,29 @@ const Projects = () => {
   }
 
   const handleSaveProject = (projectData) => {
-    // Here you would typically send the data to your backend
     console.log("New project data:", projectData)
 
-    // For demo purposes, we'll just close the modal and show an alert
     alert(`Project "${projectData.projectName}" registered successfully!`)
     setOpenModal(false)
 
-    // Refresh the table
     simulateTableLoading()
   }
 
-  // Toggle carousel visibility
+  const handleItemsPerPageChange = (e) => {
+    const newItemsPerPage = Number.parseInt(e.target.value, 10)
+    setItemsPerPage(newItemsPerPage)
+    setCurrentPage(1)
+    simulateTableLoading()
+  }
+
   const toggleCarousel = () => {
     setShowCarousel(!showCarousel)
   }
 
-  // Initialize loading on component mount
   React.useEffect(() => {
     simulateTableLoading()
   }, [])
 
-  // Skeleton rows for loading state
   const SkeletonRows = () => {
     return Array(5)
       .fill(0)
@@ -381,13 +381,15 @@ const Projects = () => {
             </div>
           </TableCell>
           <TableCell className={styles.tableCell}>
+            <div className={`${styles.skeletonCell} ${styles.small}`}></div>
+          </TableCell>
+          <TableCell className={styles.tableCell}>
             <div className={`${styles.skeletonCell} ${styles.medium}`}></div>
           </TableCell>
         </TableRow>
       ))
   }
 
-  // Render sort icon
   const renderSortIcon = (column) => {
     if (orderBy !== column) {
       return <UnfoldMoreIcon fontSize="small" className={styles.sortIconInactive} />
@@ -399,7 +401,6 @@ const Projects = () => {
     )
   }
 
-  // Render status chip
   const renderStatusChip = (status) => {
     let color, bgColor
 
@@ -488,7 +489,6 @@ const Projects = () => {
         </div>
       </Box>
 
-      {/* Carousel Component */}
       <div className={`${styles.carouselContainer} ${!showCarousel ? styles.hidden : ""}`}>
         {showCarousel && <CarruselProjects projects={projects} />}
       </div>
@@ -581,6 +581,16 @@ const Projects = () => {
                 </TableCell>
                 <TableCell className={styles.tableHeaderCell}>
                   <div className={styles.tableHeaderContent}>
+                    Type
+                    <Tooltip title="Sort by type">
+                      <IconButton size="small" onClick={() => handleSort("type")} className={styles.sortButton}>
+                        {renderSortIcon("type")}
+                      </IconButton>
+                    </Tooltip>
+                  </div>
+                </TableCell>
+                <TableCell className={styles.tableHeaderCell}>
+                  <div className={styles.tableHeaderContent}>
                     Status
                     <Tooltip title="Sort by status">
                       <IconButton size="small" onClick={() => handleSort("status")} className={styles.sortButton}>
@@ -626,6 +636,24 @@ const Projects = () => {
                         </div>
                         <div className={styles.daysPassed}>{calculateDaysPassed(project.creationDate)} days ago</div>
                       </div>
+                    </TableCell>
+                    <TableCell className={styles.tableCell}>
+                      <Chip
+                        label={project.type || "SaaS"}
+                        size="small"
+                        sx={{
+                          backgroundColor: "#e3f2fd",
+                          color: "#2196f3",
+                          fontWeight: 500,
+                          borderRadius: "4px",
+                          padding: "0 2px",
+                          height: "20px",
+                          fontSize: "0.65rem",
+                          "& .MuiChip-label": {
+                            padding: "0 6px",
+                          },
+                        }}
+                      />
                     </TableCell>
                     <TableCell className={styles.tableCell}>{renderStatusChip(project.status)}</TableCell>
                   </TableRow>
@@ -678,12 +706,25 @@ const Projects = () => {
 
         {!isTableLoading && sortedProjects.length > 0 && (
           <Box className={styles.paginationContainer}>
-            <div className={styles.paginationInfo}>
-              Showing{" "}
-              <strong>
-                {(currentPage - 1) * itemsPerPage + 1}-{Math.min(currentPage * itemsPerPage, sortedProjects.length)}
-              </strong>{" "}
-              of <strong>{sortedProjects.length}</strong> projects
+            <div className={styles.paginationWrapper}>
+              <div className={styles.tableLengthContainer}>
+                <span className={styles.tableLengthLabel}>Show</span>
+                <select value={itemsPerPage} onChange={handleItemsPerPageChange} className={styles.tableLengthSelect}>
+                  <option value={5}>5</option>
+                  <option value={10}>10</option>
+                  <option value={25}>25</option>
+                  <option value={50}>50</option>
+                </select>
+                <span className={styles.tableLengthLabel}>entries</span>
+              </div>
+
+              <div className={styles.paginationInfo}>
+                Showing{" "}
+                <strong>
+                  {(currentPage - 1) * itemsPerPage + 1}-{Math.min(currentPage * itemsPerPage, sortedProjects.length)}
+                </strong>{" "}
+                of <strong>{sortedProjects.length}</strong> projects
+              </div>
             </div>
 
             <div className={styles.paginationControls}>
@@ -742,7 +783,6 @@ const Projects = () => {
         )}
       </Paper>
 
-      {/* Use the AddProjectModal component */}
       <AddProjectModal open={openModal} onClose={handleCloseModal} onSave={handleSaveProject} />
     </Container>
   )

@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Link as RouterLink } from "react-router-dom";
 import {
   Box,
   Container,
@@ -47,10 +46,8 @@ import {
   Timer as TimerIcon,
 } from "@mui/icons-material"
 import styles from "./clientsurvey.module.css"
-import AddClientSurvey from "../Add Client Survey/AddClientSurvey"
 
 const ClientSurvey = () => {
-  // Modificar los datos de muestra para que parezcan más ingresados por el usuario
   const surveys = [
     {
       id: 1,
@@ -254,7 +251,6 @@ const ClientSurvey = () => {
     },
   ]
 
-  // State variables
   const [searchQuery, setSearchQuery] = useState("")
   const [activeFilter, setActiveFilter] = useState("all")
   const [isTableLoading, setIsTableLoading] = useState(false)
@@ -266,9 +262,8 @@ const ClientSurvey = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [surveyToDelete, setSurveyToDelete] = useState(null)
   const [surveysData, setSurveysData] = useState([...surveys])
-  const itemsPerPage = 5
+  const [itemsPerPage, setItemsPerPage] = useState(5)
 
-  // Calculate days passed
   const calculateDaysPassed = (dateString) => {
     const creationDate = new Date(dateString)
     const today = new Date()
@@ -277,13 +272,11 @@ const ClientSurvey = () => {
     return diffDays
   }
 
-  // Format date
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "short", day: "numeric" }
     return new Date(dateString).toLocaleDateString("en-US", options)
   }
 
-  // Simulate loading
   const simulateTableLoading = () => {
     setIsTableLoading(true)
     setTableLoadingProgress(0)
@@ -306,7 +299,6 @@ const ClientSurvey = () => {
     }, 200)
   }
 
-  // Handle sorting
   const handleSort = (column) => {
     const isAsc = orderBy === column && orderDirection === "asc"
     setOrderDirection(isAsc ? "desc" : "asc")
@@ -314,7 +306,6 @@ const ClientSurvey = () => {
     simulateTableLoading()
   }
 
-  // Sort surveys
   const sortSurveys = (surveys) => {
     return [...surveys].sort((a, b) => {
       let valueA, valueB
@@ -387,7 +378,6 @@ const ClientSurvey = () => {
     })
   }
 
-  // Modificar la función de filtrado para eliminar el filtro por área
   const filteredSurveys = surveysData.filter((survey) => {
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase()
@@ -405,7 +395,6 @@ const ClientSurvey = () => {
   const totalPages = Math.ceil(sortedSurveys.length / itemsPerPage)
   const currentSurveys = sortedSurveys.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
-  // Pagination handlers
   const handlePageChange = (page) => {
     setCurrentPage(page)
     simulateTableLoading()
@@ -425,7 +414,6 @@ const ClientSurvey = () => {
     }
   }
 
-  // Search handlers
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value)
   }
@@ -435,8 +423,6 @@ const ClientSurvey = () => {
     simulateTableLoading()
   }
 
-  // Filter handlers
-  // Delete handlers
   const handleDeleteClick = (survey) => {
     setSurveyToDelete(survey)
     setDeleteDialogOpen(true)
@@ -456,12 +442,17 @@ const ClientSurvey = () => {
     setSurveyToDelete(null)
   }
 
-  // Initialize loading on component mount
+  const handleItemsPerPageChange = (e) => {
+    const newItemsPerPage = Number.parseInt(e.target.value, 10)
+    setItemsPerPage(newItemsPerPage)
+    setCurrentPage(1)
+    simulateTableLoading()
+  }
+
   useEffect(() => {
     simulateTableLoading()
   }, [])
 
-  // Skeleton rows for loading state
   const SkeletonRows = () => {
     return Array(5)
       .fill(0)
@@ -516,7 +507,6 @@ const ClientSurvey = () => {
       ))
   }
 
-  // Render sort icon
   const renderSortIcon = (column) => {
     if (orderBy !== column) {
       return <UnfoldMoreIcon fontSize="small" className={styles.sortIconInactive} />
@@ -528,7 +518,6 @@ const ClientSurvey = () => {
     )
   }
 
-  // Modificar la función renderRiskChip para manejar texto libre
   const renderRiskChip = (risk) => {
     let className = ""
 
@@ -557,7 +546,6 @@ const ClientSurvey = () => {
     return <span className={`${styles.riskChip} ${className}`}>{risk}</span>
   }
 
-  // Modificar la función renderImpactChip para manejar texto libre
   const renderImpactChip = (impact) => {
     let className = ""
 
@@ -604,8 +592,7 @@ const ClientSurvey = () => {
           </Breadcrumbs>
         </div>
         <div>
-          <Button variant="contained" color="primary" startIcon={<AddIcon />} className={styles.addButton} 
-          component={RouterLink} to="/add-client-survey">
+          <Button variant="contained" color="primary" startIcon={<AddIcon />} className={styles.addButton}>
             Add Survey
           </Button>
         </div>
@@ -930,12 +917,25 @@ const ClientSurvey = () => {
 
         {!isTableLoading && sortedSurveys.length > 0 && (
           <Box className={styles.paginationContainer}>
-            <div className={styles.paginationInfo}>
-              Showing{" "}
-              <strong>
-                {(currentPage - 1) * itemsPerPage + 1}-{Math.min(currentPage * itemsPerPage, sortedSurveys.length)}
-              </strong>{" "}
-              of <strong>{sortedSurveys.length}</strong> surveys
+            <div className={styles.paginationWrapper}>
+              <div className={styles.tableLengthContainer}>
+                <span className={styles.tableLengthLabel}>Show</span>
+                <select value={itemsPerPage} onChange={handleItemsPerPageChange} className={styles.tableLengthSelect}>
+                  <option value={5}>5</option>
+                  <option value={10}>10</option>
+                  <option value={25}>25</option>
+                  <option value={50}>50</option>
+                </select>
+                <span className={styles.tableLengthLabel}>entries</span>
+              </div>
+
+              <div className={styles.paginationInfo}>
+                Showing{" "}
+                <strong>
+                  {(currentPage - 1) * itemsPerPage + 1}-{Math.min(currentPage * itemsPerPage, sortedSurveys.length)}
+                </strong>{" "}
+                of <strong>{sortedSurveys.length}</strong> surveys
+              </div>
             </div>
 
             <div className={styles.paginationControls}>
@@ -994,7 +994,6 @@ const ClientSurvey = () => {
         )}
       </Paper>
 
-      {/* Delete Confirmation Dialog */}
       <Dialog
         open={deleteDialogOpen}
         onClose={handleDeleteCancel}

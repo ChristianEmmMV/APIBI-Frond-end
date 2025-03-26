@@ -222,7 +222,6 @@
     box-shadow: 0 3px 10px rgba(99, 98, 231, 0.3) !important;
   }
   
-  /* Estilos específicos para las tarjetas de agentes */
   .agentsGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

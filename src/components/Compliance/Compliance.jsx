@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { Paper, Typography, Box, CircularProgress } from "@mui/material";
 import { keyframes } from "@mui/system";
 
-// Definir animación flotante
 const floating = keyframes`
   0% { transform: translateY(0px); }
   50% { transform: translateY(-5px); }
@@ -20,7 +19,6 @@ const CardWithConnector = ({ region, percentage }) => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {/* Conector horizontal */}
       <Box sx={{
         position: "absolute",
         left: "-30px",
@@ -30,7 +28,6 @@ const CardWithConnector = ({ region, percentage }) => {
         boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)"
       }} />
 
-      {/* Card principal */}
       <Paper
         elevation={3}
         sx={{
@@ -53,7 +50,6 @@ const CardWithConnector = ({ region, percentage }) => {
         <Typography variant="body1">{region}</Typography>
       </Paper>
 
-      {/* Círculo de porcentaje */}
       <Paper
         elevation={3}
         sx={{
@@ -83,17 +79,16 @@ const CardWithConnector = ({ region, percentage }) => {
 const SummaryContainer = () => {
   const [loading, setLoading] = useState(true);
 
-  // Simulación de carga
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 2000); // 2 segundos de carga
+    }, 2000);
   }, []);
 
   return (
     <Paper elevation={3} sx={{ padding: "20px", borderRadius: "10px", minHeight: "250px", display: "flex", justifyContent: "center", alignItems: "center" }}>
       {loading ? (
-        <CircularProgress sx={{ color: "#6A0DAD" }} /> // Spinner de carga
+        <CircularProgress sx={{ color: "#6A0DAD" }} /> 
       ) : (
         <Box sx={{ width: "100%", opacity: loading ? 0 : 1, transition: "opacity 0.5s ease-in-out" }}>
           {/* Titulo */}

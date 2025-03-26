@@ -15,11 +15,11 @@ import {
   FolderOff as FolderOffIcon,
   PlayArrow as PlayIcon,
   Pause as PauseIcon,
+  WbCloudy as CloudIcon,
 } from "@mui/icons-material"
 import styles from "./carrusellprojects.module.css"
 
 const CarruselProjects = ({ projects }) => {
-  // State
   const [activeFilter, setActiveFilter] = useState("all")
   const [currentIndex, setCurrentIndex] = useState(0)
   const [visibleCards, setVisibleCards] = useState(3)
@@ -30,18 +30,17 @@ const CarruselProjects = ({ projects }) => {
   const autoplayTimerRef = useRef(null)
   const containerRef = useRef(null)
 
-  // Filter categories
   const filterCategories = [
     { id: "all", label: "All Projects", icon: <AssignmentIcon fontSize="small" /> },
     { id: "estimation", label: "Estimation", icon: <AssignmentIcon fontSize="small" /> },
+    {id: "saas", label: "SaaS", icon: <CloudIcon fontSize="small" /> },
     { id: "forensic", label: "Forensic Analysis", icon: <ScienceIcon fontSize="small" /> },
     { id: "pocs", label: "PoCs", icon: <PsychologyIcon fontSize="small" /> },
     { id: "workshops", label: "Workshops", icon: <SchoolIcon fontSize="small" /> },
   ]
 
-  // Assign project types for demo
   const projectsWithTypes = projects.map((project, index) => {
-    const types = ["estimation", "forensic", "pocs", "workshops"]
+    const types = ["estimation", "forensic", "pocs", "workshops", "saas"]
     const typeIndex = index % types.length
     return {
       ...project,
@@ -49,13 +48,11 @@ const CarruselProjects = ({ projects }) => {
     }
   })
 
-  // Filter projects
   const filteredProjects = projectsWithTypes.filter((project) => {
     if (activeFilter === "all") return true
     return project.type === activeFilter
   })
 
-  // Calculate visible cards based on window width
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1200) {
@@ -74,7 +71,6 @@ const CarruselProjects = ({ projects }) => {
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
-  // Reset index when filter changes
   useEffect(() => {
     setCurrentIndex(0)
     if (trackRef.current) {
@@ -82,7 +78,6 @@ const CarruselProjects = ({ projects }) => {
     }
   }, [activeFilter])
 
-  // Autoplay functionality
   useEffect(() => {
     if (!autoplay || isHovering || filteredProjects.length <= visibleCards) {
       clearInterval(autoplayTimerRef.current)
@@ -93,18 +88,16 @@ const CarruselProjects = ({ projects }) => {
       if (currentIndex < filteredProjects.length - visibleCards) {
         handleNext()
       } else {
-        // Reset to beginning when reaching the end
         setCurrentIndex(0)
         if (trackRef.current) {
           trackRef.current.style.transform = `translateX(0px)`
         }
       }
-    }, 5000) // Change slide every 5 seconds
+    }, 5000)
 
     return () => clearInterval(autoplayTimerRef.current)
   }, [autoplay, currentIndex, isHovering, filteredProjects.length, visibleCards])
 
-  // Handle mouse hover
   const handleMouseEnter = () => {
     setIsHovering(true)
   }
@@ -113,10 +106,9 @@ const CarruselProjects = ({ projects }) => {
     setIsHovering(false)
   }
 
-  // Handle touch events for mobile
   const handleTouchStart = (e) => {
     setTouchStartX(e.touches[0].clientX)
-    setIsHovering(true) // Pause autoplay on touch
+    setIsHovering(true)
   }
 
   const handleTouchEnd = (e) => {
@@ -124,32 +116,27 @@ const CarruselProjects = ({ projects }) => {
     const diff = touchStartX - touchEndX
 
     if (diff > 50) {
-      // Swipe left
       handleNext()
     } else if (diff < -50) {
-      // Swipe right
       handlePrev()
     }
 
-    setIsHovering(false) // Resume autoplay after touch
+    setIsHovering(false)
   }
 
-  // Toggle autoplay
   const toggleAutoplay = () => {
     setAutoplay(!autoplay)
   }
 
-  // Handle filter change
   const handleFilterChange = (filterId) => {
     setActiveFilter(filterId)
   }
 
-  // Handle navigation
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1)
       if (trackRef.current) {
-        const cardWidth = trackRef.current.children[0].offsetWidth + 24 // card width + margin
+        const cardWidth = trackRef.current.children[0].offsetWidth + 24
         trackRef.current.style.transform = `translateX(-${(currentIndex - 1) * cardWidth}px)`
       }
     }
@@ -159,28 +146,25 @@ const CarruselProjects = ({ projects }) => {
     if (currentIndex < filteredProjects.length - visibleCards) {
       setCurrentIndex(currentIndex + 1)
       if (trackRef.current) {
-        const cardWidth = trackRef.current.children[0].offsetWidth + 24 // card width + margin
+        const cardWidth = trackRef.current.children[0].offsetWidth + 24 
         trackRef.current.style.transform = `translateX(-${(currentIndex + 1) * cardWidth}px)`
       }
     }
   }
 
-  // Handle pagination dot click
   const handleDotClick = (index) => {
     setCurrentIndex(index)
     if (trackRef.current) {
-      const cardWidth = trackRef.current.children[0].offsetWidth + 24 // card width + margin
+      const cardWidth = trackRef.current.children[0].offsetWidth + 24 
       trackRef.current.style.transform = `translateX(-${index * cardWidth}px)`
     }
   }
 
-  // Format date
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "short", day: "numeric" }
     return new Date(dateString).toLocaleDateString("en-US", options)
   }
 
-  // Calculate days passed
   const calculateDaysPassed = (dateString) => {
     const creationDate = new Date(dateString)
     const today = new Date()
@@ -189,7 +173,6 @@ const CarruselProjects = ({ projects }) => {
     return diffDays
   }
 
-  // Render status chip
   const renderStatusChip = (status) => {
     let color, bgColor
 
@@ -226,13 +209,11 @@ const CarruselProjects = ({ projects }) => {
     )
   }
 
-  // Get project type label
   const getProjectTypeLabel = (type) => {
     const category = filterCategories.find((cat) => cat.id === type)
     return category ? category.label : "Project"
   }
 
-  // Calculate pagination dots
   const paginationDots = Math.ceil((filteredProjects.length - visibleCards + 1) / 1)
 
   return (

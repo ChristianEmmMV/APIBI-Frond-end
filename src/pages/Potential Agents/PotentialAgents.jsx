@@ -40,7 +40,6 @@ import FolderCopyRoundedIcon from '@mui/icons-material/FolderCopyRounded';
 import styles from "./potentialagents.module.css"
 
 const PotentialAgents = () => {
-  // Sample data for potential agents
   const agentsData = [
     {
       id: 1,
@@ -179,7 +178,6 @@ const PotentialAgents = () => {
     },
   ]
 
-  // State variables
   const [searchQuery, setSearchQuery] = useState("")
   const [activeFilter, setActiveFilter] = useState("all")
   const [isTableLoading, setIsTableLoading] = useState(false)
@@ -191,14 +189,12 @@ const PotentialAgents = () => {
   const [itemsPerPage, setItemsPerPage] = useState(5)
   const [agents, setAgents] = useState([...agentsData])
 
-  // Filter buttons
   const filterButtons = [
     { id: "all", label: "All Agents" },
     { id: "ai-yes", label: "AI Enabled" },
     { id: "ai-no", label: "Non-AI" },
   ]
 
-  // Simulate loading
   const simulateTableLoading = () => {
     setIsTableLoading(true)
     setTableLoadingProgress(0)
@@ -221,7 +217,6 @@ const PotentialAgents = () => {
     }, 200)
   }
 
-  // Handle sorting
   const handleSort = (column) => {
     const isAsc = orderBy === column && orderDirection === "asc"
     setOrderDirection(isAsc ? "desc" : "asc")
@@ -229,7 +224,6 @@ const PotentialAgents = () => {
     simulateTableLoading()
   }
 
-  // Sort agents
   const sortAgents = (data) => {
     return [...data].sort((a, b) => {
       let valueA, valueB
@@ -276,9 +270,7 @@ const PotentialAgents = () => {
     })
   }
 
-  // Filter agents
   const filteredAgents = agents.filter((agent) => {
-    // Filter by AI status
     if (activeFilter === "ai-yes" && !agent.ai) {
       return false
     }
@@ -286,7 +278,6 @@ const PotentialAgents = () => {
       return false
     }
 
-    // Filter by search query
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase()
       return (
@@ -305,13 +296,11 @@ const PotentialAgents = () => {
   const totalPages = Math.ceil(sortedAgents.length / itemsPerPage)
   const currentAgents = sortedAgents.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
-  // Format date
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "short", day: "numeric" }
     return new Date(dateString).toLocaleDateString("en-US", options)
   }
 
-  // Pagination handlers
   const handlePageChange = (page) => {
     setCurrentPage(page)
     simulateTableLoading()
@@ -331,7 +320,6 @@ const PotentialAgents = () => {
     }
   }
 
-  // Search handlers
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value)
   }
@@ -341,26 +329,22 @@ const PotentialAgents = () => {
     simulateTableLoading()
   }
 
-  // Filter handlers
   const handleFilterChange = (filterId) => {
     setActiveFilter(filterId)
     simulateTableLoading()
   }
 
-  // Handle items per page change
   const handleItemsPerPageChange = (e) => {
     const newItemsPerPage = Number.parseInt(e.target.value, 10)
     setItemsPerPage(newItemsPerPage)
-    setCurrentPage(1) // Reset to first page when changing items per page
+    setCurrentPage(1)
     simulateTableLoading()
   }
 
-  // Initialize loading on component mount
   useEffect(() => {
     simulateTableLoading()
   }, [])
 
-  // Render sort icon
   const renderSortIcon = (column) => {
     if (orderBy !== column) {
       return <UnfoldMoreIcon fontSize="small" className={styles.sortIconInactive} />
@@ -372,7 +356,6 @@ const PotentialAgents = () => {
     )
   }
 
-  // Skeleton rows for loading state
   const SkeletonRows = () => {
     return Array(itemsPerPage)
       .fill(0)

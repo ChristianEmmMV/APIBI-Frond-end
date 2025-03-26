@@ -40,7 +40,6 @@
   gap: 0.5rem;
 }
 
-/* Mejorado: Botones de navegación */
 .carouselButton {
   width: 36px;
   height: 36px;
@@ -106,16 +105,15 @@
   gap: 1rem;
   margin-bottom: 1.5rem;
   overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   padding-bottom: 0.5rem;
 }
 
 .carouselFilterContainer::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
-/* Mejorado: Botones de filtro */
 .carouselFilter {
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -281,7 +279,6 @@
   align-items: center;
 }
 
-/* Mejorado: Botón de detalles */
 .carouselCardButton {
   background: none;
   border: none;
@@ -344,7 +341,6 @@
   margin-top: 1.5rem;
 }
 
-/* Mejorado: Puntos de paginación */
 .carouselPaginationDot {
   width: 8px;
   height: 8px;
@@ -428,7 +424,6 @@
   margin-bottom: 1rem;
 }
 
-/* Mejorado: Botón de reproducción/pausa */
 .playPauseButton {
   width: 36px;
   height: 36px;

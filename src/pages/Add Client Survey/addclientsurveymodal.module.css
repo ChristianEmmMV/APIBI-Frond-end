@@ -45,7 +45,6 @@
   color: #1e2f65;
 }
 
-/* Modificar el contenedor del formulario para maximizar el espacio */
 .formCard {
   padding: 2rem;
   border-radius: 12px;
@@ -62,7 +61,6 @@
   flex-direction: column;
 }
 
-/* Aumentar el espacio entre el título y el timeline */
 .formTitle {
   font-weight: 600;
   margin-bottom: 2.5rem;
@@ -84,7 +82,6 @@
   border-radius: 3px;
 }
 
-/* Mejorar la alineación del timeline */
 .timelineContainer {
   margin-top: 10px;
   margin-bottom: 4rem;
@@ -95,7 +92,6 @@
   scroll-behavior: smooth;
 }
 
-/* Mejorar los estilos de la scrollbar */
 .timelineContainer::-webkit-scrollbar {
   height: 10px;
 }
@@ -118,7 +114,6 @@
   margin: 0 60px;
 }
 
-/* Aumentar el espacio entre los pasos del timeline */
 .timeline {
   display: flex;
   justify-content: space-between;
@@ -203,7 +198,6 @@
   font-weight: 600;
 }
 
-/* Asegurar que el contenido del formulario tenga altura fija y consistente */
 .formContent {
   flex: 1;
   display: flex;
@@ -213,7 +207,6 @@
   min-height: 400px;
 }
 
-/* Mejorar la alineación de los pasos del formulario */
 .formStep {
   display: none;
   animation: fadeIn 0.5s ease;
@@ -230,7 +223,6 @@
   justify-content: center;
 }
 
-/* Mejorar la alineación de los grupos de formulario */
 .formGroup {
   margin-bottom: 2rem;
   width: 100%;
@@ -239,7 +231,6 @@
   margin-right: auto;
 }
 
-/* Mejorar la alineación de las etiquetas */
 .formLabel {
   display: block;
   margin-bottom: 1rem;
@@ -249,7 +240,6 @@
   text-align: left;
 }
 
-/* Mejorar la alineación de los campos de entrada */
 .formInput,
 .formTextarea,
 .formSelect {
@@ -280,7 +270,6 @@
   padding: 0 20px;
 }
 
-/* Mejorar la alineación de los botones de acción */
 .formActions {
   display: flex;
   justify-content:space-evenly;
@@ -289,7 +278,6 @@
   border-top: 1px solid #f0f0f0;
 }
 
-/* Ajustar los botones para mejor alineación */
 .buttonPrimary,
 .buttonSecondary {
   min-width: 180px;
@@ -378,7 +366,6 @@
   transform: translateY(-1px) !important;
 }
 
-/* Mejorar la alineación del selector de idioma */
 .languageSelector {
   display: flex;
   justify-content: center;
@@ -423,7 +410,6 @@
   color: #1e2f65;
 }
 
-/* Centrar el mensaje de bienvenida */
 .welcomeMessage {
   text-align: center;
   margin: 3rem auto;
@@ -509,7 +495,6 @@
   color: #1e2f65;
 }
 
-/* Mejorar el resumen final */
 .summaryContainer {
   border: 1px solid #e0e0e0;
   border-radius: 12px;
@@ -526,7 +511,6 @@
   scroll-behavior: smooth;
 }
 
-/* Mejorar los estilos de la scrollbar del resumen */
 .summaryContainer::-webkit-scrollbar {
   width: 12px;
 }
@@ -586,7 +570,6 @@
   line-height: 1.7;
 }
 
-/* Crear un contenedor específico para los botones del resumen */
 .summaryActions {
   display: flex;
   justify-content: space-between;
@@ -617,7 +600,6 @@
   }
 }
 
-/* Añadir animación de scroll */
 @keyframes scrollIndicator {
   0% {
     opacity: 0;
@@ -630,7 +612,6 @@
   }
 }
 
-/* Media queries para responsividad */
 @media (max-width: 1200px) {
   .formCard {
     padding: 1.5rem;
@@ -783,7 +764,6 @@
   }
 }
 
-/* Estilos para pantallas muy pequeñas */
 @media (max-width: 360px) {
   .formCard {
     padding: 0.75rem;

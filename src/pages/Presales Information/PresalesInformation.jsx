@@ -208,7 +208,6 @@ const PresalesInformation = () => {
     },
   ]
 
-  // State variables
   const [searchQuery, setSearchQuery] = useState("")
   const [activeFilter, setActiveFilter] = useState("all")
   const [isTableLoading, setIsTableLoading] = useState(false)
@@ -220,7 +219,6 @@ const PresalesInformation = () => {
   const [presalesInfo, setPresalesInfo] = useState([...presalesData])
   const [itemsPerPage, setItemsPerPage] = useState(5) // Cambiado a estado
 
-  // Filter buttons
   const filterButtons = [
     { id: "all", label: "All Presales" },
     { id: "high", label: "High Priority" },
@@ -228,7 +226,6 @@ const PresalesInformation = () => {
     { id: "low", label: "Low Priority" },
   ]
 
-  // Status options for filtering
   const statusOptions = [
     "Won",
     "Lost",
@@ -238,13 +235,11 @@ const PresalesInformation = () => {
     "Commercial Approval Pending",
   ]
 
-  // Format date
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "short", day: "numeric" }
     return new Date(dateString).toLocaleDateString("en-US", options)
   }
 
-  // Simulate loading
   const simulateTableLoading = () => {
     setIsTableLoading(true)
     setTableLoadingProgress(0)
@@ -267,7 +262,6 @@ const PresalesInformation = () => {
     }, 200)
   }
 
-  // Handle sorting
   const handleSort = (column) => {
     const isAsc = orderBy === column && orderDirection === "asc"
     setOrderDirection(isAsc ? "desc" : "asc")
@@ -275,7 +269,6 @@ const PresalesInformation = () => {
     simulateTableLoading()
   }
 
-  // Sort presales data
   const sortPresalesData = (data) => {
     return [...data].sort((a, b) => {
       let valueA, valueB
@@ -334,7 +327,6 @@ const PresalesInformation = () => {
     })
   }
 
-  // Helper function to get priority value for sorting
   const getPriorityValue = (priority) => {
     switch (priority.toLowerCase()) {
       case "high":
@@ -348,14 +340,11 @@ const PresalesInformation = () => {
     }
   }
 
-  // Filter presales data
   const filteredPresalesData = presalesInfo.filter((presale) => {
-    // Filter by priority if not "all"
     if (activeFilter !== "all" && presale.priority.toLowerCase() !== activeFilter) {
       return false
     }
 
-    // Filter by search query
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase()
       return (
@@ -375,7 +364,6 @@ const PresalesInformation = () => {
   const totalPages = Math.ceil(sortedPresalesData.length / itemsPerPage)
   const currentPresalesData = sortedPresalesData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
-  // Pagination handlers
   const handlePageChange = (page) => {
     setCurrentPage(page)
     simulateTableLoading()
@@ -395,7 +383,6 @@ const PresalesInformation = () => {
     }
   }
 
-  // Search handlers
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value)
   }
@@ -405,18 +392,15 @@ const PresalesInformation = () => {
     simulateTableLoading()
   }
 
-  // Filter handlers
   const handleFilterChange = (filterId) => {
     setActiveFilter(filterId)
     simulateTableLoading()
   }
 
-  // Initialize loading on component mount
   useEffect(() => {
     simulateTableLoading()
   }, [])
 
-  // Skeleton rows for loading state
   const SkeletonRows = () => {
     return Array(5)
       .fill(0)
@@ -456,7 +440,6 @@ const PresalesInformation = () => {
       ))
   }
 
-  // Render sort icon
   const renderSortIcon = (column) => {
     if (orderBy !== column) {
       return <UnfoldMoreIcon fontSize="small" className={styles.sortIconInactive} />
@@ -468,7 +451,6 @@ const PresalesInformation = () => {
     )
   }
 
-  // Render priority chip
   const renderPriorityChip = (priority) => {
     let color, bgColor, icon
 
@@ -515,7 +497,6 @@ const PresalesInformation = () => {
     )
   }
 
-  // Render status chip
   const renderStatusChip = (status) => {
     let color, bgColor
 
@@ -569,7 +550,6 @@ const PresalesInformation = () => {
     )
   }
 
-  // Render services badges
   const renderServicesBadges = (services) => {
     if (services.length === 1) {
       return <span className={styles.serviceTag}>{services[0]}</span>
@@ -609,11 +589,7 @@ const PresalesInformation = () => {
     )
   }
 
-  // (Duplicate declaration removed)
-
-  // Function to export data to Excel
   const exportToExcel = () => {
-    // Use SweetAlert2 to show loading state
     const loadingSwal = Swal.fire({
       title: "Preparing Export",
       html: "Creating your Excel file with enhanced formatting...",
@@ -628,7 +604,6 @@ const PresalesInformation = () => {
 
     setTimeout(() => {
       try {
-        // Create a copy of the data to modify for export
         const exportData = sortedPresalesData.map((presale) => ({
           Priority: presale.priority,
           Client: presale.client,
@@ -641,27 +616,23 @@ const PresalesInformation = () => {
           Region: presale.region,
         }))
 
-        // Create a worksheet from the data
         const worksheet = XLSX.utils.json_to_sheet(exportData)
 
-        // Set column widths
         const columnWidths = [
-          { wch: 10 }, // Priority
-          { wch: 20 }, // Client
-          { wch: 40 }, // Presales Name
-          { wch: 25 }, // Services
-          { wch: 15 }, // Start Date
-          { wch: 15 }, // Days Under Estimation
-          { wch: 25 }, // Status
-          { wch: 20 }, // Associated AM
-          { wch: 20 }, // Region
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 40 }, 
+          { wch: 25 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 25 },
+          { wch: 20 },
+          { wch: 20 },
         ]
         worksheet["!cols"] = columnWidths
 
-        // Get the range of the worksheet
         const range = XLSX.utils.decode_range(worksheet["!ref"])
 
-        // Create a style for headers
         const headerStyle = {
           fill: { fgColor: { rgb: "6362E7" } },
           font: { color: { rgb: "FFFFFF" }, bold: true, sz: 12 },
@@ -674,25 +645,19 @@ const PresalesInformation = () => {
           },
         }
 
-        // Apply styles to header row
         for (let C = range.s.c; C <= range.e.c; ++C) {
           const cell = worksheet[XLSX.utils.encode_cell({ r: 0, c: C })]
           if (!cell) continue
-
-          // Apply header style
           cell.s = headerStyle
         }
 
-        // Apply styles to data cells with alternating row colors
         for (let R = 1; R <= range.e.r; ++R) {
-          // Determine row background color (alternating rows)
           const rowBgColor = R % 2 === 0 ? "F9FAFC" : "FFFFFF"
 
           for (let C = range.s.c; C <= range.e.c; ++C) {
             const cell = worksheet[XLSX.utils.encode_cell({ r: R, c: C })]
             if (!cell) continue
 
-            // Basic cell style with alternating row colors
             cell.s = {
               font: { sz: 11 },
               alignment: { vertical: "center" },
@@ -705,9 +670,7 @@ const PresalesInformation = () => {
               },
             }
 
-            // Apply specific styles based on column content
             if (C === 0) {
-              // Priority column with colored backgrounds
               const priority = cell.v.toLowerCase()
               if (priority === "high") {
                 cell.s.font = { color: { rgb: "FFFFFF" }, bold: true, sz: 11 }
@@ -724,9 +687,7 @@ const PresalesInformation = () => {
               }
             }
 
-            // Status column styling with colored backgrounds
             if (C === 6) {
-              // Status column
               const status = cell.v
               if (status === "Won") {
                 cell.s.font = { color: { rgb: "FFFFFF" }, bold: true, sz: 11 }
@@ -755,9 +716,7 @@ const PresalesInformation = () => {
               }
             }
 
-            // Days under estimation - highlight with colored backgrounds
             if (C === 5) {
-              // Days Under Estimation column
               const days = Number.parseInt(cell.v)
               if (days > 200) {
                 cell.s.font = { color: { rgb: "FFFFFF" }, bold: true, sz: 11 }
@@ -772,9 +731,7 @@ const PresalesInformation = () => {
               }
             }
 
-            // Region column styling
             if (C === 8) {
-              // Region column
               const region = cell.v
               if (region === "USA") {
                 cell.s.font = { color: { rgb: "FFFFFF" }, sz: 11 }
@@ -791,51 +748,43 @@ const PresalesInformation = () => {
               }
             }
 
-            // Client column styling - make it bold
             if (C === 1) {
               cell.s.font = { bold: true, sz: 11 }
             }
           }
         }
 
-        // Add title row at the top with styling
         XLSX.utils.sheet_add_aoa(
           worksheet,
           [
             ["Presales Information Report"],
             ["Generated on: " + new Date().toLocaleString()],
-            [""], // Empty row as separator
+            [""],
           ],
           { origin: -1 },
         )
 
-        // Style the title row
         const titleCell = worksheet[XLSX.utils.encode_cell({ r: 0, c: 0 })]
         if (titleCell) {
           titleCell.s = {
             font: { bold: true, sz: 16, color: { rgb: "6362E7" } },
             alignment: { horizontal: "center" },
           }
-          // Merge cells for the title
           if (!worksheet["!merges"]) worksheet["!merges"] = []
           worksheet["!merges"].push({ s: { r: 0, c: 0 }, e: { r: 0, c: 8 } })
         }
 
-        // Style the date row
         const dateCell = worksheet[XLSX.utils.encode_cell({ r: 1, c: 0 })]
         if (dateCell) {
           dateCell.s = {
             font: { italic: true, sz: 11, color: { rgb: "666666" } },
             alignment: { horizontal: "center" },
           }
-          // Merge cells for the date
           worksheet["!merges"].push({ s: { r: 1, c: 0 }, e: { r: 1, c: 8 } })
         }
 
-        // Create a workbook
         const workbook = XLSX.utils.book_new()
 
-        // Add metadata
         workbook.Props = {
           Title: "Presales Information Report",
           Subject: "Presales Data",
@@ -843,10 +792,8 @@ const PresalesInformation = () => {
           CreatedDate: new Date(),
         }
 
-        // Add the worksheet to the workbook
         XLSX.utils.book_append_sheet(workbook, worksheet, "Presales Information")
 
-        // Add a summary sheet with enhanced styling
         const summaryData = [
           ["Presales Summary"],
           [""],
@@ -877,23 +824,18 @@ const PresalesInformation = () => {
 
         const summarySheet = XLSX.utils.aoa_to_sheet(summaryData)
 
-        // Style the summary sheet
-        // Get the range of the summary sheet
         const summaryRange = XLSX.utils.decode_range(summarySheet["!ref"])
 
-        // Apply styles to summary sheet cells
         for (let R = 0; R <= summaryRange.e.r; ++R) {
           for (let C = 0; C <= summaryRange.e.c; ++C) {
             const cell = summarySheet[XLSX.utils.encode_cell({ r: R, c: C })]
             if (!cell) continue
 
-            // Default style
             cell.s = {
               font: { sz: 11 },
               alignment: { vertical: "center" },
             }
 
-            // Style headers
             if (R === 0 || R === 7 || R === 15) {
               cell.s = {
                 font: { bold: true, sz: 14, color: { rgb: "6362E7" } },
@@ -904,20 +846,16 @@ const PresalesInformation = () => {
                 },
               }
 
-              // Merge header cells
               if (!summarySheet["!merges"]) summarySheet["!merges"] = []
               if (C === 0) {
                 summarySheet["!merges"].push({ s: { r: R, c: 0 }, e: { r: R, c: 1 } })
               }
             }
 
-            // Style category rows
             if ((R >= 2 && R <= 5) || (R >= 8 && R <= 13) || (R >= 16 && R <= 18)) {
-              // First column (category name)
               if (C === 0) {
                 cell.s.font = { sz: 11 }
 
-                // Color-code specific categories
                 if (cell.v === "High Priority") {
                   cell.s.font = { color: { rgb: "F44336" }, bold: true, sz: 11 }
                 } else if (cell.v === "Medium Priority") {
@@ -933,7 +871,6 @@ const PresalesInformation = () => {
                 }
               }
 
-              // Second column (values)
               if (C === 1) {
                 cell.s.alignment = { horizontal: "center" }
                 cell.s.font = { bold: true, sz: 12 }
@@ -942,18 +879,15 @@ const PresalesInformation = () => {
           }
         }
 
-        // Set column widths for summary sheet
         summarySheet["!cols"] = [
-          { wch: 30 }, // Category
-          { wch: 15 }, // Value
+          { wch: 30 },
+          { wch: 15 },
         ]
 
         XLSX.utils.book_append_sheet(workbook, summarySheet, "Summary")
 
-        // Generate Excel file and trigger download
         XLSX.writeFile(workbook, "Presales_Information.xlsx")
 
-        // Close the loading SweetAlert and show success message
         loadingSwal.close()
 
         Swal.fire({
@@ -972,7 +906,6 @@ const PresalesInformation = () => {
       } catch (error) {
         console.error("Error exporting to Excel:", error)
 
-        // Close the loading SweetAlert and show error message
         loadingSwal.close()
 
         Swal.fire({
@@ -985,11 +918,10 @@ const PresalesInformation = () => {
     }, 1000)
   }
 
-  // Agregar manejador para cambiar items por página
   const handleItemsPerPageChange = (e) => {
     const newItemsPerPage = Number.parseInt(e.target.value, 10)
     setItemsPerPage(newItemsPerPage)
-    setCurrentPage(1) // Resetear a la primera página cuando cambia el número de items
+    setCurrentPage(1)
     simulateTableLoading()
   }
 

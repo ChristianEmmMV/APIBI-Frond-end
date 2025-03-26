@@ -349,6 +349,42 @@
   border-top: 1px solid #f0f0f0;
 }
 
+.paginationWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tableLengthContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tableLengthLabel {
+  font-size: 0.813rem;
+  color: #666;
+}
+
+.tableLengthSelect {
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  background-color: #fff;
+  padding: 0 0.5rem;
+  font-size: 0.813rem;
+  color: #333;
+  min-width: 60px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tableLengthSelect:focus {
+  outline: none;
+  border-color: #6362e7;
+  box-shadow: 0 0 0 2px rgba(99, 98, 231, 0.1);
+}
+
 .paginationInfo {
   font-size: 0.813rem;
   color: #666;
@@ -525,6 +561,11 @@
     gap: 1rem;
   }
 
+  .paginationWrapper {
+    width: 100%;
+    align-items: center;
+  }
+
   .paginationInfo {
     text-align: center;
   }
@@ -545,7 +586,6 @@
   }
 }
 
-/* Botón para crear un nuevo proyecto - Mejorado */
 .createButton {
   background-color: #6362e7 !important;
   color: white !important;
@@ -800,7 +840,6 @@
   outline: none;
 }
 
-/* Botón para mostrar/ocultar carrusel - Mejorado */
 .toggleButton {
   background-color: #f8f9fa !important;
   color: #6362e7 !important;

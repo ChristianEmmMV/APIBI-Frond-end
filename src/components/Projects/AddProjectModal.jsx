@@ -25,7 +25,6 @@ const AddProjectModal = ({ open, onClose, onSave }) => {
     { id: "workshops", label: "Workshops", icon: <SchoolIcon className={styles.formTabIcon} /> },
   ]
 
-  // Sample clients for dropdown
   const clients = [
     "Acme Corporation",
     "TechNova Solutions",
@@ -36,7 +35,6 @@ const AddProjectModal = ({ open, onClose, onSave }) => {
     "Phoenix Dynamics",
   ]
 
-  // State
   const [activeTab, setActiveTab] = useState("estimation")
   const [formData, setFormData] = useState({
     salesforceId: "",
@@ -49,7 +47,6 @@ const AddProjectModal = ({ open, onClose, onSave }) => {
     requirementsDescription: "",
   })
 
-  // Handlers
   const handleTabChange = (tabId) => {
     setActiveTab(tabId)
   }
@@ -86,7 +83,6 @@ const AddProjectModal = ({ open, onClose, onSave }) => {
     setActiveTab("estimation")
   }
 
-  // Check if form is valid
   const isFormValid = () => {
     return formData.projectName.trim() !== "" && formData.client !== ""
   }
