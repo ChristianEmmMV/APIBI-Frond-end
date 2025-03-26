@@ -1,0 +1,122 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  color: #1e2f65;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  font-size: 1.1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.sectionTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #6362e7;
+  border-radius: 3px;
+}
+
+  .headerLeft {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #757575;
+  }
+
+  .breadcrumb a {
+    color: #1e2f65;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumb a:hover {
+    color: #6362e7;
+    text-decoration: underline;
+  }
+
+  .breadcrumb .MuiTypography-root {
+    color: #1e2f65;
+  }
+
+  .container {
+    padding: 20px;
+  }
+  
+  .sectionCard {
+    width: 500px; /* Ancho fijo para el formulario (ajusta según tus necesidades) */
+    padding: 30px;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    background-color: white; /* Fondo blanco */
+  }
+    
+  .sectionCardContainer {
+    display: flex; /* Usamos flexbox para centrar sectionCard */
+    justify-content: center; /* Centrar horizontalmente */
+  }
+  
+  .sectionCard {
+    width: 500px; /* Ancho fijo para el formulario */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    margin-top: 20px; /* Espacio superior */
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form > * {
+    margin-bottom: 10px;
+  }
+  
+  .form button[type="submit"] {
+    background-color: #9d00ff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .form select {
+    margin-bottom: 5px; 
+  }
+  
+  .form button[type="submit"]:hover {
+    background-color: #b545ff;
+  }
+  
+  .dataIntegrity {
+    margin-top: 20px;
+    text-align: left; /* Alineado a la izquierda */
+    font-style: italic;
+    color: #555;
+  }
+  
+  /* Estilos adicionales para los inputs */
+  .form input,
+  .form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-left: 4px solid #6362e7; 
+  }
