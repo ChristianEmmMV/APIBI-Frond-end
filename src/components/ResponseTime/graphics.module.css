@@ -24,7 +24,7 @@
   left: 0;
   width: 40px;
   height: 3px;
-  background-color: #bc50dc;
+  background-color: #2945e1;
   border-radius: 3px;
 }
 
@@ -148,7 +148,7 @@
 }
 
 .floatingValue {
-  color: #bb58ff;
+  color: #2945e1;
   font-weight: bold;
   font-size: 1.5rem;
 }
@@ -156,10 +156,6 @@
 .infoButton {
   margin-left: 0.5rem;
   color: #757575;
-}
-
-.infoButton:hover {
-  color: #bc50dc;
 }
 
 .loadingOverlay {
