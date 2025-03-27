@@ -42,6 +42,7 @@ import {
 import * as XLSX from "xlsx"
 import Swal from "sweetalert2"
 import styles from "./presalesInformation.module.css"
+import { Link as RouterLink } from "react-router-dom";
 
 const PresalesInformation = () => {
   // Sample data for presales information
@@ -1031,7 +1032,11 @@ const PresalesInformation = () => {
                   <div className={styles.tableHeaderContent}>
                     Presales Name
                     <Tooltip title="Sort by presales name">
-                      <IconButton size="small" onClick={() => handleSort("presalesName")} className={styles.sortButton}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleSort("presalesName")}
+                        className={styles.sortButton}
+                      >
                         {renderSortIcon("presalesName")}
                       </IconButton>
                     </Tooltip>
@@ -1123,19 +1128,32 @@ const PresalesInformation = () => {
                     </TableCell>
                     <TableCell className={styles.tableCell}>
                       <Tooltip title={presale.presalesName} arrow>
-                        <Typography
-                          variant="body2"
-                          fontWeight="500"
-                          sx={{
-                            fontSize: "0.75rem",
-                            maxWidth: "250px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
+                        <RouterLink
+                          to={`/project-tracking?id=${presale.id}`}
+                          style={{
+                            textDecoration: "none",
+                            color: "inherit",
                           }}
                         >
-                          {presale.presalesName}
-                        </Typography>
+                          <Typography
+                            variant="body2"
+                            fontWeight="500"
+                            sx={{
+                              fontSize: "0.75rem",
+                              maxWidth: "250px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              cursor: "pointer",
+                              "&:hover": {
+                                color: "#6362e7",
+                                textDecoration: "underline",
+                              },
+                            }}
+                          >
+                            {presale.presalesName}
+                          </Typography>
+                        </RouterLink>
                       </Tooltip>
                     </TableCell>
                     <TableCell className={styles.tableCell}>{renderServicesBadges(presale.services)}</TableCell>
