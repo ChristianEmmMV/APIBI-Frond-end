@@ -157,7 +157,6 @@ const Sidebar = ({ isOpen }) => {
                     animationDelay: `${index * 50}ms`,
                     opacity: 0,
                     animation: "fadeIn 0.3s forwards",
-                    animationDelay: `${index * 50}ms`,
                   }}
                 >
                   <span className={styles.menuIcon}>{item.icon}</span>

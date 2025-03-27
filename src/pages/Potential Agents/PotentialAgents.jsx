@@ -415,9 +415,6 @@ const PotentialAgents = () => {
           </Breadcrumbs>
         </div>
         <div>
-          <Button variant="contained" color="primary" startIcon={<AddIcon />} className={styles.addButton}>
-            New Potential Agent
-          </Button>
         </div>
       </Box>
 

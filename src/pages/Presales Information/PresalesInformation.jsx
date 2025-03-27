@@ -952,9 +952,6 @@ const PresalesInformation = () => {
           >
             Export Information
           </Button>
-          <Button variant="contained" color="primary" startIcon={<AddIcon />} className={styles.addButton}>
-            New Presales
-          </Button>
         </div>
       </Box>
 

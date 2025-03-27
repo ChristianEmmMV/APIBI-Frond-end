@@ -622,15 +622,6 @@ const Dashboard = () => {
             <Typography color="text.primary">Dashboard</Typography>
           </Breadcrumbs>
         </div>
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<FileDownload />}
-          onClick={handleExportClick}
-          className={styles.exportButton}
-        >
-          Export
-        </Button>
         <Menu
           anchorEl={exportAnchorEl}
           open={openExportMenu}
