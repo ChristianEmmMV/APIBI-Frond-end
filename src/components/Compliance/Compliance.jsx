@@ -1032,7 +1032,6 @@ const FlowDiagram = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [loadingProgress, setLoadingProgress] = useState(0)
   const [darkMode, setDarkMode] = useState(false)
-  const [showKpis, setShowKpis] = useState(true)
 
   useEffect(() => {
     if (isLoading) {
@@ -1056,28 +1055,28 @@ const FlowDiagram = () => {
 
   const kpiData = [
     {
-      title: "Promedio Global",
+      title: "Global Average",
       value: 83.4,
       trend: 1.2,
       icon: <InsertChartOutlined style={{ color: "var(--primary-color)" }} />,
       color: "var(--primary-color)",
     },
     {
-      title: "Incidentes Totales",
+      title: "Total Incidents",
       value: 42,
       trend: -5,
       icon: <ErrorOutline style={{ color: "var(--low-compliance)" }} />,
       color: "var(--low-compliance)",
     },
     {
-      title: "Tasa de Resolución",
+      title: "Resolution Rate",
       value: 78,
       trend: 3.5,
       icon: <CheckCircleOutline style={{ color: "var(--high-compliance)" }} />,
       color: "var(--high-compliance)",
     },
     {
-      title: "Tiempo Respuesta",
+      title: "Response Time",
       value: 92,
       trend: 0,
       icon: <Autorenew style={{ color: "var(--good-compliance)" }} />,
@@ -1095,9 +1094,9 @@ const FlowDiagram = () => {
         <div className={styles.titleContainer}>
           <div>
             <Typography variant="h6" className={`${styles.modernTitle} ${darkMode ? styles.darkText : ""}`}>
-              Resumen de Cumplimiento SLA
+              SLA Compliance Summary
               <MuiTooltip
-                title="Este diagrama muestra el porcentaje de cumplimiento SLA por región y tipo de servicio"
+                title="This diagram shows the SLA compliance percentage by region and service type"
                 arrow
                 placement="top"
               >
@@ -1111,11 +1110,10 @@ const FlowDiagram = () => {
               variant="body2"
               className={`${styles.modernSubtitle} ${darkMode ? styles.darkTextSecondary : ""}`}
             >
-              Visualización por región y tipo de servicio
+              Visualization by region and service type
             </Typography>
           </div>
         </div>
-        <ComplianceLegend darkMode={darkMode} />
       </div>
 
       {isLoading ? (
@@ -1127,7 +1125,7 @@ const FlowDiagram = () => {
               style={{ width: `${loadingProgress}%` }}
             ></div>
           </div>
-          <div className={`${styles.loadingText} ${darkMode ? styles.darkTextSecondary : ""}`}>Cargando datos...</div>
+          <div className={`${styles.loadingText} ${darkMode ? styles.darkTextSecondary : ""}`}>Loading data...</div>
         </div>
       ) : (
         <div className={styles.chartContainer}>
