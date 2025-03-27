@@ -1076,6 +1076,7 @@ const Dashboard = () => {
 
       <SummaryCharts />
       <Graphics />
+      <Compliance/>
       <PipeLine />
       <Poc/>
     </Container>
