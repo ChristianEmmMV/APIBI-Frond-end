@@ -14,6 +14,7 @@ import AgentsInformation from './pages/Agents Information/AgentsInformation'
 import PotentialAgents from './pages/Potential Agents/PotentialAgents'
 import ProjectTracking from './pages/Project Tracking/ProjectTracking'
 import RegisterUser from './pages/RegisterUser/RegisterUser'
+import RegisterPanel from './pages/RegisterPanel/RegisterPanel'
 import './App.css'
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
           <Route path="/potential-agents" element={<PotentialAgents/>} />
           <Route path="/project-tracking" element={<ProjectTracking/>} />
           <Route path="/register-user" element={<RegisterUser/>} />
+          <Route path="/register-panel" element={<RegisterPanel/>} />
         </Routes>
       </main>
     </div>

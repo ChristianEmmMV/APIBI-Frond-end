@@ -22,6 +22,7 @@ import {
   Assessment as AssessmentIcon,
   CompareArrows as CompareArrowsIcon,
   AccountCircle as PersonIcon,
+  GridOn as PanelIcon,
 } from "@mui/icons-material"
 import styles from "./sidebar.module.css"
 import Logo from "../../../public/assets/logo.png"
@@ -83,6 +84,7 @@ const Sidebar = ({ isOpen }) => {
     },
     { icon: <CompareArrowsIcon />, text: "Comparisons", path: "/comparisons" },
     { icon: <PersonIcon />, text: "Register User", path: "/register-user" },
+    { icon: <PanelIcon />, text: "Registration panels", path: "/register-panel"},
   ]
 
   const menuItems = mode === "presales" ? presalesMenuItems : biMenuItems
