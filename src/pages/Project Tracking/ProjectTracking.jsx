@@ -1,6 +1,8 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
+import React from "react";
+
+import { useState, useEffect } from "react";
 import {
   Box,
   Container,
@@ -26,7 +28,12 @@ import {
   LinearProgress,
   InputBase,
   Tooltip,
-} from "@mui/material"
+  Popover,
+  List,
+  ListItem,
+  Alert,
+  Fab,
+} from "@mui/material";
 import {
   Home as HomeIcon,
   NavigateNext as NavigateNextIcon,
@@ -49,12 +56,16 @@ import {
   AccessTime as AccessTimeIcon,
   Timer as TimerIcon,
   FileCopy as FileCopyIcon,
-  Chat as ChatIcon,
   Close as CloseIcon,
   Business as BusinessIcon,
-} from "@mui/icons-material"
-import { styled } from "@mui/material/styles"
-import styles from "./projecttracking.module.css"
+  Comment as CommentIcon,
+  ArrowDropDown as ArrowDropDownIcon,
+  ArrowUpward as ArrowUpwardIcon,
+} from "@mui/icons-material";
+import { styled } from "@mui/material/styles";
+import styles from "./projecttracking.module.css";
+import { differenceInDays, differenceInCalendarDays } from "date-fns";
+import Swal from "sweetalert2";
 
 // Custom styled components
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
@@ -63,24 +74,28 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   },
   [`&.MuiStepConnector-active`]: {
     [`& .MuiStepConnector-line`]: {
-      backgroundImage: "linear-gradient(95deg, #6362e7 0%, #7170f0 50%, #8584f3 100%)",
+      backgroundImage:
+        "linear-gradient(95deg, #6362e7 0%, #7170f0 50%, #8584f3 100%)",
     },
   },
   [`&.MuiStepConnector-completed`]: {
     [`& .MuiStepConnector-line`]: {
-      backgroundImage: "linear-gradient(95deg, #6362e7 0%, #7170f0 50%, #8584f3 100%)",
+      backgroundImage:
+        "linear-gradient(95deg, #6362e7 0%, #7170f0 50%, #8584f3 100%)",
     },
   },
   [`& .MuiStepConnector-line`]: {
     height: 3,
     border: 0,
-    backgroundColor: theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
+    backgroundColor:
+      theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
     borderRadius: 1,
   },
-}))
+}));
 
 const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? theme.palette.grey[700] : "#ccc",
+  backgroundColor:
+    theme.palette.mode === "dark" ? theme.palette.grey[700] : "#ccc",
   zIndex: 1,
   color: "#fff",
   width: 50,
@@ -90,17 +105,18 @@ const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
   justifyContent: "center",
   alignItems: "center",
   ...(ownerState.active && {
-    backgroundImage: "linear-gradient(136deg, #6362e7 0%, #7170f0 50%, #8584f3 100%)",
+    backgroundImage:
+      "linear-gradient(136deg, #6362e7 0%, #7170f0 50%, #8584f3 100%)",
     boxShadow: "0 4px 10px 0 rgba(99, 98, 231, 0.25)",
   }),
   ...(ownerState.completed && {
-    backgroundImage: "linear-gradient(136deg, #6362e7 0%, #7170f0 50%, #8584f3 100%)",
+    backgroundImage:
+      "linear-gradient(136deg, #6362e7 0%, #7170f0 50%, #8584f3 100%)",
   }),
-}))
+}));
 
-// Custom Step Icon
 function ColorlibStepIcon(props) {
-  const { active, completed, className, icon } = props
+  const { active, completed, className, icon } = props;
 
   const icons = {
     1: <ExploreIcon />,
@@ -108,13 +124,16 @@ function ColorlibStepIcon(props) {
     3: <AssignmentIcon />,
     4: <HourglassEmptyIcon />,
     5: <DoneIcon />,
-  }
+  };
 
   return (
-    <ColorlibStepIconRoot ownerState={{ completed, active }} className={className}>
+    <ColorlibStepIconRoot
+      ownerState={{ completed, active }}
+      className={className}
+    >
       {icons[String(icon)]}
     </ColorlibStepIconRoot>
-  )
+  );
 }
 
 const projectData = {
@@ -122,18 +141,23 @@ const projectData = {
   name: "Enterprise CRM Implementation",
   client: "Acme Corporation",
   currentPhase: 2,
-  phases: ["Discovery", "Estimation", "Proposal", "Pending Decision", "Finalized"],
+  phases: [
+    "Discovery",
+    "Estimation",
+    "Proposal",
+    "Pending Decision",
+    "Finalized",
+  ],
   salesforceId: "SF-12345",
-  requirementsSessionDate: "2023-11-15",
-  estimationTimeRemaining: "45h 30m",
+  requirementsSessionDate: "2025-03-15",
+  estimationTimeRemaining: "6 Days",
   timerStatus: "unavailable",
   description:
     "Implementation of a custom CRM solution with integration to existing systems and mobile access capabilities.",
-  startDate: "2023-10-10",
-  expectedEndDate: "2024-02-28",
-}
+  startDate: "2025-03-31",
+  expectedEndDate: "2025-04-3",
+};
 
-// Sample activity history data
 const activityHistoryData = [
   {
     id: 1,
@@ -172,7 +196,8 @@ const activityHistoryData = [
     },
     action: "completed",
     phase: "Discovery",
-    comment: "Discovery phase completed. All requirements documented and approved by stakeholders.",
+    comment:
+      "Discovery phase completed. All requirements documented and approved by stakeholders.",
     timestamp: "2023-10-25T11:20:00",
     attachments: [
       { name: "Requirements_Document.docx", type: "doc" },
@@ -188,7 +213,8 @@ const activityHistoryData = [
     },
     action: "started",
     phase: "Estimation",
-    comment: "Beginning estimation phase. Initial analysis suggests approximately 120-150 hours of development work.",
+    comment:
+      "Beginning estimation phase. Initial analysis suggests approximately 120-150 hours of development work.",
     timestamp: "2023-10-26T09:15:00",
     attachments: [],
   },
@@ -201,61 +227,158 @@ const activityHistoryData = [
     },
     action: "updated",
     phase: "Estimation",
-    comment: "Updated time estimates based on additional requirements. New estimate: 160-180 hours.",
+    comment:
+      "Updated time estimates based on additional requirements. New estimate: 160-180 hours.",
     timestamp: "2023-11-02T15:30:00",
     attachments: [{ name: "Revised_Estimates.xlsx", type: "excel" }],
   },
-]
+];
+
+const commentTypes = [
+  {
+    id: "general",
+    name: "General Comment",
+    icon: <CommentIcon />,
+    color: "#6362e7",
+  },
+  {
+    id: "discovery",
+    name: "Discovery",
+    icon: <ExploreIcon />,
+    color: "#2196f3",
+  },
+  {
+    id: "estimation",
+    name: "Estimation",
+    icon: <CalculateIcon />,
+    color: "#4caf50",
+  },
+  {
+    id: "proposal",
+    name: "Proposal",
+    icon: <AssignmentIcon />,
+    color: "#ff9800",
+  },
+  {
+    id: "pending",
+    name: "Pending of Decision",
+    icon: <HourglassEmptyIcon />,
+    color: "#9c27b0",
+  },
+  { id: "finalized", name: "Finalized", icon: <DoneIcon />, color: "#f44336" },
+];
+
+const calculateProgress = (startDate, endDate) => {
+  const totalDays = differenceInCalendarDays(
+    new Date(endDate),
+    new Date(startDate)
+  );
+  const elapsedDays = differenceInCalendarDays(new Date(), new Date(startDate));
+  const progress = Math.min((elapsedDays / totalDays) * 100, 100);
+  return Math.max(progress, 0);
+};
+
+const calculateEstimationTimeRemaining = (endDate) => {
+  const remainingDays = differenceInDays(new Date(endDate), new Date());
+  return remainingDays > 0 ? `${remainingDays} Days Remaining` : "Completed";
+};
 
 const ProjectTracking = () => {
-  const [activeStep, setActiveStep] = useState(projectData.currentPhase)
-  const [comment, setComment] = useState("")
-  const [activityHistory, setActivityHistory] = useState(activityHistoryData)
-  const [menuAnchorEl, setMenuAnchorEl] = useState(null)
-  const [selectedActivity, setSelectedActivity] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [loadingProgress, setLoadingProgress] = useState(0)
-  const [loadingText, setLoadingText] = useState("Loading data...")
-  const [showAttachmentOptions, setShowAttachmentOptions] = useState(false)
+  const [activeStep, setActiveStep] = useState(0);
+  const [comment, setComment] = useState("");
+  const [activityHistory, setActivityHistory] = useState(activityHistoryData);
+  const [menuAnchorEl, setMenuAnchorEl] = useState(null);
+  const [selectedActivity, setSelectedActivity] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [loadingText, setLoadingText] = useState("Loading data...");
+  const [showAttachmentOptions, setShowAttachmentOptions] = useState(false);
   const [currentUser] = useState({
     name: "Current User",
     avatar: "CU",
     color: "#6362e7",
-  })
+  });
+  const [progress, setProgress] = useState(0);
+  const [estimationTimeRemaining, setEstimationTimeRemaining] = useState("");
 
-  // Handle comment submission
+  const [commentTypeAnchorEl, setCommentTypeAnchorEl] = useState(null);
+  const [selectedCommentType, setSelectedCommentType] = useState(
+    commentTypes[0]
+  );
+
+  const [completedSteps, setCompletedSteps] = useState([]);
+  const [showStepError, setShowStepError] = useState(false);
+  const [stepErrorMessage, setStepErrorMessage] = useState("");
+
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
+
+  useEffect(() => {
+    const progressValue = calculateProgress(
+      projectData.startDate,
+      projectData.expectedEndDate
+    );
+    setProgress(progressValue);
+
+    const remainingTime = calculateEstimationTimeRemaining(
+      projectData.expectedEndDate
+    );
+    setEstimationTimeRemaining(remainingTime);
+
+    if (completedSteps.includes(activeStep)) {
+      const nextStep = activeStep + 1;
+      if (nextStep < projectData.phases.length) {
+        setActiveStep(nextStep);
+      }
+    }
+  }, [
+    projectData.startDate,
+    projectData.expectedEndDate,
+    activeStep,
+    completedSteps,
+  ]);
+
   const handleCommentSubmit = () => {
-    if (comment.trim() === "") return
+    if (comment.trim() === "") return;
 
     const newActivity = {
       id: activityHistory.length + 1,
       user: currentUser,
       action: "commented",
-      phase: projectData.phases[activeStep],
+      phase: selectedCommentType.name,
       comment: comment,
       timestamp: new Date().toISOString(),
       attachments: [],
+    };
+
+    setActivityHistory([newActivity, ...activityHistory]);
+    setComment("");
+    setShowAttachmentOptions(false);
+  };
+
+  const handleCommentCancel = () => {
+    setComment("");
+    setShowAttachmentOptions(false);
+  };
+
+  const toggleAttachmentOptions = () => {
+    setShowAttachmentOptions(!showAttachmentOptions);
+  };
+
+  const handleStepChange = (step) => {
+    if (
+      !completedSteps.includes(step) &&
+      step !== activeStep &&
+      step !== completedSteps.length
+    ) {
+      setStepErrorMessage(
+        "You can only navigate to completed steps or the next consecutive step."
+      );
+      setShowStepError(true);
+      setTimeout(() => setShowStepError(false), 3000);
+      return;
     }
 
-    setActivityHistory([newActivity, ...activityHistory])
-    setComment("")
-    setShowAttachmentOptions(false)
-  }
-
-  // Handle comment cancel
-  const handleCommentCancel = () => {
-    setComment("")
-    setShowAttachmentOptions(false)
-  }
-
-  // Toggle attachment options
-  const toggleAttachmentOptions = () => {
-    setShowAttachmentOptions(!showAttachmentOptions)
-  }
-
-  // Handle step change
-  const handleStepChange = (step) => {
-    setActiveStep(step)
+    setActiveStep(step);
 
     const newActivity = {
       id: activityHistory.length + 1,
@@ -265,111 +388,182 @@ const ProjectTracking = () => {
       comment: `Project phase updated to ${projectData.phases[step]}`,
       timestamp: new Date().toISOString(),
       attachments: [],
+    };
+
+    setActivityHistory([newActivity, ...activityHistory]);
+  };
+
+  const handleCompleteStep = (step) => {
+    if (completedSteps.includes(step)) {
+      Swal.fire({
+        title: "Already Completed",
+        text: `The "${projectData.phases[step]}" phase is already completed.`,
+        icon: "info",
+        confirmButtonColor: "#6362e7",
+      });
+      return;
     }
 
-    setActivityHistory([newActivity, ...activityHistory])
-  }
+    if (step !== completedSteps.length) {
+      Swal.fire({
+        title: "Action Required",
+        text: "You must complete the previous steps first.",
+        icon: "warning",
+        confirmButtonColor: "#6362e7",
+      });
+      return;
+    }
 
-  // Handle menu open
+    Swal.fire({
+      title: `Complete "${projectData.phases[step]}" Phase?`,
+      text: "This action will mark the current phase as completed and advance to the next phase.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#4caf50",
+      cancelButtonColor: "#f44336",
+      confirmButtonText: "Yes, complete it!",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setCompletedSteps([...completedSteps, step]);
+
+        if (step < projectData.phases.length - 1) {
+          setActiveStep(step + 1);
+        }
+
+        const newActivity = {
+          id: activityHistory.length + 1,
+          user: currentUser,
+          action: "completed",
+          phase: projectData.phases[step],
+          comment: `Completed ${projectData.phases[step]} phase.`,
+          timestamp: new Date().toISOString(),
+          attachments: [],
+        };
+
+        setActivityHistory([newActivity, ...activityHistory]);
+
+        Swal.fire({
+          title: "Phase Completed!",
+          text: `The "${
+            projectData.phases[step]
+          }" phase has been completed successfully.${
+            step < projectData.phases.length - 1
+              ? ` Now proceeding to "${projectData.phases[step + 1]}" phase.`
+              : " This was the final phase of the project."
+          }`,
+          icon: "success",
+          confirmButtonColor: "#4caf50",
+        });
+      }
+    });
+  };
+
   const handleMenuOpen = (event, activity) => {
-    setMenuAnchorEl(event.currentTarget)
-    setSelectedActivity(activity)
-  }
+    setMenuAnchorEl(event.currentTarget);
+    setSelectedActivity(activity);
+  };
 
-  // Handle menu close
   const handleMenuClose = () => {
-    setMenuAnchorEl(null)
-    setSelectedActivity(null)
-  }
+    setMenuAnchorEl(null);
+    setSelectedActivity(null);
+  };
 
-  // Simulate loading
+  const handleCommentTypeMenuOpen = (event) => {
+    setCommentTypeAnchorEl(event.currentTarget);
+  };
+
+  const handleCommentTypeMenuClose = () => {
+    setCommentTypeAnchorEl(null);
+  };
+
+  const handleCommentTypeSelect = (commentType) => {
+    setSelectedCommentType(commentType);
+    setCommentTypeAnchorEl(null);
+  };
+
   const simulateLoading = () => {
-    setIsLoading(true)
-    setLoadingProgress(0)
-    setLoadingText("Loading data...")
+    setIsLoading(true);
+    setLoadingProgress(0);
+    setLoadingText("Loading data...");
 
     const interval = setInterval(() => {
       setLoadingProgress((prevProgress) => {
-        const newProgress = prevProgress + 10
+        const newProgress = prevProgress + 10;
 
         if (newProgress >= 100) {
-          clearInterval(interval)
+          clearInterval(interval);
           setTimeout(() => {
-            setIsLoading(false)
-            setLoadingText("Data loaded successfully!")
-          }, 500)
+            setIsLoading(false);
+            setLoadingText("Data loaded successfully!");
+          }, 500);
         }
 
-        return newProgress
-      })
-    }, 200)
-  }
+        return newProgress;
+      });
+    }, 200);
+  };
 
-  // Format date for display
   const formatDate = (dateString) => {
-    const date = new Date(dateString)
+    const date = new Date(dateString);
     return date.toLocaleString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
       hour: "numeric",
       minute: "numeric",
-    })
-  }
+    });
+  };
 
-  // Format simple date
   const formatSimpleDate = (dateString) => {
-    const date = new Date(dateString)
+    const date = new Date(dateString);
     return date.toLocaleString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
-    })
-  }
+    });
+  };
 
-  // Get action chip color
   const getActionChipColor = (action) => {
     switch (action) {
       case "created":
-        return { color: "#4caf50", bgColor: "#e8f5e9" }
+        return { color: "#4caf50", bgColor: "#e8f5e9" };
       case "updated":
-        return { color: "#2196f3", bgColor: "#e3f2fd" }
+        return { color: "#2196f3", bgColor: "#e3f2fd" };
       case "completed":
-        return { color: "#9c27b0", bgColor: "#f3e5f5" }
+        return { color: "#9c27b0", bgColor: "#f3e5f5" };
       case "started":
-        return { color: "#ff9800", bgColor: "#fff3e0" }
+        return { color: "#ff9800", bgColor: "#fff3e0" };
       case "commented":
-        return { color: "#6362e7", bgColor: "#e8eaf6" }
+        return { color: "#6362e7", bgColor: "#e8eaf6" };
       case "changed":
-        return { color: "#f44336", bgColor: "#ffebee" }
+        return { color: "#f44336", bgColor: "#ffebee" };
       default:
-        return { color: "#757575", bgColor: "#f5f5f5" }
+        return { color: "#757575", bgColor: "#f5f5f5" };
     }
-  }
+  };
 
-  // Get action icon
   const getActionIcon = (action) => {
     switch (action) {
       case "created":
-        return <CheckCircleIcon fontSize="small" />
+        return <CheckCircleIcon fontSize="small" />;
       case "updated":
-        return <EditIcon fontSize="small" />
+        return <EditIcon fontSize="small" />;
       case "completed":
-        return <DoneIcon fontSize="small" />
+        return <DoneIcon fontSize="small" />;
       case "started":
-        return <ExploreIcon fontSize="small" />
+        return <ExploreIcon fontSize="small" />;
       case "commented":
-        return <DescriptionIcon fontSize="small" />
+        return <DescriptionIcon fontSize="small" />;
       case "changed":
-        return <HourglassEmptyIcon fontSize="small" />
+        return <HourglassEmptyIcon fontSize="small" />;
       default:
-        return <DescriptionIcon fontSize="small" />
+        return <DescriptionIcon fontSize="small" />;
     }
-  }
+  };
 
-  // Render action chip
   const renderActionChip = (action) => {
-    const { color, bgColor } = getActionChipColor(action)
+    const { color, bgColor } = getActionChipColor(action);
 
     return (
       <Chip
@@ -387,35 +581,70 @@ const ProjectTracking = () => {
           height: "24px",
         }}
       />
-    )
-  }
+    );
+  };
 
-  // Get attachment icon
   const getAttachmentIcon = (type) => {
     switch (type) {
       case "pdf":
-        return <DescriptionIcon fontSize="small" sx={{ color: "#f44336" }} />
+        return <DescriptionIcon fontSize="small" sx={{ color: "#f44336" }} />;
       case "doc":
-        return <DescriptionIcon fontSize="small" sx={{ color: "#2196f3" }} />
+        return <DescriptionIcon fontSize="small" sx={{ color: "#2196f3" }} />;
       case "excel":
-        return <DescriptionIcon fontSize="small" sx={{ color: "#4caf50" }} />
+        return <DescriptionIcon fontSize="small" sx={{ color: "#4caf50" }} />;
       case "image":
-        return <DescriptionIcon fontSize="small" sx={{ color: "#9c27b0" }} />
+        return <DescriptionIcon fontSize="small" sx={{ color: "#9c27b0" }} />;
       default:
-        return <AttachFileIcon fontSize="small" />
+        return <AttachFileIcon fontSize="small" />;
     }
-  }
+  };
+
+  const getCompleteButtonColor = () => {
+    const allPreviousCompleted = Array.from(
+      { length: activeStep },
+      (_, i) => i
+    ).every((prevStep) => completedSteps.includes(prevStep));
+
+    if (completedSteps.includes(activeStep)) {
+      return "#9e9e9e";
+    } else if (!allPreviousCompleted) {
+      return "#f44336";
+    } else {
+      return "#4caf50";
+    }
+  };
 
   useEffect(() => {
-    simulateLoading()
-  }, [])
+    simulateLoading();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollToTop(true);
+      } else {
+        setShowScrollToTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <Container maxWidth="xl" className={styles.container}>
-      {/* Project Header */}
       <Box className={styles.header}>
         <div className={styles.headerLeft}>
-          <Typography variant="h4" component="h1" fontWeight="bold" className={styles.pageTitle}>
+          <Typography
+            variant="h4"
+            component="h1"
+            fontWeight="bold"
+            className={styles.pageTitle}
+          >
             Project Tracking
           </Typography>
           <Breadcrumbs
@@ -433,16 +662,23 @@ const ProjectTracking = () => {
             <Typography color="text.primary">{projectData.name}</Typography>
           </Breadcrumbs>
         </div>
-        <Button variant="contained" startIcon={<FileCopyIcon />} className={styles.documentationButton}>
+        <Button
+          variant="contained"
+          startIcon={<FileCopyIcon />}
+          className={styles.documentationButton}
+        >
           Documentation
         </Button>
       </Box>
 
-      {/* Project Info Card */}
       <Paper elevation={0} className={styles.sectionCard}>
         <Box className={styles.projectHeader}>
           <Box className={styles.projectHeaderLeft}>
-            <Typography variant="h5" component="h2" className={styles.projectTitle}>
+            <Typography
+              variant="h5"
+              component="h2"
+              className={styles.projectTitle}
+            >
               {projectData.name}
             </Typography>
             <Box className={styles.projectMeta}>
@@ -452,7 +688,11 @@ const ProjectTracking = () => {
                 size="small"
                 className={styles.clientChip}
               />
-              <Typography variant="body2" color="text.secondary" className={styles.projectId}>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                className={styles.projectId}
+              >
                 {projectData.id}
               </Typography>
             </Box>
@@ -483,7 +723,6 @@ const ProjectTracking = () => {
 
         <Grid container spacing={3} className={styles.projectInfoGrid}>
           <Grid item xs={12} md={8}>
-            {/* Project Details */}
             <Box className={styles.projectDetailsSection}>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -541,7 +780,6 @@ const ProjectTracking = () => {
               </Grid>
             </Box>
 
-            {/* Phase Progress Bar */}
             <Box className={styles.progressSection}>
               <Typography variant="subtitle1" fontWeight="500" sx={{ mb: 2 }}>
                 Project Progress
@@ -553,7 +791,7 @@ const ProjectTracking = () => {
                 className={styles.stepper}
               >
                 {projectData.phases.map((label, index) => (
-                  <Step key={label}>
+                  <Step key={label} completed={completedSteps.includes(index)}>
                     <StepLabel
                       StepIconComponent={ColorlibStepIcon}
                       onClick={() => handleStepChange(index)}
@@ -573,16 +811,19 @@ const ProjectTracking = () => {
                 <CardContent>
                   <Box className={styles.metricHeader}>
                     <AccessTimeIcon className={styles.metricIcon} />
-                    <Typography variant="subtitle2" className={styles.metricTitle}>
-                      Estimation Time Remaining
+                    <Typography
+                      variant="subtitle2"
+                      className={styles.metricTitle}
+                    >
+                      Time in the current phase
                     </Typography>
                   </Box>
                   <Typography variant="h5" className={styles.metricValue}>
-                    {projectData.estimationTimeRemaining}
+                    {Math.round(progress)}%
                   </Typography>
                   <LinearProgress
                     variant="determinate"
-                    value={65}
+                    value={progress}
                     className={styles.metricProgress}
                     sx={{
                       height: 6,
@@ -593,6 +834,13 @@ const ProjectTracking = () => {
                       },
                     }}
                   />
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mt: 1 }}
+                  >
+                    {estimationTimeRemaining}
+                  </Typography>
                 </CardContent>
               </Card>
 
@@ -600,7 +848,10 @@ const ProjectTracking = () => {
                 <CardContent>
                   <Box className={styles.metricHeader}>
                     <TimerIcon className={styles.metricIcon} />
-                    <Typography variant="subtitle2" className={styles.metricTitle}>
+                    <Typography
+                      variant="subtitle2"
+                      className={styles.metricTitle}
+                    >
                       Timer Status
                     </Typography>
                   </Box>
@@ -624,7 +875,6 @@ const ProjectTracking = () => {
         </Grid>
       </Paper>
 
-      {/* Activity History Timeline */}
       <Paper elevation={0} className={styles.sectionCard}>
         <Box className={styles.sectionHeader}>
           <Box>
@@ -651,7 +901,10 @@ const ProjectTracking = () => {
             <div className={styles.loadingOverlay}>
               <div className={styles.loadingSpinner}></div>
               <div className={styles.loadingBar}>
-                <div className={styles.loadingBarProgress} style={{ width: `${loadingProgress}%` }}></div>
+                <div
+                  className={styles.loadingBarProgress}
+                  style={{ width: `${loadingProgress}%` }}
+                ></div>
               </div>
               <div className={styles.loadingText}>{loadingText}</div>
             </div>
@@ -660,7 +913,10 @@ const ProjectTracking = () => {
           {activityHistory.map((activity) => (
             <Box key={activity.id} className={styles.timelineItem}>
               <Box className={styles.timelineIconContainer}>
-                <Avatar className={styles.timelineAvatar} sx={{ bgcolor: activity.user.color }}>
+                <Avatar
+                  className={styles.timelineAvatar}
+                  sx={{ bgcolor: activity.user.color }}
+                >
                   {activity.user.avatar}
                 </Avatar>
                 <Box className={styles.timelineConnector}></Box>
@@ -668,14 +924,19 @@ const ProjectTracking = () => {
               <Box className={styles.timelineContent}>
                 <Box className={styles.timelineHeader}>
                   <Box className={styles.timelineUser}>
-                    <Typography variant="subtitle2">{activity.user.name}</Typography>
+                    <Typography variant="subtitle2">
+                      {activity.user.name}
+                    </Typography>
                     {renderActionChip(activity.action)}
                   </Box>
                   <Box className={styles.timelineActions}>
                     <Typography variant="caption" color="text.secondary">
                       {formatDate(activity.timestamp)}
                     </Typography>
-                    <IconButton size="small" onClick={(e) => handleMenuOpen(e, activity)}>
+                    <IconButton
+                      size="small"
+                      onClick={(e) => handleMenuOpen(e, activity)}
+                    >
                       <MoreVertIcon fontSize="small" />
                     </IconButton>
                   </Box>
@@ -722,18 +983,44 @@ const ProjectTracking = () => {
         </Box>
       </Paper>
 
-      {/* Comments Section - Modern Design */}
       <Paper elevation={0} className={styles.sectionCard}>
         <Box className={styles.sectionHeader}>
           <Typography variant="h6" className={styles.sectionTitle}>
             Add Comment
           </Typography>
         </Box>
-
         <Box className={styles.modernCommentForm}>
-          <Avatar className={styles.commentAvatar} sx={{ bgcolor: currentUser.color }}>
+          <Avatar
+            className={styles.commentAvatar}
+            sx={{ bgcolor: currentUser.color }}
+          >
             {currentUser.avatar}
           </Avatar>
+
+          <Button
+            variant="outlined"
+            onClick={handleCommentTypeMenuOpen}
+            className={styles.commentTypeButton}
+            sx={{
+              borderRadius: "8px",
+              borderColor: selectedCommentType.color,
+              color: selectedCommentType.color,
+              backgroundColor: `${selectedCommentType.color}10`,
+              marginRight: "10px",
+              padding: "6px 12px",
+              minWidth: "auto",
+              "&:hover": {
+                backgroundColor: `${selectedCommentType.color}20`,
+                borderColor: selectedCommentType.color,
+              },
+            }}
+            startIcon={React.cloneElement(selectedCommentType.icon, {
+              style: { color: selectedCommentType.color },
+            })}
+            endIcon={<ArrowDropDownIcon />}
+          >
+            {selectedCommentType.name}
+          </Button>
 
           <InputBase
             placeholder="Add a comment..."
@@ -745,9 +1032,12 @@ const ProjectTracking = () => {
           />
 
           <Box className={styles.commentActionButtons}>
-            <Tooltip title="Comment options">
-              <IconButton className={styles.commentActionButton} onClick={() => {}}>
-                <ChatIcon />
+            <Tooltip title="Attach file">
+              <IconButton
+                className={styles.commentActionButton}
+                onClick={toggleAttachmentOptions}
+              >
+                <AttachFileIcon />
               </IconButton>
             </Tooltip>
 
@@ -763,55 +1053,170 @@ const ProjectTracking = () => {
           </Box>
         </Box>
 
-        {showAttachmentOptions ? (
+        {showAttachmentOptions && (
           <Box className={styles.attachmentOptionsRow}>
             <Tooltip title="Cancel">
-              <IconButton className={styles.attachmentOptionButton} onClick={handleCommentCancel}>
+              <IconButton
+                className={styles.attachmentOptionButton}
+                onClick={handleCommentCancel}
+              >
                 <CloseIcon />
               </IconButton>
             </Tooltip>
 
             <Tooltip title="Attach file">
-              <IconButton className={styles.attachmentOptionButton} onClick={() => {}}>
+              <IconButton
+                className={styles.attachmentOptionButton}
+                onClick={() => {}}
+              >
                 <AttachFileIcon />
               </IconButton>
             </Tooltip>
 
             <Tooltip title="Add link">
-              <IconButton className={styles.attachmentOptionButton} onClick={() => {}}>
+              <IconButton
+                className={styles.attachmentOptionButton}
+                onClick={() => {}}
+              >
                 <InsertLinkIcon />
               </IconButton>
             </Tooltip>
           </Box>
-        ) : (
-          <Box className={styles.attachmentOptionsRow}>
-            <Tooltip title="Add attachment">
-              <IconButton className={styles.attachmentOptionButton} onClick={toggleAttachmentOptions}>
-                <AttachFileIcon />
-              </IconButton>
-            </Tooltip>
+        )}
+
+        <Box className={styles.completeStepContainer}>
+          <Button
+            variant="contained"
+            onClick={() => handleCompleteStep(activeStep)}
+            className={styles.completeStepButton}
+            startIcon={<DoneIcon />}
+            disabled={
+              activeStep === projectData.phases.length - 1 &&
+              completedSteps.includes(activeStep)
+            }
+            sx={{
+              backgroundColor: getCompleteButtonColor(),
+              "&:hover": {
+                backgroundColor: `${getCompleteButtonColor()}dd`,
+              },
+            }}
+          >
+            {activeStep === projectData.phases.length - 1 &&
+            completedSteps.includes(activeStep)
+              ? "All Steps Completed"
+              : `Complete "${projectData.phases[activeStep]}" Phase?`}
+          </Button>
+        </Box>
+
+        {showStepError && (
+          <Box className={styles.errorMessageContainer}>
+            <Alert
+              onClose={() => setShowStepError(false)}
+              severity="error"
+              variant="filled"
+              className={styles.errorAlert}
+            >
+              {stepErrorMessage}
+            </Alert>
           </Box>
         )}
       </Paper>
 
-      {/* Activity Menu */}
-      <Menu anchorEl={menuAnchorEl} open={Boolean(menuAnchorEl)} onClose={handleMenuClose}>
-        <MenuItem onClick={handleMenuClose}>
-          <ListItemIcon>
-            <EditIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Edit</ListItemText>
-        </MenuItem>
-        <MenuItem onClick={handleMenuClose}>
-          <ListItemIcon>
-            <DeleteIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Delete</ListItemText>
-        </MenuItem>
-      </Menu>
+      {menuAnchorEl && (
+        <Menu
+          anchorEl={menuAnchorEl}
+          open={Boolean(menuAnchorEl)}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={handleMenuClose}>
+            <ListItemIcon>
+              <EditIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Edit</ListItemText>
+          </MenuItem>
+          <MenuItem onClick={handleMenuClose}>
+            <ListItemIcon>
+              <DeleteIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Delete</ListItemText>
+          </MenuItem>
+        </Menu>
+      )}
+
+      {commentTypeAnchorEl && (
+        <Popover
+          open={Boolean(commentTypeAnchorEl)}
+          anchorEl={commentTypeAnchorEl}
+          onClose={handleCommentTypeMenuClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          PaperProps={{
+            elevation: 3,
+            sx: {
+              borderRadius: "12px",
+              overflow: "hidden",
+              width: "250px",
+              mt: 1,
+            },
+          }}
+        >
+          <List sx={{ p: 0 }}>
+            {commentTypes.map((type) => (
+              <ListItem
+                key={type.id}
+                onClick={() => handleCommentTypeSelect(type)}
+                sx={{
+                  cursor: "pointer",
+                  py: 1.5,
+                  transition: "all 0.2s ease",
+                  "&:hover": {
+                    backgroundColor: `${type.color}10`,
+                  },
+                  ...(selectedCommentType.id === type.id && {
+                    backgroundColor: `${type.color}20`,
+                  }),
+                }}
+                button
+              >
+                <ListItemIcon sx={{ color: type.color, minWidth: "36px" }}>
+                  {type.icon}
+                </ListItemIcon>
+                <ListItemText primary={type.name} />
+              </ListItem>
+            ))}
+          </List>
+        </Popover>
+      )}
+
+      {showScrollToTop && (
+        <Fab
+          size="small"
+          onClick={scrollToTop}
+          sx={{
+            position: "fixed",
+            bottom: 16,
+            right: 16,
+            zIndex: 1000,
+            backgroundColor: "#6362e7",
+            color: "#fff",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+            "&:hover": {
+              backgroundColor: "#4c4ab8", 
+              boxShadow: "0px 6px 14px rgba(0, 0, 0, 0.3)",
+            },
+          }}
+        >
+          <ArrowUpwardIcon />
+        </Fab>
+      )}
     </Container>
-  )
-}
+  );
+};
 
-export default ProjectTracking
-
+export default ProjectTracking;
