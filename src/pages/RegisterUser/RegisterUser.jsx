@@ -119,8 +119,8 @@ const RegisterUser = () => {
       </Box>
 
       <Box display="flex" justifyContent="center" alignItems="center" minHeight="10vh">
-        <Paper elevation={3} style={{ padding: "32px", width: "800px", margin: "0 auto" }}>
-          <Typography variant="h5" align="center" style={{ marginBottom: "24px" }}>
+        <Paper elevation={3} style={{ padding: "32px", width: "800px", margin: "0 auto", borderRadius: "50px" }}>
+          <Typography variant="h5" align="center" style={{ marginBottom: "24px",textAlign:"left" }}>
             New User Information
           </Typography>
 
@@ -145,7 +145,7 @@ const RegisterUser = () => {
               name="firstName" 
               value={formData.firstName} 
               onChange={handleInputChange} 
-              placeholder="First name" 
+              placeholder="First Name" 
               className={styles.formInput} 
               required/>
             </div>
@@ -160,7 +160,7 @@ const RegisterUser = () => {
               name="lastName" 
               value={formData.lastName} 
               onChange={handleInputChange} 
-              placeholder="Last name" 
+              placeholder="Last Name" 
               className={styles.formInput} 
               required/>
             </div>
@@ -172,7 +172,7 @@ const RegisterUser = () => {
               name="email" 
               value={formData.email} 
               onChange={handleInputChange} 
-              placeholder="Email" 
+              placeholder="example@example.com" 
               className={styles.formInput} 
               required/>
             </div>
@@ -222,7 +222,7 @@ const RegisterUser = () => {
             </div>
           </div>
 
-          <Button variant="contained" color="primary" onClick={handleRegister}  fullWidth style={{ marginTop: "24px", borderRadius: "20px",backgroundColor: "#6362e7" }}>
+          <Button variant="contained"  onClick={handleRegister}  fullWidth className={styles.button}>
             Submit
           </Button>
         </Paper>
