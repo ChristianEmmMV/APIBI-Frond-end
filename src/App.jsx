@@ -15,7 +15,7 @@ import PotentialAgents from './pages/Potential Agents/PotentialAgents'
 import ProjectTracking from './pages/Project Tracking/ProjectTracking'
 import RegisterUser from './pages/RegisterUser/RegisterUser'
 import RegisterPanel from './pages/RegisterPanel/RegisterPanel'
-import MarketingPortal from './pages/Marketing Portal/MarketingPortal'
+import MarketingPortal from './pages/MarketingPortal/MarketingPortal'
 import './App.css'
 
 function App() {
