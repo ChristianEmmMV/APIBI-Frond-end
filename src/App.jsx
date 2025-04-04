@@ -15,6 +15,7 @@ import PotentialAgents from './pages/Potential Agents/PotentialAgents'
 import ProjectTracking from './pages/Project Tracking/ProjectTracking'
 import RegisterUser from './pages/RegisterUser/RegisterUser'
 import RegisterPanel from './pages/RegisterPanel/RegisterPanel'
+import MarketingPortal from './pages/Marketing Portal/MarketingPortal'
 import './App.css'
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
           <Route path="/project-tracking" element={<ProjectTracking/>} />
           <Route path="/register-user" element={<RegisterUser/>} />
           <Route path="/register-panel" element={<RegisterPanel/>} />
+          <Route path="/marketing-portal" element={<MarketingPortal/>} />
         </Routes>
       </main>
     </div>
