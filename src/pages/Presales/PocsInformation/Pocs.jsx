@@ -39,8 +39,8 @@ import {
   KeyboardArrowDown as ArrowDownIcon,
 } from "@mui/icons-material"
 import styles from "./Pocs.module.css"
-import AddPocs from "../../components/PocsInformation/AddPocs"
-import UpdatePocs from "../../components/PocsInformation/UpdatePocs"
+import AddPocs from "../../../components/PocsInformation/AddPocs"
+import UpdatePocs from "../../../components/PocsInformation/UpdatePocs"
 
 
 const pocs = () => {

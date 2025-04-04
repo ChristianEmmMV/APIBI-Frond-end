@@ -1,0 +1,552 @@
+.dashboardContainer {
+    padding: 0;
+    background-color: #f8fafc;
+    min-height: 100vh;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .header {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 24px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .headerContent {
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  .title {
+    font-weight: 700;
+    color: #3f51b5;
+    margin-bottom: 4px;
+  }
+  
+  .subtitle {
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 400;
+  }
+  
+  .controls {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .formControl {
+    min-width: 200px;
+  }
+  
+  .select {
+    border-radius: 10px;
+  }
+  
+  .actionButtons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .refreshButton,
+  .downloadButton,
+  .moreButton {
+    background-color: rgba(63, 81, 181, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    color: #3f51b5;
+  }
+  
+  .refreshButton:hover,
+  .downloadButton:hover,
+  .moreButton:hover {
+    background-color: rgba(63, 81, 181, 0.2);
+  }
+  
+  .emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .emptyStateTitle {
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  .emptyStateDescription {
+    margin-bottom: 32px;
+    max-width: 600px;
+  }
+  
+  .emptyStateAction {
+    margin-top: 16px;
+  }
+  
+  .emptyStateSelect {
+    min-width: 300px;
+  }
+  
+  .loadingState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+    text-align: center;
+  }
+  
+  .loadingSpinner {
+    color: #3f51b5;
+    margin-bottom: 16px;
+  }
+  
+  .loadingText {
+    font-weight: 500;
+  }
+  
+  .tabsContainer {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  
+  .tabs {
+    min-height: 64px;
+  }
+  
+  .tab {
+    padding: 16px;
+    font-weight: 600;
+    text-transform: none;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .dashboardContent {
+    padding: 16px;
+  }
+  
+  .sectionTitle {
+    margin: 24px 0 16px;
+    font-weight: 700;
+    color: #3f51b5;
+    display: flex;
+    align-items: center;
+  }
+  
+  .infoIcon {
+    margin-left: 8px;
+    color: rgba(63, 81, 181, 0.7);
+    cursor: pointer;
+  }
+  
+  .divider {
+    margin: 32px 0;
+  }
+  
+  .summaryCards {
+    margin-bottom: 24px;
+  }
+  
+  .summaryCard {
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .summaryCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .summaryCardContent {
+    padding: 24px;
+  }
+  
+  .cardprimary {
+    border-color: rgba(63, 81, 181, 0.1);
+  }
+  .cardprimary:hover {
+    box-shadow: 0 8px 24px rgba(63, 81, 181, 0.15);
+  }
+  
+  .cardsecondary {
+    border-color: rgba(156, 39, 176, 0.1);
+  }
+  .cardsecondary:hover {
+    box-shadow: 0 8px 24px rgba(156, 39, 176, 0.15);
+  }
+  
+  .cardsuccess {
+    border-color: rgba(76, 175, 80, 0.1);
+  }
+  .cardsuccess:hover {
+    box-shadow: 0 8px 24px rgba(76, 175, 80, 0.15);
+  }
+  
+  .cardinfo {
+    border-color: rgba(33, 150, 243, 0.1);
+  }
+  .cardinfo:hover {
+    box-shadow: 0 8px 24px rgba(33, 150, 243, 0.15);
+  }
+  
+  .cardwarning {
+    border-color: rgba(255, 152, 0, 0.1);
+  }
+  .cardwarning:hover {
+    box-shadow: 0 8px 24px rgba(255, 152, 0, 0.15);
+  }
+  
+  .carderror {
+    border-color: rgba(244, 67, 54, 0.1);
+  }
+  .carderror:hover {
+    box-shadow: 0 8px 24px rgba(244, 67, 54, 0.15);
+  }
+  
+  .iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .iconBgprimary {
+    background-color: rgba(63, 81, 181, 0.12);
+  }
+  .iconBgsecondary {
+    background-color: rgba(156, 39, 176, 0.12);
+  }
+  .iconBgsuccess {
+    background-color: rgba(76, 175, 80, 0.12);
+  }
+  .iconBginfo {
+    background-color: rgba(33, 150, 243, 0.12);
+  }
+  .iconBgwarning {
+    background-color: rgba(255, 152, 0, 0.12);
+  }
+  .iconBgerror {
+    background-color: rgba(244, 67, 54, 0.12);
+  }
+  
+  .icon {
+    display: flex;
+  }
+  
+  .iconColorprimary {
+    color: #3f51b5;
+  }
+  .iconColorsecondary {
+    color: #9c27b0;
+  }
+  .iconColorsuccess {
+    color: #4caf50;
+  }
+  .iconColorinfo {
+    color: #2196f3;
+  }
+  .iconColorwarning {
+    color: #ff9800;
+  }
+  .iconColorerror {
+    color: #f44336;
+  }
+  
+  .summaryValue {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  
+  .textprimary {
+    color: #3f51b5;
+  }
+  .textsecondary {
+    color: #9c27b0;
+  }
+  .textsuccess {
+    color: #4caf50;
+  }
+  .textinfo {
+    color: #2196f3;
+  }
+  .textwarning {
+    color: #ff9800;
+  }
+  .texterror {
+    color: #f44336;
+  }
+  
+  .summaryTitle {
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  
+  .summaryDescription {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .chartCard {
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .chartCard:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+  
+  .chartCardContent {
+    padding: 24px;
+  }
+  
+  .chartTitle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    font-weight: 600;
+    color: #3f51b5;
+  }
+  
+  .titleIcon {
+    margin-right: 8px;
+  }
+  
+  .chartContainer {
+    margin-top: 16px;
+  }
+  
+  .chartGrid {
+    stroke: rgba(0, 0, 0, 0.1);
+  }
+  
+  .chartAxis {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .chartAxisLabel {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .metricComparison {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .metricBox {
+    text-align: center;
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  .metricBoxManual {
+    background-color: rgba(255, 128, 66, 0.1);
+  }
+  
+  .metricBoxBot {
+    background-color: rgba(0, 136, 254, 0.1);
+  }
+  
+  .metricValueManual {
+    font-weight: 600;
+    color: #ff8042;
+  }
+  
+  .metricValueBot {
+    font-weight: 600;
+    color: #0088fe;
+  }
+  
+  .vsBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.6);
+    padding: 0 16px;
+  }
+  
+  .chipContainer {
+    margin-top: 16px;
+  }
+  
+  .comparisonCharts,
+  .timeSeriesCharts,
+  .qualityMetrics {
+    margin-bottom: 24px;
+  }
+  
+  .comparisonChip {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 4px 8px;
+  }
+  
+  .detailedComparison {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .comparisonItem {
+    margin-bottom: 16px;
+  }
+  
+  .comparisonHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .comparisonTitle {
+    font-weight: 600;
+  }
+  
+  .improvementBadge {
+    color: #4caf50;
+    font-weight: 500;
+    background-color: rgba(76, 175, 80, 0.1);
+    padding: 6px 12px;
+    border-radius: 20px;
+  }
+  
+  .progressContainer {
+    margin-bottom: 12px;
+  }
+  
+  .progressLabel {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  
+  .progressBar {
+    height: 10px;
+    border-radius: 8px;
+  }
+  
+  .progressBarManual {
+    background-color: rgba(255, 128, 66, 0.2);
+  }
+  .progressBarManual .MuiLinearProgress-bar {
+    background-color: #ff8042;
+  }
+  
+  .progressBarBot {
+    background-color: rgba(0, 136, 254, 0.2);
+  }
+  .progressBarBot .MuiLinearProgress-bar {
+    background-color: #0088fe;
+  }
+  
+  .metricTitle {
+    font-weight: 600;
+    color: #3f51b5;
+    margin-bottom: 16px;
+  }
+  
+  .metricDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .metricValue {
+    font-weight: 600;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 960px) {
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .controls {
+      margin-top: 16px;
+      width: 100%;
+      justify-content: flex-start;
+    }
+  
+    .formControl {
+      min-width: 150px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .formControl {
+      width: 100%;
+    }
+  
+    .actionButtons {
+      justify-content: flex-end;
+      width: 100%;
+      margin-top: 16px;
+    }
+  
+    .summaryCardContent {
+      padding: 16px;
+    }
+  
+    .chartCardContent {
+      padding: 16px;
+    }
+  
+    .metricComparison {
+      flex-direction: column;
+      gap: 16px;
+    }
+  
+    .vsBox {
+      transform: rotate(90deg);
+      margin: 8px 0;
+    }
+  }
+  
+  

@@ -15,14 +15,18 @@ import {
   Assignment as ProjectIcon,
   Poll as SurveyIcon,
   Info as InfoIcon,
-  Timeline as MeddpiccIcon,
-  BarChart as BarChartIcon,
-  InsertChart as InsertChartIcon,
-  Analytics as AnalyticsIcon,
-  Assessment as AssessmentIcon,
-  CompareArrows as CompareArrowsIcon,
-  AccountCircle as PersonIcon,
   GridOn as PanelIcon,
+  Home as HomeIcon,
+  PrecisionManufacturing as PrecisionManufacturing,
+  SupportAgent as SupportAgentIcon,
+  OndemandVideo as VideoIcon,
+  Factory as FactoryIcon,
+  QueryStats as QueryStatsIcon,
+  AttachMoney as MoneyIcon,
+  School as SchoolIcon,
+  DeveloperMode as DeveloperModeIcon,
+  Folder as FolderIcon,
+  People as PeopleIcon,
 } from "@mui/icons-material"
 import styles from "./sidebar.module.css"
 import Logo from "../../../public/assets/logo.png"
@@ -30,7 +34,7 @@ import Logo from "../../../public/assets/logo.png"
 const Sidebar = ({ isOpen }) => {
   const [expandedItems, setExpandedItems] = useState({
     projects: false,
-    analytics: false,
+    biproducts: false,
   })
 
   const [mode, setMode] = useState("presales")
@@ -70,21 +74,25 @@ const Sidebar = ({ isOpen }) => {
   ]
 
   const biMenuItems = [
-    { icon: <DashboardIcon />, text: "BI Dashboard", path: "/bi-dashboard", active: false },
+    { icon: <HomeIcon />, text: "Home BI", path: "/home-bi", active: false },
+    { icon: <PanelIcon />, text: "Registration panels", path: "/register-panel"},
     {
-      icon: <BarChartIcon />,
-      text: "Analytics",
+      icon: <PrecisionManufacturing />,
+      text: "BI-Products",
       expandable: true,
-      id: "analytics",
+      id: "biproducts",
       subItems: [
-        { icon: <InsertChartIcon />, text: "Sales Reports", path: "/sales-reports" },
-        { icon: <AnalyticsIcon />, text: "Performance Metrics", path: "/performance-metrics" },
-        { icon: <AssessmentIcon />, text: "Market Analysis", path: "/market-analysis" },
+        { icon: <SupportAgentIcon />, text: "Agents", path: "/sales-reports" },
+        { icon: <QueryStatsIcon />, text: "Case Studies", path: "/performance-metrics" },
+        { icon: <VideoIcon />, text: "Video Cases", path: "/market-analysis" },
+        { icon: <FactoryIcon />, text: "Iduntries", path: "/market-analysis" },
       ],
     },
-    { icon: <CompareArrowsIcon />, text: "Comparisons", path: "/comparisons" },
-    { icon: <PersonIcon />, text: "Register User", path: "/register-user" },
-    { icon: <PanelIcon />, text: "Registration panels", path: "/register-panel"},
+    { icon: <MoneyIcon />, text: "Marketing", path: "/comparisons" },
+    { icon: <SchoolIcon />, text: "Learning Portal", path: "/register-user" },
+    { icon: <DeveloperModeIcon />, text: "Demo", path: "/register-user" },
+    { icon: <FolderIcon />, text: "Projects", path: "/register-user" },
+    { icon: <PeopleIcon />, text: "Register User", path: "/register-user" },
   ]
 
   const menuItems = mode === "presales" ? presalesMenuItems : biMenuItems
