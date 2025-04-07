@@ -45,7 +45,7 @@ import {
   ArrowForwardIos
   } from "@mui/icons-material"
 import React, {useState} from "react"
-import image from "../../../public/assets/Welcome-cases.png"
+import image from "../../../../public/assets/Welcome-cases.png"
 import Swal from "sweetalert2"
 
 

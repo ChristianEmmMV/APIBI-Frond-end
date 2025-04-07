@@ -14,7 +14,7 @@ import {
   AccountBalance as AccountBalanceIcon,
   Savings as SavingsIcon,
 } from "@mui/icons-material"
-import Bot from "../../../public/assets/bot.png"
+import Bot from "../../../../public/assets/bot.png"
 import styles from "./agentsinformation.module.css"
 
 const AgentsInformation = () => {

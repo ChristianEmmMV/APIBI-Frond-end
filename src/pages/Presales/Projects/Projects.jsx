@@ -37,8 +37,8 @@ import {
   KeyboardArrowDown as ArrowDownIcon,
 } from "@mui/icons-material"
 import styles from "./projects.module.css"
-import AddProjectModal from "../../components/Projects/AddProjectModal"
-import CarruselProjects from "../../components/Projects/CarruselProjects"
+import AddProjectModal from "../../../components/Projects/AddProjectModal"
+import CarruselProjects from "../../../components/Projects/CarruselProjects"
 
 const Projects = () => {
   const projects = [

@@ -1,0 +1,942 @@
+/* Add these animation keyframes at the top of the file */
+@keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  .container {
+    padding: 3rem 2rem;
+    background-color: #f8faff;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Remove the static ::before and ::after since we're adding animated elements */
+  .container::before,
+  .container::after {
+    content: none;
+  }
+  
+  /* Header Section */
+  .headerSection {
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Enhance page title with animation */
+  .pageTitle {
+    background: linear-gradient(135deg, #6362e7 0%, #5d5bd4 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 5s ease infinite;
+    background-clip: text;
+    background-clip: text;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+    letter-spacing: -0.5px;
+  }
+  
+  .pageSubtitle {
+    color: #64748b;
+    font-weight: 400;
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.25rem !important;
+  }
+  
+  /* Section Headers */
+  .sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 4rem 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .sectionTitle {
+    color: #1e293b;
+    font-weight: 700;
+    position: relative;
+    margin: 0;
+  }
+  
+  .sectionButton {
+    color: #6362e7 !important;
+    margin-top: 30px !important;
+    border-color: #6362e7 !important;
+    text-transform: none !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1.5rem !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .sectionButton:hover {
+    background-color: rgba(99, 98, 231, 0.05) !important;
+    transform: translateY(-2px);
+  }
+  
+  .sectionButton .MuiButton-endIcon {
+    transition: transform 0.2s ease;
+  }
+  
+  .sectionButton:hover .MuiButton-endIcon {
+    transform: translateX(4px);
+  }
+  
+  /* Add shimmer effect to section divider */
+  .sectionDivider {
+    background: linear-gradient(90deg, rgba(99, 98, 231, 0.1), rgba(99, 98, 231, 0.2), rgba(99, 98, 231, 0.1)) !important;
+    background-size: 200% 100% !important;
+    animation: shimmer 3s infinite !important;
+    margin-top: 1rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  /* Feature Cards */
+  .featureCardsContainer {
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Enhance the feature card with animations */
+  .featureCard {
+    border-radius: 16px !important;
+    padding: 2rem;
+    height: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03) !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    border: 1px solid rgba(99, 98, 231, 0.08);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .featureCard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #6362e7, #5d5bd4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .featureCard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(99, 98, 231, 0.1) !important;
+  }
+  
+  .featureCard:hover::before {
+    opacity: 1;
+  }
+  
+  .featureCardIconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6362e7 0%, #5d5bd4 100%);
+    margin-right: 1rem;
+    box-shadow: 0 8px 20px rgba(99, 98, 231, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .featureCard:hover .featureCardIconWrapper {
+    transform: rotate(5deg) scale(1.1);
+  }
+  
+  .featureCardIcon {
+    color: white;
+    font-size: 24px !important;
+    transition: transform 0.3s ease;
+  }
+  
+  .featureCard:hover .featureCardIcon {
+    transform: rotate(-5deg);
+  }
+  
+  .featureCardTitle {
+    color: #1e293b;
+    font-weight: 700;
+    margin: 0;
+    font-size: 1.5rem !important;
+  }
+  
+  .featureCardDescription {
+    color: #64748b;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+    flex-grow: 1;
+  }
+  
+  .featureCardButton {
+    color: #6362e7 !important;
+    font-weight: 600 !important;
+    padding: 0.5rem 0 !important;
+    text-transform: none !important;
+    transition: all 0.3s ease !important;
+    align-self: flex-start;
+    margin-top: auto !important;
+  }
+  
+  .featureCardButton:hover {
+    color: #5d5bd4 !important;
+    background-color: transparent !important;
+    padding-left: 0.25rem !important;
+  }
+  
+  .featureCardButton .MuiButton-endIcon {
+    transition: transform 0.3s ease;
+  }
+  
+  .featureCardButton:hover .MuiButton-endIcon {
+    transform: translateX(6px);
+  }
+  
+  /* Full Width Feature */
+  /* Enhance the full width feature with animations */
+  .fullWidthFeature {
+    border-radius: 24px;
+    overflow: hidden;
+    background: linear-gradient(-45deg, #6362e7, #5d5bd4, #4a4ae0, #7170f0);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    color: white;
+    margin: 5rem 0;
+    box-shadow: 0 20px 40px rgba(99, 98, 231, 0.15);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .fullWidthFeature:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(99, 98, 231, 0.2);
+  }
+  
+  .fullWidthContent {
+    display: flex;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .fullWidthTextContent {
+    flex: 2;
+    padding: 3.5rem;
+  }
+  
+  .fullWidthVisual {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .fullWidthVisual::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+  }
+  
+  .processCounterWrapper {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Enhance the full width feature with animations */
+  .processCounter {
+    font-size: 6rem !important;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  
+  .processLabel {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.25rem !important;
+    font-weight: 500;
+  }
+  
+  .featuredChip {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    margin-bottom: 1.5rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  }
+  
+  .featuredChip .MuiChip-icon {
+    color: white !important;
+  }
+  
+  .fullWidthTitle {
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  .fullWidthDescription {
+    opacity: 0.9;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+  }
+  
+  .fullWidthButton {
+    background-color: white !important;
+    padding-top: 80px !important;
+    color: #6362e7 !important;
+    text-transform: none !important;
+    padding: 0.75rem 2rem !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  }
+  
+  .fullWidthButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  .fullWidthButton .MuiButton-endIcon {
+    transition: transform 0.3s ease;
+  }
+  
+  .fullWidthButton:hover .MuiButton-endIcon {
+    transform: translateX(6px);
+  }
+  
+  /* Stats Section */
+  .statsContainer {
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Enhance the stat cards with animations */
+  .statCard {
+    border-radius: 16px !important;
+    padding: 2rem;
+    height: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03) !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    text-align: center;
+    border: 1px solid rgba(99, 98, 231, 0.08);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .statCard::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    transition: transform 0.7s ease;
+    opacity: 0;
+  }
+  
+  .statCard:hover::after {
+    transform: rotate(30deg) translate(50%, 50%);
+    opacity: 1;
+  }
+  
+  .statCard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(99, 98, 231, 0.1) !important;
+    border-color: rgba(99, 98, 231, 0.2);
+  }
+  
+  .statIcon {
+    color: #6362e7;
+    font-size: 2.5rem !important;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .statCard:hover .statIcon {
+    transform: scale(1.2);
+  }
+  
+  .statNumber {
+    background: linear-gradient(135deg, #6362e7 0%, #5d5bd4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem !important;
+    line-height: 1 !important;
+  }
+  
+  .statLabel {
+    color: #64748b;
+    font-weight: 500;
+  }
+  
+  /* News Cards */
+  .newsCardsContainer {
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Enhance the news cards with animations */
+  .newsCard {
+    border-radius: 16px !important;
+    height: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03) !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(99, 98, 231, 0.08);
+    background-color: white;
+  }
+  
+  .newsCard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(99, 98, 231, 0.1) !important;
+    border-color: rgba(99, 98, 231, 0.2);
+  }
+  
+  .newsCardContent {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .newsCardMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(99, 98, 231, 0.08);
+  }
+  
+  .newsChip {
+    background-color: #e0e7ff !important;
+    color: #6362e7 !important;
+    font-weight: 600 !important;
+    font-size: 0.7rem !important;
+    height: 24px !important;
+  }
+  
+  .importantChip {
+    background-color: #fef2f2 !important;
+    color: #ef4444 !important;
+    font-weight: 600 !important;
+    font-size: 0.7rem !important;
+    height: 24px !important;
+  }
+  
+  .importantChip .MuiChip-icon {
+    color: #ef4444 !important;
+  }
+  
+  .newsDate {
+    color: #94a3b8 !important;
+    font-weight: 500 !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .newsCardBody {
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .newsIconWrapper {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6362e7 0%, #5d5bd4 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 8px 20px rgba(99, 98, 231, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .newsCard:hover .newsIconWrapper {
+    transform: rotate(10deg);
+  }
+  
+  .newsIcon {
+    color: white;
+    font-size: 24px !important;
+    transition: transform 0.3s ease;
+  }
+  
+  .newsCard:hover .newsIcon {
+    transform: rotate(-10deg);
+  }
+  
+  .newsTextContent {
+    flex: 1;
+  }
+  
+  .newsTitle {
+    color: #1e293b;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 1.25rem !important;
+    line-height: 1.4 !important;
+  }
+  
+  .newsContent {
+    color: #64748b;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  
+  .newsButton {
+    color: #6362e7 !important;
+    font-weight: 600 !important;
+    padding: 0.5rem 0 !important;
+    text-transform: none !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .newsButton:hover {
+    color: #5d5bd4 !important;
+    background-color: transparent !important;
+    padding-left: 0.25rem !important;
+  }
+  
+  .newsButton .MuiButton-endIcon {
+    transition: transform 0.3s ease;
+  }
+  
+  .newsButton:hover .MuiButton-endIcon {
+    transform: translateX(6px);
+  }
+  
+  /* Quick Access Cards */
+  .quickAccessContainer {
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Enhance the quick access cards with animations */
+  .quickAccessCard {
+    border-radius: 16px !important;
+    padding: 2rem;
+    height: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03) !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid rgba(99, 98, 231, 0.08);
+    background-color: white;
+    overflow: hidden;
+  }
+  
+  .quickAccessCard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle at top right, rgba(99, 98, 231, 0.05) 0%, rgba(99, 98, 231, 0) 70%);
+    border-radius: 0 0 0 100%;
+    z-index: 0;
+    transition: all 0.5s ease;
+  }
+  
+  .quickAccessCard:hover::before {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle at top right, rgba(99, 98, 231, 0.1) 0%, rgba(99, 98, 231, 0) 70%);
+  }
+  
+  .quickAccessCard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(99, 98, 231, 0.1) !important;
+    border-color: rgba(99, 98, 231, 0.2);
+  }
+  
+  .quickAccessIcon {
+    color: #6362e7;
+    font-size: 2rem !important;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+  }
+  
+  .quickAccessCard:hover .quickAccessIcon {
+    transform: scale(1.2) rotate(10deg);
+  }
+  
+  .quickAccessTitle {
+    color: #1e293b;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 1.25rem !important;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .quickAccessDescription {
+    color: #64748b;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+    flex-grow: 1;
+  }
+  
+  .quickAccessButton {
+    background: linear-gradient(135deg, #6362e7 0%, #5d5bd4 100%) !important;
+    color: white !important;
+    text-transform: none !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 8px 20px rgba(99, 98, 231, 0.2) !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    position: relative;
+    z-index: 1;
+    align-self: flex-start;
+    overflow: hidden;
+  }
+  
+  .quickAccessButton::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    transition: transform 0.7s ease;
+    opacity: 0;
+  }
+  
+  .quickAccessButton:hover::after {
+    transform: rotate(30deg) translate(50%, 50%);
+    opacity: 1;
+  }
+  
+  .quickAccessButton:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(99, 98, 231, 0.3) !important;
+  }
+  
+  .quickAccessButton .MuiButton-endIcon {
+    transition: transform 0.3s ease;
+  }
+  
+  .quickAccessButton:hover .MuiButton-endIcon {
+    transform: translateX(6px);
+  }
+  
+  /* Add these animation classes */
+  .animateIn {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  .animateScale {
+    opacity: 0;
+    animation: scaleIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+  
+  .animateStagger {
+    opacity: 1;
+  }
+  
+  .animateStagger .staggerItem {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  .animateStagger .staggerItem:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  
+  .animateStagger .staggerItem:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .animateStagger .staggerItem:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  
+  .animateStagger .staggerItem:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  
+  .animateCounter {
+    animation: pulse 1s ease-in-out;
+  }
+  
+  /* Add animated background elements */
+  .animatedBg1,
+  .animatedBg2,
+  .animatedBg3 {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  .animatedBg1 {
+    top: 15%;
+    right: -5%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle at center, rgba(99, 98, 231, 0.05) 0%, rgba(99, 98, 231, 0) 70%);
+    animation: float 15s ease-in-out infinite;
+  }
+  
+  .animatedBg2 {
+    bottom: 10%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle at center, rgba(99, 98, 231, 0.03) 0%, rgba(99, 98, 231, 0) 70%);
+    animation: float 20s ease-in-out infinite reverse;
+  }
+  
+  .animatedBg3 {
+    top: 40%;
+    left: 30%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle at center, rgba(99, 98, 231, 0.02) 0%, rgba(99, 98, 231, 0) 70%);
+    animation: float 18s ease-in-out infinite 2s;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 1200px) {
+    .fullWidthContent {
+      flex-direction: column;
+    }
+  
+    .fullWidthVisual {
+      min-height: 200px;
+    }
+  
+    .processCounter {
+      font-size: 5rem !important;
+    }
+  }
+  
+  @media (max-width: 960px) {
+    .container {
+      padding: 2rem 1.5rem;
+    }
+  
+    .fullWidthTitle {
+      font-size: 2rem !important;
+    }
+  
+    .fullWidthDescription {
+      font-size: 1rem;
+    }
+  
+    .newsCardBody {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  
+    .sectionHeader {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .container {
+      padding: 1.5rem 1rem;
+    }
+  
+    .pageTitle {
+      font-size: 2rem !important;
+    }
+  
+    .pageSubtitle {
+      font-size: 1rem !important;
+    }
+  
+    .featureCardHeader {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .featureCardIconWrapper {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+  
+    .fullWidthTextContent {
+      padding: 2rem;
+    }
+  
+    .fullWidthTitle {
+      font-size: 1.75rem !important;
+    }
+  
+    .fullWidthButton {
+      width: 100%;
+      justify-content: center;
+    }
+  
+    .sectionTitle {
+      font-size: 1.5rem !important;
+    }
+  
+    .statNumber {
+      font-size: 2rem !important;
+    }
+  }
+  
+  

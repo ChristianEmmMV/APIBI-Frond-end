@@ -4,17 +4,23 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Navbar from './components/Navbar/Navbar'
 import Sidebar from './components/Sidebar/Sidebar'
-import Dashboard from './pages/Dashboard/Dashboard'
-import Projects from './pages/Projects/Projects'
-import Pocs from './pages/PocsInformation/Pocs'
-import ClientSurvey from './pages/Client Survey/ClientSurvey'
+import Dashboard from './pages/Presales/Dashboard/Dashboard'
+import Projects from './pages/Presales/Projects/Projects'
+import Pocs from './pages/Presales/PocsInformation/Pocs'
+import ClientSurvey from './pages/Presales/Client Survey/ClientSurvey'
 import AddClientSurvey from './pages/Add Client Survey/AddClientSurvey'
-import PresalesInformation from './pages/Presales Information/PresalesInformation'
-import AgentsInformation from './pages/Agents Information/AgentsInformation'
-import PotentialAgents from './pages/Potential Agents/PotentialAgents'
-import ProjectTracking from './pages/Project Tracking/ProjectTracking'
-import RegisterUser from './pages/RegisterUser/RegisterUser'
-import RegisterPanel from './pages/RegisterPanel/RegisterPanel'
+import PresalesInformation from './pages/Presales/Presales Information/PresalesInformation'
+import AgentsInformation from './pages/Presales/Agents Information/AgentsInformation'
+import PotentialAgents from './pages/Presales/Potential Agents/PotentialAgents'
+import ProjectTracking from './pages/Presales/Project Tracking/ProjectTracking'
+import RegisterUser from './pages/Business Intelligence/RegisterUser/RegisterUser'
+import RegisterPanel from './pages/Business Intelligence/RegisterPanel/RegisterPanel'
+import HomeBI from './pages/Business Intelligence/HomeBI/HomeBi'
+import DashboardBI from './pages/Business Intelligence/DashboardBI/DashbordBI'
+import BiProducts from './pages/Business Intelligence/BI Products/BiProducts'
+import clients from './pages/Business Intelligence/Clients/Clients'
+import Demo from './pages/Business Intelligence/Demo/Demo'
+import LearningPanel from './pages/Business Intelligence/Learning Panel/LearningPanel'
 import MarketingPortal from './pages/MarketingPortal/MarketingPortal'
 import './App.css'
 
@@ -48,8 +54,14 @@ function App() {
           <Route path="/potential-agents" element={<PotentialAgents/>} />
           <Route path="/project-tracking" element={<ProjectTracking/>} />
           <Route path="/register-user" element={<RegisterUser/>} />
+          <Route path="/home-bi" element={<HomeBI/>} />
           <Route path="/register-panel" element={<RegisterPanel/>} />
-          <Route path="/marketing-portal" element={<MarketingPortal/>} />
+          <Route path="/dashboard-bi" element={<DashboardBI/>} />
+          <Route path="/bi-products" element={<BiProducts/>} />
+          <Route path="/clients" element={<clients/>} />
+          <Route path="/demo" element={<Demo/>} />
+          <Route path="/marketing" element={<MarketingPortal/>} />
+          <Route path="/learning-panel" element={<LearningPanel/>} />
         </Routes>
       </main>
     </div>
