@@ -17,12 +17,17 @@ import RegisterUser from './pages/Business Intelligence/RegisterUser/RegisterUse
 import RegisterPanel from './pages/Business Intelligence/RegisterPanel/RegisterPanel'
 import HomeBI from './pages/Business Intelligence/HomeBI/HomeBi'
 import DashboardBI from './pages/Business Intelligence/DashboardBI/DashbordBI'
-import BiProducts from './pages/Business Intelligence/BI Products/BiProducts'
 import ClientsDashboard from './pages/Business Intelligence/Clients/ClientsDashboard'
 import Demo from './pages/Business Intelligence/Demo/Demo'
 import LearningPanel from './pages/Business Intelligence/Learning Panel/LearningPanel'
 import ClientInformation from './pages/Business Intelligence/Clients/ClientInformation'
 import MarketingPortal from './pages/Business Intelligence/MarketingPortal/MarketingPortal'
+import ProjectsBI from './pages/Business Intelligence/Projects/Projects'
+import BIAgents from './pages/Business Intelligence/BI Products/Agents/Agents'
+import BICaseStudies from './pages/Business Intelligence/BI Products/CaseStudies/CaseStudies'
+import BIIndustries from './pages/Business Intelligence/BI Products/Industries/Industries'
+import BIVideoCases from './pages/Business Intelligence/BI Products/VideoCases/VideoCases'
+
 import './App.css'
 
 function App() {
@@ -58,10 +63,14 @@ function App() {
           <Route path="/home-bi" element={<HomeBI/>} />
           <Route path="/register-panel" element={<RegisterPanel/>} />
           <Route path="/dashboard-bi" element={<DashboardBI/>} />
-          <Route path="/bi-products" element={<BiProducts/>} />
           <Route path="/clients-dashboard" element={<ClientsDashboard/>} />
           <Route path="/client-information" element={<ClientInformation/>} />
           <Route path="/demo" element={<Demo/>} />
+          <Route path="/bi-agents" element={<BIAgents/>} />
+          <Route path="/bi-case-studies" element={<BICaseStudies/>} />
+          <Route path="/bi-industries" element={<BIIndustries/>} />
+          <Route path="/bi-video-cases" element={<BIVideoCases/>} />
+          <Route path="/projects-bi" element={<ProjectsBI/>} />
           <Route path="/marketing-portal" element={<MarketingPortal/>} />
           <Route path="/learning-panel" element={<LearningPanel/>} />
         </Routes>

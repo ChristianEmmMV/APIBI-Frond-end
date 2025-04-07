@@ -84,15 +84,15 @@ const Sidebar = ({ isOpen }) => {
       expandable: true,
       id: "biproducts",
       subItems: [
-        { icon: <SupportAgentIcon />, text: "Agents", path: "/sales-reports" },
-        { icon: <QueryStatsIcon />, text: "Case Studies", path: "/performance-metrics" },
-        { icon: <VideoIcon />, text: "Video Cases", path: "/market-analysis" },
-        { icon: <FactoryIcon />, text: "Iduntries", path: "/market-analysis" },
+        { icon: <SupportAgentIcon />, text: "Agents", path: "/bi-agents" },
+        { icon: <QueryStatsIcon />, text: "Case Studies", path: "/bi-case-studies" },
+        { icon: <VideoIcon />, text: "Video Cases", path: "/bi-industries" },
+        { icon: <FactoryIcon />, text: "Iduntries", path: "/bi-video-cases" },
       ],
     },
     { icon: <BusinessCenterIcon />, text: "Marketing Portal", path: "/marketing-portal"},
-    { icon: <SchoolIcon />, text: "Learning Portal", path: "/register-user" },
-    { icon: <DeveloperModeIcon />, text: "Demo", path: "/register-user" },
+    { icon: <SchoolIcon />, text: "Learning Portal", path: "/learning-panel" },
+    { icon: <DeveloperModeIcon />, text: "Demo", path: "/demo" },
     {
       icon: <ContactsIcon />,
       text: "Client's",
@@ -103,7 +103,7 @@ const Sidebar = ({ isOpen }) => {
         { icon: <InfoIcon />, text: "Clients Information", path: "/client-information" },
       ],
     },
-    { icon: <FolderIcon />, text: "Projects", path: "/register-user" },
+    { icon: <FolderIcon />, text: "Projects", path: "/projects-bi" },
     { icon: <PeopleIcon />, text: "Register User", path: "/register-user" },
   ]
 
