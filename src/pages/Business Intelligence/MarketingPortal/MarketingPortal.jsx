@@ -38,16 +38,16 @@ import {
     TableBody
     } from "@mui/material"
 
-import NewRequest from "../../components/MarketingPortal/NewRequest"
+import NewRequest from "../../../components/MarketingPortal/NewRequest"
 
-import image from "../../../public/assets/Welcome-cases.png"
-import image1 from "../../../public/assets/Portada1.jpg"
-import image2 from "../../../public/assets/Portada2.jpg"
-import image3 from "../../../public/assets/Portada3.jpg"
-import image4 from "../../../public/assets/Portada4.jpg"
-import image5 from "../../../public/assets/Portada5.jpg"
-import image6 from "../../../public/assets/Portada6.jpg"
-import image7 from "../../../public/assets/Portada7.jpg"
+import image from "../../../../public/assets/Welcome-cases.png"
+import image1 from "../../../../public/assets/Portada1.jpg"
+import image2 from "../../../../public/assets/Portada2.jpg"
+import image3 from "../../../../public/assets/Portada3.jpg"
+import image4 from "../../../../public/assets/Portada4.jpg"
+import image5 from "../../../../public/assets/Portada5.jpg"
+import image6 from "../../../../public/assets/Portada6.jpg"
+import image7 from "../../../../public/assets/Portada7.jpg"
 
 
 

@@ -18,10 +18,11 @@ import RegisterPanel from './pages/Business Intelligence/RegisterPanel/RegisterP
 import HomeBI from './pages/Business Intelligence/HomeBI/HomeBi'
 import DashboardBI from './pages/Business Intelligence/DashboardBI/DashbordBI'
 import BiProducts from './pages/Business Intelligence/BI Products/BiProducts'
-import clients from './pages/Business Intelligence/Clients/Clients'
+import ClientsDashboard from './pages/Business Intelligence/Clients/ClientsDashboard'
 import Demo from './pages/Business Intelligence/Demo/Demo'
 import LearningPanel from './pages/Business Intelligence/Learning Panel/LearningPanel'
-import MarketingPortal from './pages/MarketingPortal/MarketingPortal'
+import ClientInformation from './pages/Business Intelligence/Clients/ClientInformation'
+import MarketingPortal from './pages/Business Intelligence/MarketingPortal/MarketingPortal'
 import './App.css'
 
 function App() {
@@ -58,9 +59,10 @@ function App() {
           <Route path="/register-panel" element={<RegisterPanel/>} />
           <Route path="/dashboard-bi" element={<DashboardBI/>} />
           <Route path="/bi-products" element={<BiProducts/>} />
-          <Route path="/clients" element={<clients/>} />
+          <Route path="/clients-dashboard" element={<ClientsDashboard/>} />
+          <Route path="/client-information" element={<ClientInformation/>} />
           <Route path="/demo" element={<Demo/>} />
-          <Route path="/marketing" element={<MarketingPortal/>} />
+          <Route path="/marketing-portal" element={<MarketingPortal/>} />
           <Route path="/learning-panel" element={<LearningPanel/>} />
         </Routes>
       </main>

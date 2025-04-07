@@ -22,11 +22,13 @@ import {
   OndemandVideo as VideoIcon,
   Factory as FactoryIcon,
   QueryStats as QueryStatsIcon,
-  AttachMoney as MoneyIcon,
   School as SchoolIcon,
   DeveloperMode as DeveloperModeIcon,
   Folder as FolderIcon,
   People as PeopleIcon,
+  BusinessCenter as BusinessCenterIcon,
+  Contacts as ContactsIcon,
+  PersonSearch as PersonSearchIcon,
 } from "@mui/icons-material"
 import styles from "./sidebar.module.css"
 import Logo from "../../../public/assets/logo.png"
@@ -88,9 +90,19 @@ const Sidebar = ({ isOpen }) => {
         { icon: <FactoryIcon />, text: "Iduntries", path: "/market-analysis" },
       ],
     },
-    { icon: <MarketingPortalIcon />, text: "Marketing Portal", path: "/marketing-portal"},
+    { icon: <BusinessCenterIcon />, text: "Marketing Portal", path: "/marketing-portal"},
     { icon: <SchoolIcon />, text: "Learning Portal", path: "/register-user" },
     { icon: <DeveloperModeIcon />, text: "Demo", path: "/register-user" },
+    {
+      icon: <ContactsIcon />,
+      text: "Client's",
+      expandable: true,
+      id: "agents",
+      subItems: [
+        { icon: <PersonSearchIcon />, text: "Dashboard Clients", path: "/clients-dashboard" },
+        { icon: <InfoIcon />, text: "Clients Information", path: "/client-information" },
+      ],
+    },
     { icon: <FolderIcon />, text: "Projects", path: "/register-user" },
     { icon: <PeopleIcon />, text: "Register User", path: "/register-user" },
   ]
