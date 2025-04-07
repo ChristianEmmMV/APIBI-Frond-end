@@ -20,8 +20,8 @@ import DashboardBI from './pages/Business Intelligence/DashboardBI/DashbordBI'
 import BiProducts from './pages/Business Intelligence/BI Products/BiProducts'
 import clients from './pages/Business Intelligence/Clients/Clients'
 import Demo from './pages/Business Intelligence/Demo/Demo'
-import Marketing from './pages/Business Intelligence/Marketing/Marketing'
 import LearningPanel from './pages/Business Intelligence/Learning Panel/LearningPanel'
+import MarketingPortal from './pages/MarketingPortal/MarketingPortal'
 import './App.css'
 
 function App() {
@@ -60,7 +60,7 @@ function App() {
           <Route path="/bi-products" element={<BiProducts/>} />
           <Route path="/clients" element={<clients/>} />
           <Route path="/demo" element={<Demo/>} />
-          <Route path="/marketing" element={<Marketing/>} />
+          <Route path="/marketing" element={<MarketingPortal/>} />
           <Route path="/learning-panel" element={<LearningPanel/>} />
         </Routes>
       </main>

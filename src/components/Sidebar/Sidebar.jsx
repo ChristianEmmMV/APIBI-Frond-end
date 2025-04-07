@@ -88,7 +88,7 @@ const Sidebar = ({ isOpen }) => {
         { icon: <FactoryIcon />, text: "Iduntries", path: "/market-analysis" },
       ],
     },
-    { icon: <MoneyIcon />, text: "Marketing", path: "/comparisons" },
+    { icon: <MarketingPortalIcon />, text: "Marketing Portal", path: "/marketing-portal"},
     { icon: <SchoolIcon />, text: "Learning Portal", path: "/register-user" },
     { icon: <DeveloperModeIcon />, text: "Demo", path: "/register-user" },
     { icon: <FolderIcon />, text: "Projects", path: "/register-user" },

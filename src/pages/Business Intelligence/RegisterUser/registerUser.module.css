@@ -91,5 +91,13 @@
   .formSelect {
     height: 44px;
     width: 100%;
-    
+    background-color: white;
+  }
+
+  .container .button {
+    margin-Top: 24px; 
+    border-Radius: 20px;
+    width: 20%;
+    background-Color: #6362e7;
+    margin-left: 300px;
   }
