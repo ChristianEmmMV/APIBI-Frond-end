@@ -1,5 +1,15 @@
-"use client"
-import { Container, Typography, Grid, Paper, Button, Chip, Box, Divider } from "@mui/material"
+"use client";
+import {
+  Container,
+  Typography,
+  Grid,
+  Paper,
+  Button,
+  Chip,
+  Box,
+  Divider,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 import {
   ArrowForward,
   BarChart,
@@ -16,9 +26,9 @@ import {
   People,
   Speed,
   SupportAgent,
-} from "@mui/icons-material"
-import styles from "./homebi.module.css"
-import { useEffect, useRef, useState } from "react"
+} from "@mui/icons-material";
+import styles from "./homebi.module.css";
+import { useEffect, useRef, useState } from "react";
 
 function HomeBi() {
   const [isVisible, setIsVisible] = useState({
@@ -28,51 +38,56 @@ function HomeBi() {
     stats: false,
     news: false,
     quickAccess: false,
-  })
+  });
 
-  const headerRef = useRef(null)
-  const featureCardsRef = useRef(null)
-  const fullWidthRef = useRef(null)
-  const statsRef = useRef(null)
-  const newsRef = useRef(null)
-  const quickAccessRef = useRef(null)
+  const headerRef = useRef(null);
+  const featureCardsRef = useRef(null);
+  const fullWidthRef = useRef(null);
+  const statsRef = useRef(null);
+  const newsRef = useRef(null);
+  const quickAccessRef = useRef(null);
 
   useEffect(() => {
     const observerOptions = {
       root: null,
       rootMargin: "0px",
       threshold: 0.1,
-    }
+    };
 
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const sectionId = entry.target.dataset.section
+          const sectionId = entry.target.dataset.section;
           if (sectionId) {
-            setIsVisible((prev) => ({ ...prev, [sectionId]: true }))
+            setIsVisible((prev) => ({ ...prev, [sectionId]: true }));
           }
         }
-      })
-    }
+      });
+    };
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions)
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions
+    );
 
-    if (headerRef.current) observer.observe(headerRef.current)
-    if (featureCardsRef.current) observer.observe(featureCardsRef.current)
-    if (fullWidthRef.current) observer.observe(fullWidthRef.current)
-    if (statsRef.current) observer.observe(statsRef.current)
-    if (newsRef.current) observer.observe(newsRef.current)
-    if (quickAccessRef.current) observer.observe(quickAccessRef.current)
+    if (headerRef.current) observer.observe(headerRef.current);
+    if (featureCardsRef.current) observer.observe(featureCardsRef.current);
+    if (fullWidthRef.current) observer.observe(fullWidthRef.current);
+    if (statsRef.current) observer.observe(statsRef.current);
+    if (newsRef.current) observer.observe(newsRef.current);
+    if (quickAccessRef.current) observer.observe(quickAccessRef.current);
 
     return () => {
-      observer.disconnect()
-    }
-  }, [])
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <Container maxWidth="xl" className={styles.container}>
       <Box
-        className={`${styles.headerSection} ${isVisible.header ? styles.animateIn : ""}`}
+        className={`${styles.headerSection} ${
+          isVisible.header ? styles.animateIn : ""
+        }`}
         ref={headerRef}
         data-section="header"
       >
@@ -87,7 +102,9 @@ function HomeBi() {
       <Grid
         container
         spacing={3}
-        className={`${styles.featureCardsContainer} ${isVisible.featureCards ? styles.animateStagger : ""}`}
+        className={`${styles.featureCardsContainer} ${
+          isVisible.featureCards ? styles.animateStagger : ""
+        }`}
         ref={featureCardsRef}
         data-section="featureCards"
       >
@@ -101,11 +118,22 @@ function HomeBi() {
                 Case Studies / Use Cases
               </Typography>
             </Box>
-            <Typography variant="body1" className={styles.featureCardDescription}>
-              Explore our collection of success stories and detailed case studies from various industries. Learn how our
-              solutions have helped businesses overcome challenges and achieve their strategic goals.
+            <Typography
+              variant="body1"
+              className={styles.featureCardDescription}
+            >
+              Explore our collection of success stories and detailed case
+              studies from various industries. Learn how our solutions have
+              helped businesses overcome challenges and achieve their strategic
+              goals.
             </Typography>
-            <Button variant="text" endIcon={<ArrowForward />} className={styles.featureCardButton}>
+            <Button
+              component={Link}
+              to="/bi-case-studies"
+              variant="text"
+              endIcon={<ArrowForward />}
+              className={styles.featureCardButton}
+            >
               Explore Case Studies
             </Button>
           </Paper>
@@ -121,36 +149,56 @@ function HomeBi() {
                 Clients Charts
               </Typography>
             </Box>
-            <Typography variant="body1" className={styles.featureCardDescription}>
-              Access interactive visualizations and data charts that provide deep insights into client performance,
-              market trends, and key metrics to support your strategic decision-making process.
+            <Typography
+              variant="body1"
+              className={styles.featureCardDescription}
+            >
+              Access interactive visualizations and data charts that provide
+              deep insights into client performance, market trends, and key
+              metrics to support your strategic decision-making process.
             </Typography>
-            <Button variant="text" endIcon={<ArrowForward />} className={styles.featureCardButton}>
+            <Button
+            component={Link}
+              to="/clients-dashboard"
+              variant="text"
+              endIcon={<ArrowForward />}
+              className={styles.featureCardButton}
+            >
               View Charts
             </Button>
           </Paper>
         </Grid>
-
-        
       </Grid>
 
       <Box
-        className={`${styles.fullWidthFeature} ${isVisible.fullWidth ? styles.animateScale : ""}`}
+        className={`${styles.fullWidthFeature} ${
+          isVisible.fullWidth ? styles.animateScale : ""
+        }`}
         ref={fullWidthRef}
         data-section="fullWidth"
       >
         <Box className={styles.fullWidthContent}>
           <Box className={styles.fullWidthTextContent}>
-            <Chip icon={<AutoAwesome />} label="FEATURED" className={styles.featuredChip} />
+            <Chip
+              icon={<AutoAwesome />}
+              label="FEATURED"
+              className={styles.featuredChip}
+            />
             <Typography variant="h3" className={styles.fullWidthTitle}>
               Catalog of 39 Reusable CPG Processes
             </Typography>
             <Typography variant="body1" className={styles.fullWidthDescription}>
-              Our comprehensive catalog of reusable Consumer Packaged Goods processes represents a breakthrough in
-              operational efficiency. These standardized processes can be quickly implemented and customized to meet
-              your specific business needs, dramatically reducing implementation time and costs.
+              Our comprehensive catalog of reusable Consumer Packaged Goods
+              processes represents a breakthrough in operational efficiency.
+              These standardized processes can be quickly implemented and
+              customized to meet your specific business needs, dramatically
+              reducing implementation time and costs.
             </Typography>
-            <Button variant="contained" endIcon={<ArrowForward />} className={styles.fullWidthButton}>
+            <Button
+              variant="contained"
+              endIcon={<ArrowForward />}
+              className={styles.fullWidthButton}
+            >
               Explore Catalog
             </Button>
           </Box>
@@ -170,14 +218,21 @@ function HomeBi() {
       <Grid
         container
         spacing={3}
-        className={`${styles.statsContainer} ${isVisible.stats ? styles.animateStagger : ""}`}
+        className={`${styles.statsContainer} ${
+          isVisible.stats ? styles.animateStagger : ""
+        }`}
         ref={statsRef}
         data-section="stats"
       >
         <Grid item xs={12} sm={6} md={3} className={styles.staggerItem}>
           <Paper elevation={0} className={styles.statCard}>
             <TrendingUp className={styles.statIcon} />
-            <Typography variant="h3" className={`${styles.statNumber} ${isVisible.stats ? styles.animateCounter : ""}`}>
+            <Typography
+              variant="h3"
+              className={`${styles.statNumber} ${
+                isVisible.stats ? styles.animateCounter : ""
+              }`}
+            >
               85%
             </Typography>
             <Typography variant="body1" className={styles.statLabel}>
@@ -188,7 +243,12 @@ function HomeBi() {
         <Grid item xs={12} sm={6} md={3} className={styles.staggerItem}>
           <Paper elevation={0} className={styles.statCard}>
             <People className={styles.statIcon} />
-            <Typography variant="h3" className={`${styles.statNumber} ${isVisible.stats ? styles.animateCounter : ""}`}>
+            <Typography
+              variant="h3"
+              className={`${styles.statNumber} ${
+                isVisible.stats ? styles.animateCounter : ""
+              }`}
+            >
               120+
             </Typography>
             <Typography variant="body1" className={styles.statLabel}>
@@ -199,7 +259,12 @@ function HomeBi() {
         <Grid item xs={12} sm={6} md={3} className={styles.staggerItem}>
           <Paper elevation={0} className={styles.statCard}>
             <Speed className={styles.statIcon} />
-            <Typography variant="h3" className={`${styles.statNumber} ${isVisible.stats ? styles.animateCounter : ""}`}>
+            <Typography
+              variant="h3"
+              className={`${styles.statNumber} ${
+                isVisible.stats ? styles.animateCounter : ""
+              }`}
+            >
               60%
             </Typography>
             <Typography variant="body1" className={styles.statLabel}>
@@ -210,7 +275,12 @@ function HomeBi() {
         <Grid item xs={12} sm={6} md={3} className={styles.staggerItem}>
           <Paper elevation={0} className={styles.statCard}>
             <SupportAgent className={styles.statIcon} />
-            <Typography variant="h3" className={`${styles.statNumber} ${isVisible.stats ? styles.animateCounter : ""}`}>
+            <Typography
+              variant="h3"
+              className={`${styles.statNumber} ${
+                isVisible.stats ? styles.animateCounter : ""
+              }`}
+            >
               24/7
             </Typography>
             <Typography variant="body1" className={styles.statLabel}>
@@ -221,14 +291,20 @@ function HomeBi() {
       </Grid>
 
       <Box
-        className={`${styles.sectionHeader} ${isVisible.news ? styles.animateIn : ""}`}
+        className={`${styles.sectionHeader} ${
+          isVisible.news ? styles.animateIn : ""
+        }`}
         ref={newsRef}
         data-section="news"
       >
         <Typography variant="h4" component="h2" className={styles.sectionTitle}>
           Latest Updates
         </Typography>
-        <Button variant="outlined" endIcon={<ArrowForward />} className={styles.sectionButton}>
+        <Button
+          variant="outlined"
+          endIcon={<ArrowForward />}
+          className={styles.sectionButton}
+        >
           View All
         </Button>
       </Box>
@@ -236,7 +312,9 @@ function HomeBi() {
       <Grid
         container
         spacing={3}
-        className={`${styles.newsCardsContainer} ${isVisible.news ? styles.animateStagger : ""}`}
+        className={`${styles.newsCardsContainer} ${
+          isVisible.news ? styles.animateStagger : ""
+        }`}
       >
         <Grid item xs={12} md={6} className={styles.staggerItem}>
           <Paper elevation={0} className={styles.newsCard}>
@@ -256,11 +334,17 @@ function HomeBi() {
                     The new presales platform goes into production
                   </Typography>
                   <Typography variant="body2" className={styles.newsContent}>
-                    The recently developed presales platform has reached the crucial milestone of going into production,
-                    marking an exciting moment for the organization. Designed to optimize the presales process, this
-                    platform represents a significant advancement in our operational capabilities.
+                    The recently developed presales platform has reached the
+                    crucial milestone of going into production, marking an
+                    exciting moment for the organization. Designed to optimize
+                    the presales process, this platform represents a significant
+                    advancement in our operational capabilities.
                   </Typography>
-                  <Button variant="text" endIcon={<ArrowForward />} className={styles.newsButton}>
+                  <Button
+                    variant="text"
+                    endIcon={<ArrowForward />}
+                    className={styles.newsButton}
+                  >
                     Read more
                   </Button>
                 </Box>
@@ -273,7 +357,11 @@ function HomeBi() {
           <Paper elevation={0} className={styles.newsCard}>
             <Box className={styles.newsCardContent}>
               <Box className={styles.newsCardMeta}>
-                <Chip icon={<Notifications />} label="IMPORTANT" className={styles.importantChip} />
+                <Chip
+                  icon={<Notifications />}
+                  label="IMPORTANT"
+                  className={styles.importantChip}
+                />
                 <Typography variant="caption" className={styles.newsDate}>
                   OCT. 24, 2023
                 </Typography>
@@ -287,11 +375,17 @@ function HomeBi() {
                     Welcome to BI Platform
                   </Typography>
                   <Typography variant="body2" className={styles.newsContent}>
-                    Welcome to our Business Intelligence platform! Here you can access fresh news and updated data about
-                    Business Intelligence (BI). Stay informed about the latest trends and discover relevant information
-                    that will help you make better business decisions.
+                    Welcome to our Business Intelligence platform! Here you can
+                    access fresh news and updated data about Business
+                    Intelligence (BI). Stay informed about the latest trends and
+                    discover relevant information that will help you make better
+                    business decisions.
                   </Typography>
-                  <Button variant="text" endIcon={<ArrowForward />} className={styles.newsButton}>
+                  <Button
+                    variant="text"
+                    endIcon={<ArrowForward />}
+                    className={styles.newsButton}
+                  >
                     Learn more
                   </Button>
                 </Box>
@@ -302,7 +396,9 @@ function HomeBi() {
       </Grid>
 
       <Box
-        className={`${styles.sectionHeader} ${isVisible.quickAccess ? styles.animateIn : ""}`}
+        className={`${styles.sectionHeader} ${
+          isVisible.quickAccess ? styles.animateIn : ""
+        }`}
         ref={quickAccessRef}
         data-section="quickAccess"
       >
@@ -315,7 +411,9 @@ function HomeBi() {
       <Grid
         container
         spacing={3}
-        className={`${styles.quickAccessContainer} ${isVisible.quickAccess ? styles.animateStagger : ""}`}
+        className={`${styles.quickAccessContainer} ${
+          isVisible.quickAccess ? styles.animateStagger : ""
+        }`}
       >
         <Grid item xs={12} sm={6} md={3} className={styles.staggerItem}>
           <Paper elevation={0} className={styles.quickAccessCard}>
@@ -323,10 +421,18 @@ function HomeBi() {
             <Typography variant="h6" className={styles.quickAccessTitle}>
               Reports
             </Typography>
-            <Typography variant="body2" className={styles.quickAccessDescription}>
-              Access all your business reports and analytics dashboards in one place
+            <Typography
+              variant="body2"
+              className={styles.quickAccessDescription}
+            >
+              Access all your business reports and analytics dashboards in one
+              place
             </Typography>
-            <Button variant="contained" endIcon={<ArrowForward />} className={styles.quickAccessButton}>
+            <Button
+              variant="contained"
+              endIcon={<ArrowForward />}
+              className={styles.quickAccessButton}
+            >
               View Reports
             </Button>
           </Paper>
@@ -337,10 +443,17 @@ function HomeBi() {
             <Typography variant="h6" className={styles.quickAccessTitle}>
               Dashboards
             </Typography>
-            <Typography variant="body2" className={styles.quickAccessDescription}>
+            <Typography
+              variant="body2"
+              className={styles.quickAccessDescription}
+            >
               Explore interactive dashboards with real-time data visualizations
             </Typography>
-            <Button variant="contained" endIcon={<ArrowForward />} className={styles.quickAccessButton}>
+            <Button
+              variant="contained"
+              endIcon={<ArrowForward />}
+              className={styles.quickAccessButton}
+            >
               Open Dashboards
             </Button>
           </Paper>
@@ -351,10 +464,17 @@ function HomeBi() {
             <Typography variant="h6" className={styles.quickAccessTitle}>
               Data Sources
             </Typography>
-            <Typography variant="body2" className={styles.quickAccessDescription}>
+            <Typography
+              variant="body2"
+              className={styles.quickAccessDescription}
+            >
               Manage your connected data sources and integration settings
             </Typography>
-            <Button variant="contained" endIcon={<ArrowForward />} className={styles.quickAccessButton}>
+            <Button
+              variant="contained"
+              endIcon={<ArrowForward />}
+              className={styles.quickAccessButton}
+            >
               Manage Sources
             </Button>
           </Paper>
@@ -365,10 +485,17 @@ function HomeBi() {
             <Typography variant="h6" className={styles.quickAccessTitle}>
               User Guides
             </Typography>
-            <Typography variant="body2" className={styles.quickAccessDescription}>
+            <Typography
+              variant="body2"
+              className={styles.quickAccessDescription}
+            >
               Access comprehensive documentation and video tutorials
             </Typography>
-            <Button variant="contained" endIcon={<ArrowForward />} className={styles.quickAccessButton}>
+            <Button
+              variant="contained"
+              endIcon={<ArrowForward />}
+              className={styles.quickAccessButton}
+            >
               View Guides
             </Button>
           </Paper>
@@ -379,8 +506,7 @@ function HomeBi() {
       <div className={styles.animatedBg2}></div>
       <div className={styles.animatedBg3}></div>
     </Container>
-  )
+  );
 }
 
-export default HomeBi
-
+export default HomeBi;

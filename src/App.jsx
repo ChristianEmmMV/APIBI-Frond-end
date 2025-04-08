@@ -27,6 +27,7 @@ import BIAgents from './pages/Business Intelligence/BI Products/Agents/Agents'
 import BICaseStudies from './pages/Business Intelligence/BI Products/CaseStudies/CaseStudies'
 import BIIndustries from './pages/Business Intelligence/BI Products/Industries/Industries'
 import BIVideoCases from './pages/Business Intelligence/BI Products/VideoCases/VideoCases'
+import BICaseStudiesDashboard from './pages/Business Intelligence/BI Products/CaseStudies/CaseStudiesDashboard'
 
 import './App.css'
 
@@ -70,6 +71,7 @@ function App() {
           <Route path="/bi-case-studies" element={<BICaseStudies/>} />
           <Route path="/bi-industries" element={<BIIndustries/>} />
           <Route path="/bi-video-cases" element={<BIVideoCases/>} />
+          <Route path="/bi-case-studies-dashboard" element={<BICaseStudiesDashboard/>} />
           <Route path="/projects-bi" element={<ProjectsBI/>} />
           <Route path="/marketing-portal" element={<MarketingPortal/>} />
           <Route path="/learning-panel" element={<LearningPanel/>} />

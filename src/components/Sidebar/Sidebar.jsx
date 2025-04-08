@@ -86,8 +86,8 @@ const Sidebar = ({ isOpen }) => {
       subItems: [
         { icon: <SupportAgentIcon />, text: "Agents", path: "/bi-agents" },
         { icon: <QueryStatsIcon />, text: "Case Studies", path: "/bi-case-studies" },
-        { icon: <VideoIcon />, text: "Video Cases", path: "/bi-industries" },
-        { icon: <FactoryIcon />, text: "Iduntries", path: "/bi-video-cases" },
+        { icon: <VideoIcon />, text: "Video Cases", path: "/bi-video-cases" },
+        { icon: <FactoryIcon />, text: "Iduntries", path: "/bi-industries" },
       ],
     },
     { icon: <BusinessCenterIcon />, text: "Marketing Portal", path: "/marketing-portal"},
