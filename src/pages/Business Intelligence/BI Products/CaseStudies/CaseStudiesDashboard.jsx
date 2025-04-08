@@ -61,7 +61,6 @@ import {
 } from "recharts"
 
 const CaseStudiesDashboard = () => {
-  // Sample data for case studies
   const caseStudies = [
     {
       id: 1,
@@ -245,14 +244,11 @@ const CaseStudiesDashboard = () => {
     },
   ]
 
-  // State variables
   const [isLoading, setIsLoading] = useState(true)
   const [activeTab, setActiveTab] = useState(0)
   const [timeRange, setTimeRange] = useState("all")
 
-  // Prepare data for charts
   const prepareChartData = () => {
-    // Count case studies by industry
     const industryData = []
     const industryCount = {}
     caseStudies.forEach((cs) => {
@@ -269,7 +265,6 @@ const CaseStudiesDashboard = () => {
       })
     })
 
-    // Count case studies by location
     const locationData = []
     const locationCount = {}
     caseStudies.forEach((cs) => {
@@ -286,7 +281,6 @@ const CaseStudiesDashboard = () => {
       })
     })
 
-    // Count case studies by type
     const typeData = []
     const typeCount = {}
     caseStudies.forEach((cs) => {
@@ -303,13 +297,11 @@ const CaseStudiesDashboard = () => {
       })
     })
 
-    // Count AI vs non-AI
     const aiData = [
       { name: "AI", value: caseStudies.filter((cs) => cs.ai === "Yes").length },
       { name: "Non-AI", value: caseStudies.filter((cs) => cs.ai === "No").length },
     ]
 
-    // Count systems usage
     const systemsData = []
     const systemsCount = {}
     caseStudies.forEach((cs) => {
@@ -328,7 +320,6 @@ const CaseStudiesDashboard = () => {
       })
     })
 
-    // ROI by industry
     const roiByIndustry = []
     const roiSum = {}
     const roiCount = {}
@@ -348,7 +339,6 @@ const CaseStudiesDashboard = () => {
       })
     })
 
-    // Time reduction by type
     const timeReductionByType = []
     const timeSum = {}
     const timeCount = {}
@@ -368,7 +358,6 @@ const CaseStudiesDashboard = () => {
       })
     })
 
-    // Case studies over time
     const caseStudiesByMonth = []
     const monthCount = {}
     caseStudies.forEach((cs) => {
@@ -404,7 +393,6 @@ const CaseStudiesDashboard = () => {
 
   const chartData = prepareChartData()
 
-  // Calculate key metrics
   const totalCaseStudies = caseStudies.length
   const aiCaseStudies = caseStudies.filter((cs) => cs.ai === "Yes").length
   const aiPercentage = Math.round((aiCaseStudies / totalCaseStudies) * 100)
@@ -414,21 +402,17 @@ const CaseStudiesDashboard = () => {
   const topIndustries = [...chartData.industryData].sort((a, b) => b.value - a.value).slice(0, 3)
   const topLocations = [...chartData.locationData].sort((a, b) => b.value - a.value).slice(0, 3)
 
-  // Colors for charts
   const COLORS = ["#6362e7", "#36b9cc", "#1cc88a", "#f6c23e", "#e74a3b", "#5a5c69", "#4e73df", "#858796"]
   const AI_COLORS = ["#6362e7", "#e0e0e0"]
 
-  // Handle tab change
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue)
   }
 
-  // Handle time range change
   const handleTimeRangeChange = (range) => {
     setTimeRange(range)
   }
 
-  // Simulate loading
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false)
@@ -439,7 +423,6 @@ const CaseStudiesDashboard = () => {
   return (
     <Box sx={{ backgroundColor: "#f8f9fc", minHeight: "100vh", py: 2 }}>
       <Container maxWidth="xl" sx={{ px: { xs: 1, sm: 2 } }}>
-        {/* Header */}
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2, flexWrap: "wrap" }}>
           <Box sx={{ mb: { xs: 1, md: 0 } }}>
             <Typography variant="h5" sx={{ fontWeight: "bold", color: "#1e2f65", mb: 0.5 }}>
@@ -453,7 +436,7 @@ const CaseStudiesDashboard = () => {
               <Typography color="text.secondary" sx={{ fontSize: "0.75rem" }}>
                 Business Intelligence
               </Typography>
-              <Link underline="hover" color="inherit" href="/case-studies" sx={{ fontSize: "0.75rem" }}>
+              <Link underline="hover" color="inherit" href="/bi-case-studies" sx={{ fontSize: "0.75rem" }}>
                 Case Studies
               </Link>
               <Typography color="text.secondary" sx={{ fontSize: "0.75rem" }}>
@@ -489,7 +472,6 @@ const CaseStudiesDashboard = () => {
           </Box>
         </Box>
 
-        {/* Time Range Filter */}
         <Card sx={{ mb: 2, boxShadow: "0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1)" }}>
           <CardContent
             sx={{ p: 1.5, "&:last-child": { pb: 1.5 }, display: "flex", alignItems: "center", flexWrap: "wrap" }}
@@ -527,7 +509,6 @@ const CaseStudiesDashboard = () => {
           </CardContent>
         </Card>
 
-        {/* Key Metrics */}
         <Grid container spacing={2} sx={{ mb: 2 }}>
           {[
             {
@@ -614,11 +595,8 @@ const CaseStudiesDashboard = () => {
           ))}
         </Grid>
 
-        {/* Main Content */}
         <Grid container spacing={2}>
-          {/* Left Column */}
           <Grid item xs={12} md={8}>
-            {/* Case Studies Overview */}
             <Card sx={{ mb: 2, boxShadow: "0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1)" }}>
               <CardHeader
                 title="Case Studies Overview"
@@ -704,7 +682,6 @@ const CaseStudiesDashboard = () => {
               </CardContent>
             </Card>
 
-            {/* Small Charts */}
             <Grid container spacing={2} sx={{ mb: 2 }}>
               <Grid item xs={12} sm={6}>
                 <Card sx={{ boxShadow: "0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1)", height: "100%" }}>
@@ -814,7 +791,6 @@ const CaseStudiesDashboard = () => {
               </Grid>
             </Grid>
 
-            {/* Case Studies Over Time */}
             <Card sx={{ boxShadow: "0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1)" }}>
               <CardHeader
                 title="Case Studies Over Time"
@@ -857,9 +833,7 @@ const CaseStudiesDashboard = () => {
             </Card>
           </Grid>
 
-          {/* Right Column */}
           <Grid item xs={12} md={4}>
-            {/* Performance Metrics */}
             <Card sx={{ mb: 2, boxShadow: "0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1)" }}>
               <CardHeader
                 title="Performance Metrics"
@@ -933,7 +907,6 @@ const CaseStudiesDashboard = () => {
               </CardContent>
             </Card>
 
-            {/* Featured Case Studies */}
             <Card sx={{ boxShadow: "0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1)" }}>
               <CardHeader
                 title="Featured Case Studies"
@@ -1125,7 +1098,6 @@ const CaseStudiesDashboard = () => {
           </Grid>
         </Grid>
 
-        {/* Bottom Tables */}
         <Grid container spacing={2} sx={{ mt: 2 }}>
           <Grid item xs={12} md={6}>
             <Card sx={{ boxShadow: "0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1)" }}>

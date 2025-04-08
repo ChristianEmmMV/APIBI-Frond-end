@@ -44,10 +44,12 @@ import {
   Person,
   FilterList,
   CloudUpload,
+  DonutLarge,
 } from "@mui/icons-material"
 import styles from "./bicaseestudies.module.css"
 
 const CaseStudies = () => {
+  // Sample data for case studies
   const caseStudies = [
     {
       id: 1,
@@ -191,6 +193,7 @@ const CaseStudies = () => {
     },
   ]
 
+  // State variables
   const [searchQuery, setSearchQuery] = useState("")
   const [activeFilter, setActiveFilter] = useState("all")
   const [isTableLoading, setIsTableLoading] = useState(false)
@@ -206,10 +209,12 @@ const CaseStudies = () => {
   const [aiFilter, setAiFilter] = useState("all")
   const [showFilters, setShowFilters] = useState(false)
 
+  // Get unique values for filters
   const industries = ["all", ...new Set(caseStudies.map((cs) => cs.industry))].sort()
   const locations = ["all", ...new Set(caseStudies.map((cs) => cs.location))].sort()
   const typeCases = ["all", ...new Set(caseStudies.map((cs) => cs.typeCase))].sort()
 
+  // Filter buttons
   const filterButtons = [
     { id: "all", label: "All Case Studies" },
     { id: "process-automation", label: "Process Automation" },
@@ -218,6 +223,7 @@ const CaseStudies = () => {
     { id: "data-analytics", label: "Data Analytics" },
   ]
 
+  // Simulate loading
   const simulateTableLoading = () => {
     setIsTableLoading(true)
     setTableLoadingProgress(0)
@@ -240,6 +246,7 @@ const CaseStudies = () => {
     }, 200)
   }
 
+  // Handle sorting
   const handleSort = (column) => {
     const isAsc = orderBy === column && orderDirection === "asc"
     setOrderDirection(isAsc ? "desc" : "asc")
@@ -247,6 +254,7 @@ const CaseStudies = () => {
     simulateTableLoading()
   }
 
+  // Sort case studies
   const sortCaseStudies = (caseStudies) => {
     return [...caseStudies].sort((a, b) => {
       let valueA, valueB
@@ -293,18 +301,24 @@ const CaseStudies = () => {
     })
   }
 
+  // Filter case studies
   const filteredCaseStudies = caseStudies.filter((caseStudy) => {
+    // Filter by type case
     if (activeFilter !== "all") {
       const formattedFilter = activeFilter.replace(/-/g, " ")
       if (!caseStudy.typeCase.toLowerCase().includes(formattedFilter)) return false
     }
 
+    // Filter by industry
     if (industryFilter !== "all" && caseStudy.industry !== industryFilter) return false
 
+    // Filter by location
     if (locationFilter !== "all" && caseStudy.location !== locationFilter) return false
 
+    // Filter by AI
     if (aiFilter !== "all" && caseStudy.ai !== aiFilter) return false
 
+    // Filter by search query
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase()
       return (
@@ -322,6 +336,7 @@ const CaseStudies = () => {
   const totalPages = Math.ceil(sortedCaseStudies.length / itemsPerPage)
   const currentCaseStudies = sortedCaseStudies.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
+  // Pagination handlers
   const handlePageChange = (page) => {
     setCurrentPage(page)
     simulateTableLoading()
@@ -341,6 +356,7 @@ const CaseStudies = () => {
     }
   }
 
+  // Search handlers
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value)
   }
@@ -350,6 +366,7 @@ const CaseStudies = () => {
     simulateTableLoading()
   }
 
+  // Filter handlers
   const handleFilterChange = (filterId) => {
     setActiveFilter(filterId)
     simulateTableLoading()
@@ -379,6 +396,7 @@ const CaseStudies = () => {
     simulateTableLoading()
   }
 
+  // Modal handlers
   const handleOpenModal = () => {
     setOpenModal(true)
   }
@@ -396,22 +414,27 @@ const CaseStudies = () => {
   const handleItemsPerPageChange = (e) => {
     const newItemsPerPage = Number.parseInt(e.target.value, 10)
     setItemsPerPage(newItemsPerPage)
-    setCurrentPage(1)
+    setCurrentPage(1) // Reset to the first page when changing the number of items
     simulateTableLoading()
   }
 
+  // Export to Excel
   const handleExportToExcel = () => {
     alert("Exporting case studies to Excel...")
+    // In a real application, you would implement the actual export functionality here
   }
 
+  // Toggle advanced filters
   const toggleFilters = () => {
     setShowFilters(!showFilters)
   }
 
+  // Initialize loading on component mount
   React.useEffect(() => {
     simulateTableLoading()
   }, [])
 
+  // Skeleton rows for loading state
   const SkeletonRows = () => {
     return Array(5)
       .fill(0)
@@ -452,6 +475,7 @@ const CaseStudies = () => {
       ))
   }
 
+  // Render sort icon
   const renderSortIcon = (column) => {
     if (orderBy !== column) {
       return <UnfoldMoreIcon fontSize="small" className={styles.sortIconInactive} />
@@ -492,6 +516,18 @@ const CaseStudies = () => {
           </Button>
           <Button
             variant="contained"
+            onClick={() => (window.location.href = "/bi-case-studies-dashboard")}
+            className={styles.createButton}
+            sx={{
+              mr: 1,
+              padding: "8px 16px"
+            }}
+          >
+            <DonutLarge sx={{ mr: 1 }} />
+            View Dashboard
+          </Button>
+          <Button
+            variant="contained"
             color="primary"
             startIcon={<AddIcon />}
             onClick={handleOpenModal}
@@ -507,7 +543,7 @@ const CaseStudies = () => {
           Case Studies Management
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-        In this section, you will find information related to success cases and case studies. You can also submit requests for new cases.
+          Browse and manage case studies across different industries and technologies
         </Typography>
 
         <div className={styles.searchContainer}>
@@ -952,6 +988,7 @@ const CaseStudies = () => {
         )}
       </Paper>
 
+      {/* Request Case Study Modal */}
       <Modal
         open={openModal}
         onClose={handleCloseModal}
@@ -996,6 +1033,7 @@ const CaseStudies = () => {
                   onDrop={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
+                    // Handle file drop here
                     console.log("File dropped:", e.dataTransfer.files[0]?.name || "No file")
                     alert(`File "${e.dataTransfer.files[0]?.name || "unknown"}" uploaded successfully!`)
                   }}
@@ -1014,6 +1052,7 @@ const CaseStudies = () => {
                         type="file"
                         hidden
                         onChange={(e) => {
+                          // Handle file selection here
                           console.log("File selected:", e.target.files[0]?.name || "No file")
                           if (e.target.files[0]) {
                             alert(`File "${e.target.files[0].name}" uploaded successfully!`)
