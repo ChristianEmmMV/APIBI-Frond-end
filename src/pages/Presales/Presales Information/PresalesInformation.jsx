@@ -45,7 +45,6 @@ import styles from "./presalesInformation.module.css"
 import { Link as RouterLink } from "react-router-dom";
 
 const PresalesInformation = () => {
-  // Sample data for presales information
   const presalesData = [
     {
       id: 1,
