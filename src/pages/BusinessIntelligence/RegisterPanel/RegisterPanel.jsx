@@ -1,6 +1,9 @@
 "use client"
 
 import styles from "./registerPanel.module.css"
+import NewCustomer from "../../../components/RegistrationPanel/AddNewCustomer"
+import NewSector from "../../../components/RegistrationPanel/AddNewSector"
+import NewCases from "../../../components/RegistrationPanel/AddNewCases"
 import { 
   Typography, 
   Container, 
@@ -20,25 +23,16 @@ import {
   Chip} from "@mui/material"
 import {
   Home as HomeIcon,
-  AccountCircle as CustomerIcon,
-  People as SectorIcon,
-  Flag as LocationIcon,
-  Mail as MailIcon,
+  Flag as LocationIcon, 
   Business as IndustryIcon,
-  Assignment as CasesIcon,
   Apartment as DepartmentIcon,
-  Category as TypeIcon,
-  Label as NameIcon,
-  SettingsSystemDaydream as SystemIcon,
   Person as ClientIcon,
-  Psychology as IAIcon,
-  HelpOutline as QuestionIcon, 
-  Link as LinkIcon,
-  Create as MadeIcon,
   Search as SearchIcon,
   Clear as ClearIcon,
   UnfoldMore as UnfoldMoreIcon,
-  Refresh as RefreshIcon, 
+  Refresh as RefreshIcon,
+  Add as AddIcon, 
+  Link as LinkIcon,
   ArrowUpward,
   ArrowDownward,
   ArrowBackIos,
@@ -46,15 +40,12 @@ import {
   } from "@mui/icons-material"
 import React, {useState} from "react"
 import image from "../../../../public/assets/Welcome-cases.png"
-import Swal from "sweetalert2"
 
 
-const RegisterPanel = ({darkMode}) => {
+
+const RegisterPanel = () => {
   const filterSection = [
-    {id: "home", label: "Home", icon: <HomeIcon fontSize="small" /> },
-    {id: "customer", label: "Customer", icon: <CustomerIcon fontSize="small"/> },
-    {id: "sector", label: "Sector", icon: <SectorIcon fontSize="Small"/> },
-    {id: "cases", label: "Cases", icon: <CasesIcon fontSize="Small"/>}
+    {id: "home", label: "Home", icon: <HomeIcon fontSize="small" /> }
   ]
 
 const [activeFilter, setActiveFilter] = useState("home")
@@ -62,47 +53,6 @@ const [activeFilter, setActiveFilter] = useState("home")
 const handleFilterClick = (id) => {
   setActiveFilter(id)
 }
-
-const location = [
-  "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bangladés", "Barbados", "Baréin", "Bélgica",
-  "Belice", "Benín", "Bielorrusia", "Birmania (Myanmar)", "Bolivia", "Bosnia y Herzegovina", "Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Catar",
-  "Chad", "Chile", "China", "Chipre", "Ciudad del Vaticano (Santa Sede)", "Colombia", "Comoras", "Corea del Norte", "Corea del Sur", "Costa de Marfil (Côte d'lvoire)", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", 
-  "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia", "España", "Estados Unidos de América", "Estonia", "Eswatini (antes Suazilandia)", "Etiopía", "Fiyi", "Filipinas", "Finlandia", "Francia", 
-  "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guinea", "Guinea-Bisáu", "Guinea Ecuatorial", "Guyana", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán", "Irlanda", "Islandia",
-  "Islas Cook", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia", "Líbano", "Liberia", "Libia", 
-  "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia",
-  "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos (Holanda)", "Pakistán", "Palaos", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú",
-  "Polonia", "Portugal", "Reino Unido", "República Centroafricana", "República Checa", "República del Congo", "República Democrática del Congo (RDC)", "República Dominicana", "Ruanda", "Rumania", "Rusia", "Samoa", "San Cristóbal y Nieves",
-  "San Marino", "San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia (ahora Eswatini)", "Sudáfrica",
-  "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán",
-  "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Yibuti", "Zambia", "Zimbaue"
-]
-
-const industry = [
-  "Manufacture", "Technology", "Pharmaceutical", "Retail", "Metallurgical", "Financial", "Service",
-  "Insurance", "Consumer goods", "Energy", "Telecomunications", "Food and Beverage", "Logistics",
-  "Automotive Dealership", "Other"
-]
-
-const typeOfCase = ["Success case", "Use case"]
-
-const department = [
-  "Accounting", "Audit and control", "Customer support", "Distributor", "Engagement",
-  "Finance", "Human resources", "IT", "Legal", "Logistics", "Management", "Marketing",
-  "Operations", "Organizational Development", "Purchasing", "Quality", "Research & Development",
-  "Sales", "Social Security", "Supply Chain", "Testing", "Transportation", "Treasury", "Other"
-]
-
-const client = [
-  "AB InBev", "Aiwyn", "Arca Cont", "Autocom", "Azumed", "Beecker", "Bimbo", "C and A", "Codelco",
-  "DAPI", "Davivienda", "Element 5", "Erth Corporation", "Estafeta", "Frontera Energy", "GBM", "GNP",
-  "Grupo Piasa", "Grupo Torres Corzo", "HDI", "Heineken", "Innovativa", "Lala", "Lipu", "Nestlé",
-  "Nestlé Brasil", "Optezco", "Pepsico", "Pepsico Brasil", "Prosa", "QUICORP", "Reckitt Benckiser",
-  "Samsara", "Sanofi", "TIGO", "Total Play", "Triumph", "Vector Casa de Bolsa", "Vitro", "Yanbal", 
-  "Zurich Brasil", "Zurich", "A.O Smith", "Mobile Hub" 
-]
-
-const ia = ["YES", "NO"]
 
 const customer = [
   {
@@ -694,13 +644,6 @@ const renderSortIcon = (column) => {
   const totalCasesPages = Math.ceil(sortedCases.length / itemsCasePerPage)
   const currentCases = sortedCases.slice((currentCasePage -1) * itemsCasePerPage, currentCasePage * itemsCasePerPage)
 
-const [formCustomerData, setFormData] = useState ({
-  clientName: "",
-  location: "",
-  email: "",
-  industry: "",
-})
-
 const handleItemsPerPageChange = (e) => {
   const newItemsPerPage = Number.parseInt(e.target.value, 10)
   setItemsPerPage(newItemsPerPage)
@@ -871,169 +814,38 @@ const handleSearchCasesChange = (e) => {
   setSearchCasesQuery(e.target.value)
 }
 
-const isCustomerFormValid = () => {
-  return (
-    formCustomerData.clientName &&
-    formCustomerData.location &&
-    formCustomerData.email &&
-    formCustomerData.industry
-  )
-}
+//Customer modal
+  const [openModal, setOpenModal] = useState(false)
 
-const customerRegister = () => {
-  if(!isCustomerFormValid ()) {
-    Swal.fire({
-              title: "Error",
-              text: "Por favor, complete todos los campos requeridos.",
-              icon: "error",
-              confirmButtonText: "Ok",
-          })
-          return
+  const handleOpenModal = () => {
+    setOpenModal(true)
   }
-    Swal.fire({
-        title: "¡Éxito!",
-        text: "Datos registrados correctamente.",
-        icon: "success",
-        confirmButtonText: "Ok",
-      })
-      resetCustomerForm()
-}
 
-const resetCustomerForm = () => {
-  setFormData({
-    clientName: "",
-    location: "",
-    email: "",
-    industry: "",
-  })
-}
-
-const handleInputChange = (e) => {
-  const {name, value} = e.target
-  setFormData((prev) => ({
-    ...prev,
-    [name]: value,
-  }))
-}
-
-const [formSectorData, setFormSectorData] = useState({
-  industry: "",
-  department: ""
-})
-
-const isSectorFormValid = () => {
-  return (
-    formSectorData.industry &&
-    formSectorData.department
-  )
-}
-
-const sectorRegister = () => {
-  if(!isSectorFormValid()) {
-    Swal.fire({
-      title: "Error",
-      text: "Por favor, complete todos los campos requeridos.",
-      icon: "error",
-      confirmButtonText: "Ok",
-  })
-  return
+  const handleCloseModal = () => {
+    setOpenModal(false)
   }
-  Swal.fire({
-    title: "¡Éxito!",
-    text: "Datos registrados correctamente.",
-    icon: "success",
-    confirmButtonText: "Ok",
-  })
-  resetSectorForm()
-}
 
-const resetSectorForm = () => {
-  setFormSectorData ({
-    industry: "",
-    department: ""
-  })
-}
+//Sector modal
+  const [openSectorModal, setOpenSectorModal] = useState(false)
 
-const handleSectorInputChange = (e) => {
-  const {name, value} = e.target
-  setFormSectorData((prev) => ({
-    ...prev,
-    [name]: value,
-  }))
-}
-
-const [formCasesData, setCasesFormData] = useState ({
-  name: "",
-  typeCase: "",
-  location: "",
-  industry: "",
-  department: "",
-  systems: "",
-  client: "",
-  ia: "",
-  linkToShare: "",
-  link: "",
-  madeBy: ""
-})
-
-const isCasesFormValid = () => {
-  return (
-    formCasesData.name &&
-    formCasesData.typeCase &&
-    formCasesData.location &&
-    formCasesData.industry &&
-    formCasesData.department &&
-    formCasesData.systems &&
-    formCasesData.client &&
-    formCasesData.ia &&
-    formCasesData.linkToShare &&
-    formCasesData.link && 
-    formCasesData.madeBy
-  )
-}
-
-const casesRegister = () => {
-  if(!isCasesFormValid()) {
-    Swal.fire({
-      title: "Error",
-      text: "Por favor, complete todos los campos requeridos.",
-      icon: "error",
-      confirmButtonText: "Ok",
-  })
-  return
+  const handleOpenSectorModal = () => {
+    setOpenSectorModal(true)
   }
-  Swal.fire({
-    title: "¡Éxito!",
-    text: "Datos registrados correctamente.",
-    icon: "success",
-    confirmButtonText: "Ok",
-  })
-  resetCasesForm()
-}
 
-const resetCasesForm = () => {
-  setCasesFormData ({
-  name: "",
-  typeCase: "",
-  location: "",
-  industry: "",
-  department: "",
-  systems: "",
-  client: "",
-  ia: "",
-  linkToShare: "",
-  link: "",
-  madeBy: ""
-  })
-}
+  const handleCloseSectorModal = () => {
+    setOpenSectorModal(false)
+  }
 
-const handleCasesInputChange = (e) => {
-  const {name, value} = e.target
-  setCasesFormData((prev) => ({
-    ...prev,
-    [name]: value,
-  }))
-}
+  //Cases modal
+  const [openCasesModal, setOpenCasesModal] = useState(false)
+
+  const handleCasesModal = () => {
+    setOpenCasesModal(true)
+  }
+
+  const handleCloseCasesModal = () => {
+    setOpenCasesModal(false)
+  }
 
     return(
         <Container maxWidth="xl" className={styles.container}>
@@ -1051,6 +863,32 @@ const handleCasesInputChange = (e) => {
                   <Typography color="text.primary">Data Registration</Typography>
                 </Breadcrumbs>
               </div>
+
+            <div className={styles.headerButton}>
+              <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={handleOpenModal}
+              className={styles.newCustomer}>
+                New Customer
+              </Button>
+
+              <Button 
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={handleOpenSectorModal}
+              className={styles.newSector}>
+                New Sector
+              </Button>
+
+              <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={handleCasesModal}
+              className={styles.newCases}>
+                New Cases
+              </Button>
+            </div>
             </Box>
 
         <Paper elevation={0} className={styles.sectionCard}>
@@ -1852,351 +1690,10 @@ const handleCasesInputChange = (e) => {
           </Box>
         )}
 
-        {activeFilter == "customer" && (
-          <Box className={styles.customerContent}>
-            <Paper elevation={3} className={styles.customerPaper}>
-              <Typography variant="h5"className={styles.customerTitle}>
-                  Customer Data Registration
-              </Typography>
-
-              <div className={styles.formRow}>
-                <div className={styles.formCol}>
-                <CustomerIcon className={styles.iconTitle}/>
-                <label className={`${styles.formLabel} ${styles.requiredField}`}>Client Name</label>
-                <input 
-                type="text"
-                name="clientName"
-                value={formCustomerData.clientName}
-                onChange={handleInputChange}
-                placeholder="Introduce the client's name"
-                className={styles.formInput}
-                required
-                 />
-                </div>
-                <div className={styles.formCol}>
-                <LocationIcon className={styles.iconTitle}/>
-                <label className={`${styles.formLabel} ${styles.requiredField}`}>Location</label>
-                <select 
-                name="location" 
-                value={formCustomerData.location}
-                onChange={handleInputChange}
-                className={styles.formSelect}
-                required
-                >
-                  <option value="">Select one</option>
-                  {location.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-                </div>
-              </div>
-
-              <div className={styles.formRow}>
-                <div className={styles.formCol}>
-                  <MailIcon className={styles.iconTitle}/>
-                  <label className={`${styles.formLabel} ${styles.requiredField}`}>Email</label>
-                  <input 
-                  type="text"
-                  name="email"
-                  value={formCustomerData.email}
-                  onChange={handleInputChange}
-                  placeholder="Introduce the email"
-                  className={styles.formInput}
-                  required
-                  />
-                </div>
-                <div className={styles.formCol}>
-                <IndustryIcon className={styles.iconTitle}/>
-                <label className={`${styles.formLabel} ${styles.requiredField}`}>Industry</label>
-                <select 
-                name="industry"
-                value={formCustomerData.industry}
-                onChange={handleInputChange}
-                className={styles.formSelect}
-                required>
-                  <option value="">Select one</option>
-                  {industry.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-                </div>
-              </div>
-
-              <Button variant="contained" onClick={customerRegister} className={styles.button}>
-                  Register
-              </Button>
-            </Paper>
-          </Box>
-        )}
-
-        {activeFilter == "sector" && (
-          <Box className={styles.sectorContent}>
-            <Paper elevation={3} className={styles.sectorPaper}>
-            <Typography variant="h5"className={styles.sectorTitle}>
-                  Sector Data Registration
-              </Typography>
-
-            <div className={styles.formRow}>
-              <div className={styles.formCol}>
-                <IndustryIcon className={styles.iconTitle}/>
-                <label className={`${styles.formLabel} ${styles.requiredField}`}>Industry</label>
-                <input 
-                type="text"
-                name="industry"
-                value={formSectorData.industry}
-                onChange={handleSectorInputChange}
-                placeholder="Please enter the name of the industry"
-                className={styles.formInput}
-                required 
-                />
-              </div>
-              <div className={styles.formCol}>
-                <DepartmentIcon className={styles.iconTitle}/>
-                <label className={`${styles.formLabel} ${styles.requiredField}`}>Departments</label>
-                <input 
-                type="text"
-                name="department"
-                value={formSectorData.department} 
-                onChange={handleSectorInputChange}
-                placeholder="Please enter the name of the department"
-                className={styles.formInput}
-                required
-                />
-              </div>
-            </div>
-
-            <Button variant="contained" onClick={sectorRegister} className={styles.button}>
-              Register
-            </Button>
-            </Paper>
-          </Box>
-        )}
-
-        {activeFilter == "cases" && (
-          <Box className={styles.casesContent}>
-            <Paper elevation={3} className={styles.casesPaper}>
-              <Typography variant="h5" className={styles.casesTitle}>
-                New Cases Information
-              </Typography>
-
-              <div className={styles.formRow}>
-                <div className={styles.formCol}>
-                <NameIcon className={styles.iconTitle}/>
-                <label className={`${styles.formLabel} ${styles.requiredField}`}>Name</label>
-                <input 
-                type="text" 
-                name="name"
-                value={formCasesData.name}
-                onChange={handleCasesInputChange}
-                placeholder="Please introduce the name of case"
-                className={styles.formInput}
-                required
-                />
-                </div>
-                <div className={styles.formCol}>
-                  <TypeIcon className={styles.iconTitle}/>
-                  <label className={`${styles.formLabel} ${styles.requiredField}`}>Type of case</label>
-                  <select 
-                  name="typeCase"
-                  value={formCasesData.typeCase}
-                  onChange={handleCasesInputChange}
-                  className={styles.formSelect}
-                  required>
-                    <option value="">Select one</option>
-                    {typeOfCase.map((item) =>(
-                      <option key={item} value={item}>
-                        {item}
-                      </option>
-                    ))}  
-                  </select>
-                </div>
-              </div>
-
-            <div className={styles.formRow}>
-              <div className={styles.formCol}>
-                <LocationIcon className={styles.iconTitle}/>
-                <label className={`${styles.formLabel} ${styles.requiredField}`}>Location</label>
-                <select 
-                name="location" 
-                value={formCasesData.location}
-                onChange={handleCasesInputChange}
-                className={styles.formSelect}
-                required>
-                  <option value="">Select one</option>
-                  {location.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className={styles.formCol}>
-                <IndustryIcon className={styles.iconTitle}/>
-                <label className={`${styles.formLabel} ${styles.requiredField}`}>Industry</label>
-                <select 
-                name="industry"
-                value={formCasesData.industry}
-                onChange={handleCasesInputChange}
-                className={styles.formSelect}
-                required>
-                  <option value="">Select one</option>
-                  {industry.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className={styles.formRow}>
-              <div className={styles.formCol}>
-                <DepartmentIcon className={styles.iconTitle}/>
-                <label className={`${styles.formLabel} ${styles.requiredField}`}>Department</label>
-                <select 
-                name="department" 
-                value={formCasesData.department}
-                onChange={handleCasesInputChange}
-                className={styles.formSelect}
-                required>
-                  <option value="">Select one</option>
-                  {department.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className={styles.formCol}>
-                  <SystemIcon className={styles.iconTitle}/>
-                  <label className={`${styles.formLabel} ${styles.requiredField}`}>System</label>
-                  <input 
-                  type="text"
-                  name="systems"
-                  value={formCasesData.systems}
-                  onChange={handleCasesInputChange}
-                  placeholder="Please introduce the name of the systems"
-                  className={styles.formInput}
-                  required/>
-              </div>
-            </div>
-
-            <div className={styles.formRow}>
-              <div className={styles.formCol}>
-                <ClientIcon className={styles.iconTitle}/>
-                <label className={`${styles.formLabel} ${styles.requiredField}`}>Client</label>
-                <select 
-                name="client"
-                value={formCasesData.client}
-                onChange={handleCasesInputChange}
-                className={styles.formSelect}
-                required>
-                  <option value="">Select one</option>
-                  {client.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className={styles.formCol}>
-                <IAIcon className={styles.iconTitle}/>
-                <label className={`${styles.formLabel} ${styles.requiredField}`}>Artificial Intelligence</label>
-                <select 
-                name="ia"
-                value={formCasesData.ia}
-                onChange={handleCasesInputChange}
-                className={styles.formSelect}
-                required>
-                  <option value="">Select one</option>
-                  {ia.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          <div className={styles.formRow}>
-            <div className={styles.formCol}>
-            <LinkIcon className={styles.iconTitle}/>
-            <label className={`${styles.formLabel} ${styles.requiredField}`}>Link to share (Google Slides)
-            <MuiTooltip
-                title="You can obtain this link within the Google presentation you are creating. At the top, there is
-                a button that says share. When you click on it to share, please copy the link that appears and paste it.
-                The example is as follows: https://docs.google.com/presentation/d/test/edit?usp=sharing"
-                arrow
-                placement="top"
-              >
-                <IconButton size="small" className={`${styles.infoButton} ${darkMode ? styles.darkIcon : ""}`}>
-                  <QuestionIcon fontSize="small" />
-                </IconButton>
-              </MuiTooltip>
-            </label>
-            <input 
-            type="text"
-            name="linkToShare"
-            value={formCasesData.linkToShare}
-            onChange={handleCasesInputChange}
-            placeholder="Please enter the link for the Google Slides"
-            className={styles.formInput}
-            required />
-            </div>
-            <div className={styles.formCol}>
-              <LinkIcon className={styles.iconTitle}/>
-              <label className={`${styles.formLabel} ${styles.requiredField}`}>Link (Google Slides)
-              <MuiTooltip
-                title="Please just copy the link that appears in your browser's address bar. I'll give
-                you an expample: 'https://docs.google.com/presentation/d/test/edit#slide=id.g2828c9ab279_0_78'"
-                arrow
-                placement="top"
-              >
-                <IconButton size="small" className={`${styles.infoButton} ${darkMode ? styles.darkIcon : ""}`}>
-                  <QuestionIcon fontSize="small" />
-                </IconButton>
-              </MuiTooltip>
-              </label>
-              <input 
-              type="text"
-              name="link"
-              value={formCasesData.link}
-              onChange={handleCasesInputChange}
-              placeholder="Please enter the link for the Google Slides"
-              className={styles.formInput}
-              required />
-            </div>
-          </div>
-
-          <div className={styles.formRowMade}>
-           <div className={styles.iconContainer}>
-           <MadeIcon className={styles.iconTitleMade}/>
-           </div>
-           <div className={styles.labelContainer}>
-           <label className={`${styles.formLabelMade} ${styles.requiredFieldMade}`}>Made By</label>
-           </div>
-           <div className={styles.inputContainer}>
-           <input 
-           type="text"
-           name="madeBy"
-           value={formCasesData.madeBy}
-           onChange={handleCasesInputChange}
-           placeholder="Please enter the name of the person who handled the case"
-           className={styles.formInputMade}
-           required />     
-            </div>
-        </div>
-        <Button variant="contained" onClick={casesRegister} className={styles.button}>
-              Register
-        </Button>
-            </Paper>
-          </Box>
-        )}
-
         </Paper>
+        <NewCustomer open={openModal} onClose={handleCloseModal} />
+        <NewSector open={openSectorModal} onClose={handleCloseSectorModal} />
+        <NewCases open={openCasesModal} onClose={handleCloseCasesModal} />
         </Container>
     )
 }
