@@ -1,0 +1,1774 @@
+/* 
+  Dashboard de Clientes - Estilos Mejorados
+  Basado en el diseño de CaseStudies con mejoras visuales
+*/
+
+/* Contenedor principal */
+.container {
+  padding: 24px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Estilos del encabezado */
+.header {
+  display: flex;
+  justify-content: space-between;
+  color: #1e2f65;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerButtons {
+  display: flex;
+  gap: 12px;
+}
+
+
+.dashboardButton,
+.refreshButton {
+  text-transform: none !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.refreshButton:hover {
+  background-color: rgba(99, 98, 231, 0.04) !important;
+}
+
+.exportButton {
+  background-color: #fff !important;
+  color: #6362e7 !important;
+  border: 1px solid #6362e7 !important;
+  border-radius: 8px !important;
+  text-transform: none !important;
+  padding: 8px 16px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 8px rgba(99, 98, 231, 0.1) !important;
+  transition: all 0.2s ease !important;
+}
+
+.exportButton:hover {
+  background-color: rgba(99, 98, 231, 0.04) !important;
+  box-shadow: 0 4px 12px rgba(99, 98, 231, 0.15) !important;
+  transform: translateY(-2px) !important;
+}
+
+.dashboardButton {
+  background-color: #6362e7 !important;
+}
+
+.dashboardButton:hover {
+  background-color: #5251c6 !important;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #757575;
+}
+
+.breadcrumb a {
+  color: #1e2f65;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+  color: #6362e7;
+  text-decoration: underline;
+}
+
+.breadcrumb .MuiTypography-root {
+  color: #1e2f65;
+}
+
+
+/* Tarjetas de sección */
+.sectionCard {
+  padding: 24px;
+  margin-bottom: 24px;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05) !important;
+  background-color: white;
+  transition: box-shadow 0.3s ease;
+}
+
+.sectionCard:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600 !important;
+  margin-bottom: 6px !important;
+  font-size: 18px !important;
+  color: #333;
+}
+
+.sectionSubtitle {
+  color: #6c757d;
+  margin-bottom: 24px !important;
+  font-size: 14px !important;
+}
+
+/* Cuadrícula de estadísticas */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1200px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tarjetas de estadísticas */
+.statCard {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.statCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.statHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.statTitle {
+  font-weight: 500;
+  color: #6c757d;
+  font-size: 15px;
+}
+
+.statIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.statValue {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.statGrowth {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.statGrowthPositive {
+  color: #4caf50;
+}
+
+.statGrowthNegative {
+  color: #f44336;
+}
+
+/* Cuadrícula de gráficos */
+.chartGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1200px) {
+  .chartGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tarjetas de gráficos */
+.chartCard {
+  background-color: white;
+  border-radius: 12px;
+  padding: 60px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  transition: box-shadow 0.3s ease;
+}
+
+.chartCard:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.fullWidthChart {
+  grid-column: 1 / -1;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.chartTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+.chartActions {
+  display: flex;
+  gap: 8px;
+}
+
+.chartAction {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #6c757d;
+}
+
+.chartAction:hover {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+.chartAction:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chartContent {
+  position: relative;
+  height: 100%;
+  min-height: 250px;
+}
+
+/* Estilos de carga */
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: 12px;
+  backdrop-filter: blur(2px);
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(99, 98, 231, 0.1);
+  border-top: 3px solid #6362e7;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingText {
+  font-size: 14px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.loadingBar {
+  width: 200px;
+  height: 6px;
+  background-color: #e9ecef;
+  border-radius: 3px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.loadingBarProgress {
+  height: 100%;
+  background-color: #6362e7;
+  transition: width 0.3s ease;
+}
+
+/* Estilos del mapa */
+.mapSection {
+  padding: 0 !important;
+  margin-bottom: 24px;
+  overflow: hidden;
+  border-radius: 12px;
+  position: relative; /* Importante para posicionar tooltips */
+}
+
+.fullWidthMap {
+  grid-column: 1 / -1;
+  height: 450px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mapContainer {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.mapVisual {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.americasMap {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+
+.country {
+  transition: fill 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.country:hover {
+  opacity: 0.8;
+  transform: scale(1.02);
+}
+
+/* Tooltip del mapa - MODIFICADO para contener dentro del área */
+.tooltip {
+  position: absolute; /* Cambiado de fixed a absolute */
+  background-color: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  pointer-events: none;
+  font-size: 14px;
+  max-width: 250px;
+  transition: opacity 0.2s ease;
+  /* Aseguramos que no se salga del contenedor */
+  max-height: 150px;
+  overflow: hidden;
+}
+
+/* Clase para posicionar el tooltip en la parte superior */
+.tooltipTop {
+  bottom: auto;
+  top: 20px;
+}
+
+/* Clase para posicionar el tooltip en la parte inferior */
+.tooltipBottom {
+  top: auto;
+  bottom: 20px;
+}
+
+/* Clase para posicionar el tooltip a la izquierda */
+.tooltipLeft {
+  right: auto;
+  left: 20px;
+}
+
+/* Clase para posicionar el tooltip a la derecha */
+.tooltipRight {
+  left: auto;
+  right: 20px;
+}
+
+.tooltipTitle {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 16px;
+}
+
+.tooltipValue {
+  font-size: 14px;
+  color: #6362e7;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.tooltipGrowth {
+  font-size: 13px;
+  color: #4caf50;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Leyenda del mapa */
+.mapLegend {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 200px;
+  border: 1px solid #f0f0f0;
+  z-index: 5;
+}
+
+.legendTitle {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.legendItems {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legendColor {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+.legendLabel {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+/* Estilos de tabla */
+.tableContainer {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  margin-bottom: 20px;
+}
+
+.tableHeader {
+  background-color: #f8f9fa;
+}
+
+.tableHeaderCell {
+  font-weight: 600 !important;
+  color: #333 !important;
+  padding: 12px 16px !important;
+  border-bottom: 2px solid #e9ecef !important;
+  font-size: 14px !important;
+}
+
+.tableHeaderContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tableRow:hover {
+  background-color: #f8f9fa !important;
+}
+
+.tableCell {
+  padding: 12px 16px !important;
+  font-size: 14px !important;
+  color: #333 !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+
+/* Estilos de paginación */
+.paginationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.paginationWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tableLengthContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tableLengthLabel {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.tableLengthSelect {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  background-color: white;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.paginationInfo {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.paginationButton {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  background-color: white;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.paginationButton:hover:not(.disabled):not(.active) {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+}
+
+.paginationButton.active {
+  background-color: #6362e7;
+  color: white;
+  border-color: #6362e7;
+}
+
+.paginationButton.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.paginationEllipsis {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+/* Estilos para elementos de búsqueda y filtros */
+.searchContainer {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 16px 12px 40px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  font-size: 14px;
+  transition: all 0.2s;
+  background-color: #f8f9fa;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #6362e7;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(99, 98, 231, 0.1);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  font-size: 20px !important;
+}
+
+.searchClearButton {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchClearButton:hover {
+  background-color: #f0f0f0;
+}
+
+/* Estilos para filtros */
+.filterContainer {
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.filterTabs {
+  display: flex;
+  gap: 8px;
+  padding-bottom: 4px;
+}
+
+.filterTab {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  font-size: 14px;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.filterTab:hover {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+.filterTab.active {
+  background-color: #6362e7;
+  color: white;
+  border-color: #6362e7;
+}
+
+.filterActionsContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.filterToggleButton {
+  text-transform: none !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  border-color: #e9ecef !important;
+  color: #6c757d !important;
+}
+
+.filterToggleButton:hover {
+  background-color: #f8f9fa !important;
+  border-color: #dee2e6 !important;
+}
+
+.resetFiltersButton {
+  text-transform: none !important;
+  color: #6362e7 !important;
+}
+
+.advancedFiltersContainer {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filterSelect {
+  min-width: 200px !important;
+}
+
+/* Estilos para skeletons (carga) */
+.skeletonRow {
+  background-color: #f8f9fa !important;
+}
+
+.skeletonCell {
+  height: 16px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+.skeletonIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  animation: pulse 1.5s infinite;
+}
+
+.skeletonIconContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.small {
+  width: 40px;
+}
+
+.medium {
+  width: 80px;
+}
+
+.large {
+  width: 120px;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* Estilos para modales */
+.modalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  max-width: 90vw;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  outline: none;
+  overflow: hidden;
+}
+
+.modalHeader {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.modalTitle {
+  font-weight: 600 !important;
+  color: #333;
+}
+
+.modalBody {
+  padding: 24px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.modalFooter {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.closeButton {
+  text-transform: none !important;
+  color: #6c757d !important;
+  border-radius: 8px !important;
+}
+
+.registerButton {
+  text-transform: none !important;
+  background-color: #6362e7 !important;
+  color: white !important;
+  border-radius: 8px !important;
+}
+
+.registerButton:hover {
+  background-color: #5251c6 !important;
+}
+
+/* Estilos para formularios */
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #333;
+}
+
+.formInput,
+.formSelect,
+.formTextarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.formInput:focus,
+.formSelect:focus,
+.formTextarea:focus {
+  outline: none;
+  border-color: #6362e7;
+  box-shadow: 0 0 0 3px rgba(99, 98, 231, 0.1);
+}
+
+.formTextarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.fileUploadContainer {
+  margin-top: 8px;
+}
+
+.dropZone {
+  border: 2px dashed #e9ecef;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dropZone:hover {
+  border-color: #6362e7;
+  background-color: rgba(99, 98, 231, 0.02);
+}
+
+.dropZoneContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.browseButton {
+  text-transform: none !important;
+  margin-top: 12px !important;
+  border-radius: 8px !important;
+  border-color: #6362e7 !important;
+  color: #6362e7 !important;
+}
+
+.browseButton:hover {
+  background-color: rgba(99, 98, 231, 0.04) !important;
+}
+
+/* Estilos mejorados para el gráfico de tecnologías */
+.techPieContainer {
+  position: relative;
+  height: 300px;
+  margin: 0 auto;
+}
+
+.techLegend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.techLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.techLegendColor {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.techLegendLabel {
+  font-weight: 500;
+  color: #333;
+}
+
+.techLegendValue {
+  font-weight: 400;
+  color: #6c757d;
+  margin-left: 4px;
+}
+
+.techTooltip {
+  background-color: white !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid #f0f0f0 !important;
+}
+
+.techTooltipLabel {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.techTooltipValue {
+  font-weight: 500;
+  color: #6362e7;
+  font-size: 16px;
+}
+
+.techPieChart {
+  margin: 0 auto;
+}
+
+/* Colores para las tecnologías de automatización */
+.techColors {
+  --blue-prism: #0076ce;
+  --rocket-bot: #ff4b4b;
+  --ui-path: #fa4616;
+  --automation-anywhere: #00b2a9;
+  --power-automate: #0066ff;
+  --robocorp: #00a67e;
+  --pix: #8e44ad;
+}
+
+/* Estilos mejorados para el gráfico de Top 5 Clients */
+.topClientsContainer {
+  position: relative;
+  height: 300px;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+.clientBarContainer {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.clientBar {
+  height: 40px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #6362e7 0%, #7a70fc 100%);
+  box-shadow: 0 2px 8px rgba(99, 98, 231, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.clientBar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 98, 231, 0.3);
+}
+
+.clientBar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0.5;
+}
+
+.clientBarLabel {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.clientBarValue {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  z-index: 2;
+}
+
+.clientRank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.clientTooltip {
+  background-color: white !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid #f0f0f0 !important;
+  min-width: 200px;
+}
+
+.clientTooltipHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.clientTooltipRank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #6362e7;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.clientTooltipName {
+  font-weight: 600;
+  color: #333;
+  font-size: 16px;
+}
+
+.clientTooltipStats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.clientTooltipStat {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.clientTooltipStatLabel {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.clientTooltipStatValue {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.clientTooltipStatHighlight {
+  color: #6362e7;
+  font-weight: 700;
+}
+
+.clientsLegend {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.clientsLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.clientsLegendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background-color: #6362e7;
+}
+
+.clientsTotal {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.clientsTotalValue {
+  font-weight: 700;
+  color: #6362e7;
+  font-size: 16px;
+  margin-left: 4px;
+}
+
+.clientsGrowth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 13px;
+  color: #4caf50;
+}
+
+.clientsGrowthIcon {
+  font-size: 16px;
+}
+
+.clientsGrowthValue {
+  font-weight: 600;
+}
+
+/* Estilos mejorados para el gráfico de Top 10 Industries */
+.industriesContainer {
+  position: relative;
+  height: 100%;
+  padding: 10px 0;
+}
+
+.industryBarContainer {
+  position: relative;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.industryBarContainer:hover {
+  transform: translateX(5px);
+}
+
+.industryBar {
+  height: 30px;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.industryBar:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.industryBarFill {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 6px;
+  transition: width 1s ease-out;
+}
+
+.industryBarLabel {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #333;
+  font-weight: 600;
+  font-size: 13px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 80px);
+  overflow: hidden;
+}
+
+.industryBarValue {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #333;
+  font-weight: 700;
+  font-size: 14px;
+  z-index: 2;
+}
+
+.industryRank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: rgba(99, 98, 231, 0.1);
+  color: #6362e7;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.industryTooltip {
+  background-color: white !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid #f0f0f0 !important;
+  min-width: 220px;
+}
+
+.industryTooltipHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.industryTooltipRank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #6362e7;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.industryTooltipName {
+  font-weight: 600;
+  color: #333;
+  font-size: 16px;
+}
+
+.industryTooltipStats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.industryTooltipStat {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.industryTooltipStatLabel {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.industryTooltipStatValue {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.industryTooltipStatHighlight {
+  color: #6362e7;
+  font-weight: 700;
+}
+
+.industriesLegend {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.industriesLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.industriesLegendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.industriesTotal {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.industriesTotalValue {
+  font-weight: 700;
+  color: #6362e7;
+  font-size: 16px;
+  margin-left: 4px;
+}
+
+.industriesGrowth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 13px;
+  color: #4caf50;
+}
+
+.industriesGrowthIcon {
+  font-size: 16px;
+}
+
+.industriesGrowthValue {
+  font-weight: 600;
+}
+
+.industryIcon {
+  color: #6362e7;
+  font-size: 16px;
+}
+
+.industryGrowth {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #4caf50;
+  margin-left: 8px;
+}
+
+.industryGrowthNegative {
+  color: #f44336;
+}
+
+.industryGrowthIcon {
+  font-size: 14px;
+}
+
+.industryGrowthValue {
+  font-weight: 600;
+}
+
+.industryBarAnimation {
+  animation: growWidth 1.5s ease-out forwards;
+}
+
+@keyframes growWidth {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--target-width);
+  }
+}
+
+.industryFilters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.industryFilter {
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  font-size: 13px;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.industryFilter:hover {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+.industryFilter.active {
+  background-color: #6362e7;
+  color: white;
+  border-color: #6362e7;
+}
+
+/* Estilos para la tabla de industrias */
+.industriesTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 10px;
+}
+
+.industriesTableContainer {
+  position: relative;
+  overflow: auto;
+  max-height: 400px;
+  margin-top: 16px;
+}
+
+.industriesTableHeader {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.industriesTableHeaderCell {
+  background-color: #f8f9fa;
+  color: #333;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 2px solid #e9ecef;
+  white-space: nowrap;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.industriesTableHeaderCell:hover {
+  background-color: #e9ecef;
+}
+
+.industriesTableHeaderCell.sortActive {
+  color: #6362e7;
+}
+
+.industriesTableHeaderCell .sortIcon {
+  font-size: 16px;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.industriesTableRow {
+  transition: background-color 0.2s;
+}
+
+.industriesTableRow:hover {
+  background-color: #f8f9fa;
+}
+
+.industriesTableRow:nth-child(even) {
+  background-color: #fafbfc;
+}
+
+.industriesTableCell {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  color: #333;
+}
+
+.industriesTableRank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: rgba(99, 98, 231, 0.1);
+  color: #6362e7;
+  font-weight: 600;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.industriesTableNameCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.industriesTableIcon {
+  color: #6362e7;
+  font-size: 18px;
+}
+
+.industriesTableCategory {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+}
+
+.categoryTech {
+  background: linear-gradient(90deg, #6362e7 0%, #7a70fc 100%);
+}
+
+.categoryConsumer {
+  background: linear-gradient(90deg, #51d0de 0%, #45b5fc 100%);
+}
+
+.categoryManufacturing {
+  background: linear-gradient(90deg, #917bfd 0%, #a887fd 100%);
+}
+
+.categoryServices {
+  background: linear-gradient(90deg, #bf92fd 0%, #d59efe 100%);
+}
+
+.industriesTableValue {
+  font-weight: 700;
+  text-align: center;
+}
+
+.industriesTableGrowth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-weight: 600;
+}
+
+.industriesTableGrowthPositive {
+  color: #4caf50;
+}
+
+.industriesTableGrowthNegative {
+  color: #f44336;
+}
+
+.industriesTableGrowthIcon {
+  font-size: 16px;
+}
+
+.industriesTableClients {
+  text-align: center;
+  font-weight: 500;
+}
+
+.industriesTableRevenue {
+  text-align: right;
+  font-weight: 700;
+  color: #6362e7;
+}
+
+.industriesTableActions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.industriesTableActionButton {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.industriesTableActionButton:hover {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+.industriesFilters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.industriesFilter {
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  font-size: 13px;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.industriesFilter:hover {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+.industriesFilter.active {
+  background-color: #6362e7;
+  color: white;
+  border-color: #6362e7;
+}
+
+.industriesSearch {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.industriesSearchInput {
+  width: 100%;
+  padding: 10px 16px 10px 40px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  font-size: 14px;
+  transition: all 0.2s;
+  background-color: #f8f9fa;
+}
+
+.industriesSearchInput:focus {
+  outline: none;
+  border-color: #6362e7;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(99, 98, 231, 0.1);
+}
+
+.industriesSearchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  font-size: 18px !important;
+}
+
+.industriesPagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.industriesPaginationInfo {
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.industriesPaginationControls {
+  display: flex;
+  gap: 4px;
+}
+
+.industriesPaginationButton {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  background-color: white;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.industriesPaginationButton:hover:not(.disabled) {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+}
+
+.industriesPaginationButton.active {
+  background-color: #6362e7;
+  color: white;
+  border-color: #6362e7;
+}
+
+.industriesPaginationButton.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.industriesTableEmpty {
+  padding: 40px 0;
+  text-align: center;
+  color: #6c757d;
+  font-size: 15px;
+}
+
+.industriesTableEmptyIcon {
+  font-size: 48px !important;
+  color: #e9ecef;
+  margin-bottom: 16px;
+}
