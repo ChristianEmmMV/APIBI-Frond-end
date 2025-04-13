@@ -53,7 +53,6 @@ import * as XLSX from "xlsx"
 import Swal from "sweetalert2"
 import AmericasMaps from "../../../components/ClientDashboardMap/AmericasMaps"
 
-// Componente personalizado para tooltips de gráficos
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
@@ -68,60 +67,15 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null
 }
 
-// Componente personalizado para el tooltip de clientes
-const ClientTooltip = ({ active, payload }) => {
-  if (active && payload && payload.length) {
-    const client = payload[0].payload
-    return (
-      <div className={styles.clientTooltip}>
-        <div className={styles.clientTooltipHeader}>
-          <div className={styles.clientTooltipRank}>{client.rank}</div>
-          <div className={styles.clientTooltipName}>{client.name}</div>
-        </div>
-        <div className={styles.clientTooltipStats}>
-          <div className={styles.clientTooltipStat}>
-            <div className={styles.clientTooltipStatLabel}>Total Projects</div>
-            <div className={styles.clientTooltipStatValue}>{client.projects}</div>
-          </div>
-          <div className={styles.clientTooltipStat}>
-            <div className={styles.clientTooltipStatLabel}>Active Projects</div>
-            <div className={styles.clientTooltipStatValue}>
-              {client.activeProjects || Math.floor(client.projects * 0.7)}
-            </div>
-          </div>
-          <div className={styles.clientTooltipStat}>
-            <div className={styles.clientTooltipStatLabel}>Growth</div>
-            <div className={styles.clientTooltipStatValue} style={{ color: "#4caf50" }}>
-              +{client.growth || Math.floor(Math.random() * 15 + 5)}%
-            </div>
-          </div>
-          <div className={styles.clientTooltipStat}>
-            <div className={styles.clientTooltipStatLabel}>Satisfaction</div>
-            <div className={styles.clientTooltipStatValue}>
-              {client.satisfaction || Math.floor(Math.random() * 2 + 4)}/5{" "}
-              <StarIcon fontSize="small" style={{ color: "#FFC107", fontSize: 16, marginBottom: -4 }} />
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-  return null
-}
-
-// Componente para renderizar barras de clientes personalizadas
 const ClientBars = ({ data }) => {
-  // Añadir ranking a los datos
   const rankedData = data.map((client, index) => ({
     ...client,
     rank: index + 1,
-    // Datos adicionales para el tooltip
     activeProjects: Math.floor(client.projects * 0.7),
     growth: Math.floor(Math.random() * 15 + 5),
     satisfaction: Math.floor(Math.random() * 2 + 4),
   }))
 
-  // Calcular el valor máximo para escalar las barras
   const maxValue = Math.max(...rankedData.map((client) => client.projects))
 
   return (
@@ -145,7 +99,7 @@ const ClientBars = ({ data }) => {
               className={styles.clientBar}
               style={{
                 width: `${(client.projects / maxValue) * 100}%`,
-                opacity: 1 - (client.rank - 1) * 0.1, // Más opaco para los primeros
+                opacity: 1 - (client.rank - 1) * 0.1,
               }}
             >
               <div className={styles.clientBarLabel}>
@@ -181,7 +135,6 @@ const ClientBars = ({ data }) => {
   )
 }
 
-// Componente para la tabla de industrias
 const IndustriesTable = ({ data }) => {
   const [filter, setFilter] = useState("all")
   const [searchTerm, setSearchTerm] = useState("")
@@ -190,7 +143,6 @@ const IndustriesTable = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 5
 
-  // Datos adicionales para cada industria
   const industryIcons = {
     "Consumer Goods": <ShoppingCartIcon className={styles.industriesTableIcon} />,
     "Food & Beverage": <LocalDiningIcon className={styles.industriesTableIcon} />,
@@ -204,7 +156,6 @@ const IndustriesTable = ({ data }) => {
     Energy: <BoltIcon className={styles.industriesTableIcon} />,
   }
 
-  // Añadir datos adicionales a cada industria
   const enhancedData = data.map((industry, index) => ({
     ...industry,
     rank: index + 1,
@@ -215,7 +166,6 @@ const IndustriesTable = ({ data }) => {
     category: ["tech", "consumer", "manufacturing", "services"][Math.floor(Math.random() * 4)],
   }))
 
-  // Función para manejar el cambio de ordenación
   const handleSort = (field) => {
     if (sortField === field) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc")
@@ -225,19 +175,14 @@ const IndustriesTable = ({ data }) => {
     }
   }
 
-  // Filtrar y ordenar datos
   const filteredData = enhancedData
     .filter((industry) => {
-      // Filtrar por categoría
       if (filter !== "all" && industry.category !== filter) return false
-
-      // Filtrar por término de búsqueda
       if (searchTerm && !industry.name.toLowerCase().includes(searchTerm.toLowerCase())) return false
 
       return true
     })
     .sort((a, b) => {
-      // Ordenar por campo seleccionado
       if (sortDirection === "asc") {
         return a[sortField] > b[sortField] ? 1 : -1
       } else {
@@ -245,12 +190,10 @@ const IndustriesTable = ({ data }) => {
       }
     })
 
-  // Paginación
   const totalPages = Math.ceil(filteredData.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const paginatedData = filteredData.slice(startIndex, startIndex + itemsPerPage)
 
-  // Obtener el nombre de la categoría para mostrar
   const getCategoryName = (category) => {
     switch (category) {
       case "tech":
@@ -266,7 +209,6 @@ const IndustriesTable = ({ data }) => {
     }
   }
 
-  // Obtener la clase CSS para la categoría
   const getCategoryClass = (category) => {
     switch (category) {
       case "tech":
@@ -284,7 +226,6 @@ const IndustriesTable = ({ data }) => {
 
   return (
     <div>
-      {/* Filtros */}
       <div className={styles.industriesFilters}>
         <button
           className={`${styles.industriesFilter} ${filter === "all" ? styles.active : ""}`}
@@ -319,7 +260,6 @@ const IndustriesTable = ({ data }) => {
         </button>
       </div>
 
-      {/* Búsqueda */}
       <div className={styles.industriesSearch}>
         <SearchIcon className={styles.industriesSearchIcon} />
         <input
@@ -331,7 +271,6 @@ const IndustriesTable = ({ data }) => {
         />
       </div>
 
-      {/* Tabla */}
       <div className={styles.industriesTableContainer}>
         <table className={styles.industriesTable}>
           <thead className={styles.industriesTableHeader}>
@@ -455,8 +394,6 @@ const IndustriesTable = ({ data }) => {
                   <td className={styles.industriesTableCell}>
                     <div className={styles.industriesTableRevenue}>{industry.revenue}</div>
                   </td>
-                  <td className={styles.industriesTableCell}>
-                  </td>
                 </tr>
               ))
             ) : (
@@ -471,7 +408,6 @@ const IndustriesTable = ({ data }) => {
         </table>
       </div>
 
-      {/* Paginación */}
       {filteredData.length > 0 && (
         <div className={styles.industriesPagination}>
           <div className={styles.industriesPaginationInfo}>
@@ -496,7 +432,6 @@ const IndustriesTable = ({ data }) => {
             </button>
 
             {Array.from({ length: Math.min(totalPages, 3) }, (_, i) => {
-              // Mostrar páginas alrededor de la actual
               let pageToShow
               if (totalPages <= 3) {
                 pageToShow = i + 1
@@ -541,12 +476,10 @@ const IndustriesTable = ({ data }) => {
   )
 }
 
-// Componente de mapa detallado para América basado en GeoJSON
 const AmericasMap = ({ data, onHover, activeCountry }) => {
   const svgRef = useRef(null)
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
 
-  // Mapeo de países a colores
   const countryColors = {}
   data.forEach((country, index) => {
     const COLORS = ["#6362e7", "#7a70fc", "#917bfd", "#a887fd", "#bf92fd", "#d59efe"]
@@ -560,9 +493,7 @@ const AmericasMap = ({ data, onHover, activeCountry }) => {
     }
   }, [])
 
-  // Función para convertir coordenadas GeoJSON a SVG
   const projectGeoToSvg = (coordinates, bounds) => {
-    // Definir los límites del mapa
     const mapBounds = bounds || {
       minLon: -180,
       maxLon: -30,
@@ -577,7 +508,7 @@ const AmericasMap = ({ data, onHover, activeCountry }) => {
       ring.map((point) => {
         if (!Array.isArray(point) || point.length !== 2) {
           console.warn("Invalid point data:", point)
-          return [0, 0] // fallback
+          return [0, 0]
         }
         const [lon, lat] = point
         const x = ((lon - minLon) / (maxLon - minLon)) * width
@@ -587,7 +518,6 @@ const AmericasMap = ({ data, onHover, activeCountry }) => {
     )
   }
 
-  // Función para generar path SVG desde coordenadas proyectadas
   const generatePath = (projectedCoordinates) => {
     return projectedCoordinates
       .map((ring) => {
@@ -604,18 +534,11 @@ const AmericasMap = ({ data, onHover, activeCountry }) => {
 
   return (
     <svg ref={svgRef} viewBox={`0 0 ${dimensions.width} ${dimensions.height}`} className={styles.americasMap}>
-      {/* Fondo del mapa */}
       <rect x="0" y="0" width={dimensions.width} height={dimensions.height} fill="#f0f0f0" />
-
-      {/* Océanos */}
       <rect x="0" y="0" width={dimensions.width} height={dimensions.height} fill="#e6f7ff" opacity="0.3" />
-
-      {/* Renderizar países desde GeoJSON */}
       {geoData.features.map((feature, index) => {
         const countryName = feature.properties.name
         const countryId = feature.properties.id
-
-        // Solo procesar MultiPolygon por simplicidad
         if (feature.geometry.type === "MultiPolygon") {
           const projectedCoordinates = feature.geometry.coordinates.flatMap((polygon) =>
             polygon.map((ring) => projectGeoToSvg(ring)),
@@ -642,11 +565,9 @@ const AmericasMap = ({ data, onHover, activeCountry }) => {
         return null
       })}
 
-      {/* Etiquetas de países */}
       {geoData.features.map((feature) => {
         const countryName = feature.properties.name
 
-        // Calcular el centro aproximado del país para colocar la etiqueta
         if (feature.geometry.type === "MultiPolygon") {
           const coordinates = feature.geometry.coordinates[0][0]
           const center = coordinates.reduce(
@@ -677,13 +598,9 @@ const AmericasMap = ({ data, onHover, activeCountry }) => {
         }
         return null
       })}
-
-      {/* Título del mapa */}
       <text x={dimensions.width / 2} y="30" fontSize="16" textAnchor="middle" fill="#333" fontWeight="bold">
         Americas
       </text>
-
-      {/* Etiquetas de océanos */}
       <text
         x="40"
         y={dimensions.height / 2}
@@ -752,7 +669,6 @@ const ClientsDashboard = () => {
   ]
 
   useEffect(() => {
-    // Simular llamada a API para obtener datos
     simulateTableLoading()
   }, [])
 
@@ -768,7 +684,6 @@ const ClientsDashboard = () => {
         if (newProgress >= 100) {
           clearInterval(interval)
           setTimeout(() => {
-            // Datos de ejemplo
             setStats({
               totalProjects: 248,
               totalClients: 87,
@@ -844,21 +759,18 @@ const ClientsDashboard = () => {
     try {
       const workbook = XLSX.utils.book_new()
 
-      // Crear hojas de trabajo para cada conjunto de datos
       const statsSheet = XLSX.utils.json_to_sheet([stats])
       const topClientsSheet = XLSX.utils.json_to_sheet(topClients)
       const projectsByTechSheet = XLSX.utils.json_to_sheet(projectsByTech)
       const topIndustriesSheet = XLSX.utils.json_to_sheet(topIndustries)
       const clientsByCountrySheet = XLSX.utils.json_to_sheet(clientsByCountry)
 
-      // Añadir hojas de trabajo al libro
       XLSX.utils.book_append_sheet(workbook, statsSheet, "Summary Stats")
       XLSX.utils.book_append_sheet(workbook, topClientsSheet, "Top Clients")
       XLSX.utils.book_append_sheet(workbook, projectsByTechSheet, "Projects by Technology")
       XLSX.utils.book_append_sheet(workbook, topIndustriesSheet, "Top Industries")
       XLSX.utils.book_append_sheet(workbook, clientsByCountrySheet, "Clients by Country")
 
-      // Generar archivo Excel
       XLSX.writeFile(workbook, "ClientsDashboard.xlsx")
 
       Swal.fire({
@@ -1081,7 +993,6 @@ const ClientsDashboard = () => {
         </Typography>
 
         <div className={styles.chartGrid}>
-          {/* Top Clients Chart - MEJORADO */}
           <div className={styles.chartCard}>
             <div className={styles.chartHeader}>
               <div className={styles.chartTitle}>
@@ -1106,12 +1017,10 @@ const ClientsDashboard = () => {
                 </div>
               )}
 
-              {/* Nuevo componente de barras de clientes */}
               <ClientBars data={topClients} />
             </div>
           </div>
 
-          {/* Projects by Technology Chart - MEJORADO */}
           <div className={styles.chartCard}>
             <div className={styles.chartHeader}>
               <div className={styles.chartTitle}>
@@ -1203,7 +1112,6 @@ const ClientsDashboard = () => {
             </div>
           </div>
 
-          {/* Top Industries Table - MEJORADO */}
           <div className={`${styles.chartCard} ${styles.fullWidthChart}`}>
             <div className={styles.chartHeader}>
               <div className={styles.chartTitle}>
@@ -1231,13 +1139,10 @@ const ClientsDashboard = () => {
                   <div className={styles.loadingText}>{tableLoadingText}</div>
                 </div>
               )}
-
-              {/* Nuevo componente de tabla de industrias */}
               <IndustriesTable data={topIndustries} />
             </div>
           </div>
 
-          {/* Clients by Country Map - SECCIÓN MEJORADA */}
           <Paper elevation={0} className={`${styles.sectionCard} ${styles.mapSection}`}>
             <AmericasMaps
               clientData={clientsByCountry}
@@ -1248,7 +1153,6 @@ const ClientsDashboard = () => {
             />
           </Paper>
 
-          {/* Client Growth Trend Chart */}
           <div className={styles.chartCard}>
             <div className={styles.chartHeader}>
               <div className={styles.chartTitle}>

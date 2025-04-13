@@ -1,16 +1,10 @@
-/* 
-  Dashboard de Clientes - Estilos Mejorados
-  Basado en el diseño de CaseStudies con mejoras visuales
-*/
 
-/* Contenedor principal */
 .container {
   padding: 24px;
   background-color: #f8f9fa;
   min-height: 100vh;
 }
 
-/* Estilos del encabezado */
 .header {
   display: flex;
   justify-content: space-between;
@@ -92,7 +86,6 @@
 }
 
 
-/* Tarjetas de sección */
 .sectionCard {
   padding: 24px;
   margin-bottom: 24px;
@@ -122,7 +115,6 @@
   font-size: 14px !important;
 }
 
-/* Cuadrícula de estadísticas */
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -142,7 +134,6 @@
   }
 }
 
-/* Tarjetas de estadísticas */
 .statCard {
   background-color: white;
   border-radius: 12px;
@@ -205,7 +196,6 @@
   color: #f44336;
 }
 
-/* Cuadrícula de gráficos */
 .chartGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -218,7 +208,6 @@
   }
 }
 
-/* Tarjetas de gráficos */
 .chartCard {
   background-color: white;
   border-radius: 12px;
@@ -291,7 +280,6 @@
   min-height: 250px;
 }
 
-/* Estilos de carga */
 .loadingOverlay {
   position: absolute;
   top: 0;
@@ -348,13 +336,12 @@
   transition: width 0.3s ease;
 }
 
-/* Estilos del mapa */
 .mapSection {
   padding: 0 !important;
   margin-bottom: 24px;
   overflow: hidden;
   border-radius: 12px;
-  position: relative; /* Importante para posicionar tooltips */
+  position: relative;
 }
 
 .fullWidthMap {
@@ -393,9 +380,8 @@
   transform: scale(1.02);
 }
 
-/* Tooltip del mapa - MODIFICADO para contener dentro del área */
 .tooltip {
-  position: absolute; /* Cambiado de fixed a absolute */
+  position: absolute;
   background-color: white;
   border: 1px solid #e9ecef;
   border-radius: 8px;
@@ -406,30 +392,25 @@
   font-size: 14px;
   max-width: 250px;
   transition: opacity 0.2s ease;
-  /* Aseguramos que no se salga del contenedor */
   max-height: 150px;
   overflow: hidden;
 }
 
-/* Clase para posicionar el tooltip en la parte superior */
 .tooltipTop {
   bottom: auto;
   top: 20px;
 }
 
-/* Clase para posicionar el tooltip en la parte inferior */
 .tooltipBottom {
   top: auto;
   bottom: 20px;
 }
 
-/* Clase para posicionar el tooltip a la izquierda */
 .tooltipLeft {
   right: auto;
   left: 20px;
 }
 
-/* Clase para posicionar el tooltip a la derecha */
 .tooltipRight {
   left: auto;
   right: 20px;
@@ -457,7 +438,6 @@
   gap: 4px;
 }
 
-/* Leyenda del mapa */
 .mapLegend {
   position: absolute;
   bottom: 20px;
@@ -501,7 +481,6 @@
   color: #6c757d;
 }
 
-/* Estilos de tabla */
 .tableContainer {
   border-radius: 8px;
   overflow: hidden;
@@ -538,7 +517,6 @@
   border-bottom: 1px solid #f0f0f0 !important;
 }
 
-/* Estilos de paginación */
 .paginationContainer {
   display: flex;
   justify-content: space-between;
@@ -628,7 +606,6 @@
   color: #6c757d;
 }
 
-/* Estilos para elementos de búsqueda y filtros */
 .searchContainer {
   position: relative;
   margin-bottom: 20px;
@@ -680,7 +657,6 @@
   background-color: #f0f0f0;
 }
 
-/* Estilos para filtros */
 .filterContainer {
   margin-bottom: 20px;
   overflow-x: auto;
@@ -750,7 +726,6 @@
   min-width: 200px !important;
 }
 
-/* Estilos para skeletons (carga) */
 .skeletonRow {
   background-color: #f8f9fa !important;
 }
@@ -799,7 +774,6 @@
   }
 }
 
-/* Estilos para modales */
 .modalContent {
   position: absolute;
   top: 50%;
@@ -856,7 +830,6 @@
   background-color: #5251c6 !important;
 }
 
-/* Estilos para formularios */
 .formGroup {
   margin-bottom: 20px;
 }
@@ -929,7 +902,6 @@
   background-color: rgba(99, 98, 231, 0.04) !important;
 }
 
-/* Estilos mejorados para el gráfico de tecnologías */
 .techPieContainer {
   position: relative;
   height: 300px;
@@ -993,7 +965,6 @@
   margin: 0 auto;
 }
 
-/* Colores para las tecnologías de automatización */
 .techColors {
   --blue-prism: #0076ce;
   --rocket-bot: #ff4b4b;
@@ -1004,7 +975,6 @@
   --pix: #8e44ad;
 }
 
-/* Estilos mejorados para el gráfico de Top 5 Clients */
 .topClientsContainer {
   position: relative;
   height: 300px;
@@ -1200,7 +1170,6 @@
   font-weight: 600;
 }
 
-/* Estilos mejorados para el gráfico de Top 10 Industries */
 .industriesContainer {
   position: relative;
   height: 100%;
@@ -1469,7 +1438,6 @@
   border-color: #6362e7;
 }
 
-/* Estilos para la tabla de industrias */
 .industriesTable {
   width: 100%;
   border-collapse: separate;
@@ -1502,6 +1470,7 @@
   position: relative;
   cursor: pointer;
   transition: background-color 0.2s;
+  text-align: center;
 }
 
 .industriesTableHeaderCell:hover {
@@ -1535,6 +1504,7 @@
   border-bottom: 1px solid #f0f0f0;
   font-size: 14px;
   color: #333;
+  text-align: center !important;
 }
 
 .industriesTableRank {
@@ -1622,6 +1592,7 @@
   text-align: right;
   font-weight: 700;
   color: #6362e7;
+  text-align: center;
 }
 
 .industriesTableActions {
