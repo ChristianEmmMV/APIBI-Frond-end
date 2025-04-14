@@ -1,0 +1,92 @@
+.container {
+    padding: 20px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    color: #1e2f65;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .headerLeft {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #757575;
+  }
+
+  .breadcrumb a {
+    color: #1e2f65;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumb a:hover {
+    color: #6362e7;
+    text-decoration: underline;
+  }
+
+  .breadcrumb .MuiTypography-root {
+    color: #1e2f65;
+  }
+
+  .sectionCard {
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+  }
+
+  .sectionTitle {
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    font-size: 1.1rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+  
+  .sectionTitle::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: #6362e7;
+    border-radius: 3px;
+  }
+
+ .cardContainer {
+  display: flex;
+  gap: 20px;
+ }
+
+ .card {
+  margin-top: 20px;
+  height: 95%;
+ }
+
+ .card:hover {
+  transform: translateY(-5px); /* Eleva la tarjeta al pasar el cursor */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+ .cardImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Asegura que las imágenes se ajusten correctamente */
+  margin-top: 16px;
+ }
+
+ .card .button {
+  border-radius: 20px;
+  background-color: #6362e7;
+ }
