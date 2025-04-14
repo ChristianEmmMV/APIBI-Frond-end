@@ -49,9 +49,11 @@ import {
 } from "@mui/icons-material"
 import styles from "./project.module.css"
 import NewRegisterProject from "../../../components/BIProjects/NewRegisterProject"
+import { useNavigate } from "react-router-dom"
 
 const Projects = () => {
-  // Datos de ejemplo para proyectos
+  const navigate = useNavigate()
+
   const projects = [
     {
       id: "PRJ-001",
@@ -431,6 +433,10 @@ const Projects = () => {
     simulateTableLoading()
   }
 
+  const handleViewProject = (projectId) => {
+    navigate(`/bi-project-stats/${projectId}`)
+  }
+
   useEffect(() => {
     simulateTableLoading()
   }, [])
@@ -553,7 +559,7 @@ const Projects = () => {
 
         <div className={styles.filterContainer}>
           <div className={styles.filterTabs}>
-            <button
+          <button
               className={`${styles.filterTab} ${activeFilter === "all" ? styles.active : ""}`}
               onClick={() => handleFilterChange("all")}
             >
@@ -820,7 +826,11 @@ const Projects = () => {
                     <TableCell className={styles.tableCell}>
                       <div className={styles.actionButtons}>
                         <Tooltip title="View Project">
-                          <IconButton size="small" className={styles.viewButton}>
+                          <IconButton
+                            size="small"
+                            className={styles.viewButton}
+                            onClick={() => navigate(`/bi-project-stats/${project.id}`)}
+                          >
                             <VisibilityIcon fontSize="small" />
                           </IconButton>
                         </Tooltip>
