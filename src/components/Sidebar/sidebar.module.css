@@ -235,3 +235,35 @@
   box-shadow: 0 4px 12px rgba(99, 98, 231, 0.4);
 }
 
+.footer .menuItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  color: #64748b;
+  transition: all 0.2s;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.footer .menuItem:hover {
+  background-color: rgba(99, 98, 231, 0.05);
+  color: #6362e7;
+}
+
+.footer .menuItem:hover .menuIcon {
+  color: #6362e7;
+}
+
+.footer .menuItem:focus {
+  outline: 2px solid rgba(99, 98, 231, 0.2);
+  background-color: rgba(99, 98, 231, 0.05);
+  color: #6362e7;
+}
+
+.footer .menuItem:active {
+  transform: scale(0.98);
+}
+

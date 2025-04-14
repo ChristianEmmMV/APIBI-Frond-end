@@ -67,22 +67,6 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
 
         <div className={styles.navbarRightItems}>
           <div className={styles.navbarItem}>
-            <Tooltip title="Help">
-              <IconButton className={styles.iconButton}>
-                <HelpIcon />
-              </IconButton>
-            </Tooltip>
-          </div>
-
-          <div className={styles.navbarItem}>
-            <Tooltip title="Shortcuts">
-              <IconButton className={styles.iconButton}>
-                <BookmarkIcon />
-              </IconButton>
-            </Tooltip>
-          </div>
-
-          <div className={styles.navbarItem}>
             <Tooltip title="Notifications">
               <IconButton onClick={handleNotificationsClick} className={styles.iconButton}>
                 <Badge
@@ -180,7 +164,7 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
         >
           <Avatar src="/placeholder.svg?height=40&width=40" sx={{ width: 40, height: 40, mr: 2 }} />
           <div>
-            <div style={{ fontWeight: 600, fontSize: "14px", color: "#1e293b" }}>John Doe</div>
+            <div style={{ fontWeight: 600, fontSize: "14px", color: "#1e293b" }}>Isvi Acuña</div>
             <div style={{ fontSize: "12px", color: "#64748b" }}>Administrator</div>
           </div>
         </div>
@@ -189,12 +173,6 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
             <PersonIcon fontSize="small" className={styles.menuIcon} />
           </ListItemIcon>
           Profile
-        </MenuItem>
-        <MenuItem onClick={handleClose} className={styles.menuItem}>
-          <ListItemIcon>
-            <SettingsIcon fontSize="small" className={styles.menuIcon} />
-          </ListItemIcon>
-          Settings
         </MenuItem>
         <Divider sx={{ margin: "4px 0", borderColor: "rgba(99, 98, 231, 0.1)" }} />
         <MenuItem onClick={handleClose} className={styles.menuItem}>

@@ -17,9 +17,8 @@ import {
   Info as InfoIcon,
   GridOn as PanelIcon,
   Home as HomeIcon,
-  PrecisionManufacturing as PrecisionManufacturing,
+  PrecisionManufacturing,
   SupportAgent as SupportAgentIcon,
-  OndemandVideo as VideoIcon,
   Factory as FactoryIcon,
   QueryStats as QueryStatsIcon,
   School as SchoolIcon,
@@ -32,6 +31,7 @@ import {
 } from "@mui/icons-material"
 import styles from "./sidebar.module.css"
 import Logo from "../../../public/assets/logo.png"
+import { Popover, Typography, Box } from "@mui/material"
 
 const Sidebar = ({ isOpen }) => {
   const [expandedItems, setExpandedItems] = useState({
@@ -41,12 +41,21 @@ const Sidebar = ({ isOpen }) => {
 
   const [mode, setMode] = useState("presales")
   const [isAnimating, setIsAnimating] = useState(false)
+  const [helpAnchorEl, setHelpAnchorEl] = useState(null)
 
   const toggleExpand = (item) => {
     setExpandedItems((prev) => ({
       ...prev,
       [item]: !prev[item],
     }))
+  }
+
+  const handleHelpClick = (event) => {
+    setHelpAnchorEl(event.currentTarget)
+  }
+
+  const handleHelpClose = () => {
+    setHelpAnchorEl(null)
   }
 
   const presalesMenuItems = [
@@ -77,7 +86,7 @@ const Sidebar = ({ isOpen }) => {
 
   const biMenuItems = [
     { icon: <HomeIcon />, text: "Home BI", path: "/home-bi", active: false },
-    { icon: <PanelIcon />, text: "Registration panels", path: "/register-panel"},
+    { icon: <PanelIcon />, text: "Registration panels", path: "/register-panel" },
     {
       icon: <PrecisionManufacturing />,
       text: "BI-Products",
@@ -89,7 +98,7 @@ const Sidebar = ({ isOpen }) => {
         { icon: <FactoryIcon />, text: "Iduntries", path: "/bi-industries" },
       ],
     },
-    { icon: <BusinessCenterIcon />, text: "Marketing Portal", path: "/marketing-portal"},
+    { icon: <BusinessCenterIcon />, text: "Marketing Portal", path: "/marketing-portal" },
     { icon: <SchoolIcon />, text: "Learning Portal", path: "/learning-panel" },
     { icon: <DeveloperModeIcon />, text: "Demo", path: "/demo" },
     {
@@ -223,16 +232,60 @@ const Sidebar = ({ isOpen }) => {
       `}</style>
 
       <div className={styles.footer}>
-        <div className={styles.menuItem}>
+        {/* Update Help button to be clickable */}
+        <div
+          className={styles.menuItem}
+          onClick={handleHelpClick}
+          role="button"
+          tabIndex={0}
+          aria-describedby="help-popover"
+        >
           <span className={styles.menuIcon}>
             <HelpIcon />
           </span>
           <span className={styles.menuText}>Help</span>
         </div>
       </div>
+
+      <Popover
+        id="help-popover"
+        open={Boolean(helpAnchorEl)}
+        anchorEl={helpAnchorEl}
+        onClose={handleHelpClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        PaperProps={{
+          sx: {
+            p: 2,
+            maxWidth: 300,
+            borderRadius: "10px",
+            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+            border: "1px solid rgba(99, 98, 231, 0.1)",
+          },
+        }}
+      >
+        <Box>
+          <Typography variant="subtitle1" sx={{ fontWeight: 600, color: "#6362e7", mb: 1 }}>
+            {mode === "presales" ? "Presales Help" : "Business Intelligence Help"}
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 2 }}>
+            {mode === "presales"
+              ? "The Presales module helps you manage projects, client surveys, agent information, and POCs. Use this area to track presales activities and prepare client proposals."
+              : "The Business Intelligence module provides tools for data analysis, client dashboards, marketing insights, and learning resources. Use this area to access analytics and reporting features."}
+          </Typography>
+          <Typography variant="body2" sx={{ color: "#666", fontSize: "0.8rem" }}>
+            Click on menu items to navigate to specific sections.
+          </Typography>
+        </Box>
+      </Popover>
     </div>
   )
 }
 
 export default Sidebar
-
