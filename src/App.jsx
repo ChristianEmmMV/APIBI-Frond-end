@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { ThemeModeProvider } from "./theme/ThemeContext"
+import Profile from './pages/Profile/Profile'
 import Home from './pages/Home/Home'
 import Navbar from './components/Navbar/Navbar'
 import Sidebar from './components/Sidebar/Sidebar'
@@ -15,7 +17,6 @@ import PotentialAgents from './pages/Presales/Potential Agents/PotentialAgents'
 import ProjectTracking from './pages/Presales/Project Tracking/ProjectTracking'
 import RegisterUser from './pages/BusinessIntelligence/RegisterUser/RegisterUser'
 import RegisterPanel from './pages/BusinessIntelligence/RegisterPanel/RegisterPanel'
-import HomeBI from './pages/BusinessIntelligence/HomeBI/HomeBi'
 import DashboardBI from './pages/BusinessIntelligence/DashboardBI/DashbordBI'
 import ClientsDashboard from './pages/BusinessIntelligence/Clients/ClientsDashboard'
 import Demo from './pages/BusinessIntelligence/Demo/Demo'
@@ -29,6 +30,7 @@ import BIIndustries from './pages/BusinessIntelligence/BI Products/Industries/In
 import BIVideoCases from './pages/BusinessIntelligence/BI Products/VideoCases/VideoCases'
 import BICaseStudiesDashboard from './pages/BusinessIntelligence/BI Products/CaseStudies/CaseStudiesDashboard'
 import BIProjectStats from './pages/BusinessIntelligence/Projects/ProjectStats'
+import HomeBi from './pages/BusinessIntelligence/HomeBI/HomeBi'
 
 import './App.css'
 
@@ -39,6 +41,8 @@ function App() {
   }
 
   return (
+    <ThemeModeProvider>
+
     <div>
       <Navbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isSidebarOpen} />
@@ -52,6 +56,7 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/projects" element={<Projects/>} />
           <Route path="/pocs" element={<Pocs/>} />
@@ -62,7 +67,7 @@ function App() {
           <Route path="/potential-agents" element={<PotentialAgents/>} />
           <Route path="/project-tracking" element={<ProjectTracking/>} />
           <Route path="/register-user" element={<RegisterUser/>} />
-          <Route path="/home-bi" element={<HomeBI/>} />
+          <Route path="/home-bi" element={<HomeBi/>} />
           <Route path="/register-panel" element={<RegisterPanel/>} />
           <Route path="/dashboard-bi" element={<DashboardBI/>} />
           <Route path="/clients-dashboard" element={<ClientsDashboard/>} />
@@ -80,6 +85,8 @@ function App() {
         </Routes>
       </main>
     </div>
+    </ThemeModeProvider>
+
   )
 }
 

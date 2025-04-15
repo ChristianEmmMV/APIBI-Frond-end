@@ -54,6 +54,8 @@ import {
   Category,
   Work,
 } from "@mui/icons-material"
+import * as XLSX from "xlsx"
+import Swal from "sweetalert2"
 import styles from "./bicaseestudies.module.css"
 
 const CaseStudies = () => {
@@ -722,12 +724,310 @@ const CaseStudies = () => {
     simulateVideoTableLoading()
   }
 
+  const exportToExcel = () => {
+    const loadingSwal = Swal.fire({
+      title: "Preparing Export",
+      html: "Creating your Excel file with enhanced formatting...",
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+      },
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+    })
+
+    setTimeout(() => {
+      try {
+        const exportData = caseStudies.map((caseStudy, index) => ({
+          Rank: index + 1,
+          "Case Name": caseStudy.name,
+          Client: caseStudy.client,
+          Industry: caseStudy.industry,
+          "Type of Case": caseStudy.typeCase,
+          Department: caseStudy.department,
+          Location: caseStudy.location,
+          Systems: caseStudy.systems.join(", "),
+          AI: caseStudy.ai,
+        }))
+
+        const worksheet = XLSX.utils.json_to_sheet(exportData)
+
+        const columnWidths = [
+          { wch: 10 },
+          { wch: 25 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 30 },
+          { wch: 10 },
+        ]
+        worksheet["!cols"] = columnWidths
+
+        const range = XLSX.utils.decode_range(worksheet["!ref"])
+
+        const headerStyle = {
+          fill: { fgColor: { rgb: "6362E7" } },
+          font: { color: { rgb: "FFFFFF" }, bold: true, sz: 12 },
+          alignment: { horizontal: "center", vertical: "center" },
+          border: {
+            top: { style: "thin", color: { rgb: "CCCCCC" } },
+            bottom: { style: "thin", color: { rgb: "CCCCCC" } },
+            left: { style: "thin", color: { rgb: "CCCCCC" } },
+            right: { style: "thin", color: { rgb: "CCCCCC" } },
+          },
+        }
+
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+          const cell = worksheet[XLSX.utils.encode_cell({ r: 0, c: C })]
+          if (!cell) continue
+          cell.s = headerStyle
+        }
+
+        for (let R = 1; R <= range.e.r; ++R) {
+          const rowBgColor = R % 2 === 0 ? "F9FAFC" : "FFFFFF"
+
+          for (let C = range.s.c; C <= range.e.c; ++C) {
+            const cell = worksheet[XLSX.utils.encode_cell({ r: R, c: C })]
+            if (!cell) continue
+
+            cell.s = {
+              font: { sz: 11 },
+              alignment: { vertical: "center" },
+              fill: { fgColor: { rgb: rowBgColor } },
+              border: {
+                top: { style: "thin", color: { rgb: "EEEEEE" } },
+                bottom: { style: "thin", color: { rgb: "EEEEEE" } },
+                left: { style: "thin", color: { rgb: "EEEEEE" } },
+                right: { style: "thin", color: { rgb: "EEEEEE" } },
+              },
+            }
+          }
+        }
+
+        XLSX.utils.sheet_add_aoa(
+          worksheet,
+          [
+            ["Case Studies Report"],
+            ["Generated on: " + new Date().toLocaleString()],
+            [""],
+          ],
+          { origin: -1 },
+        )
+
+        const titleCell = worksheet[XLSX.utils.encode_cell({ r: 0, c: 0 })]
+        if (titleCell) {
+          titleCell.s = {
+            font: { bold: true, sz: 16, color: { rgb: "6362E7" } },
+            alignment: { horizontal: "center" },
+          }
+          if (!worksheet["!merges"]) worksheet["!merges"] = []
+          worksheet["!merges"].push({ s: { r: 0, c: 0 }, e: { r: 0, c: 8 } })
+        }
+
+        const dateCell = worksheet[XLSX.utils.encode_cell({ r: 1, c: 0 })]
+        if (dateCell) {
+          dateCell.s = {
+            font: { italic: true, sz: 11, color: { rgb: "666666" } },
+            alignment: { horizontal: "center" },
+          }
+          worksheet["!merges"].push({ s: { r: 1, c: 0 }, e: { r: 1, c: 8 } })
+        }
+
+        const workbook = XLSX.utils.book_new()
+
+        workbook.Props = {
+          Title: "Case Studies Report",
+          Subject: "Case Study Metrics",
+          Author: "Automation Company",
+          CreatedDate: new Date(),
+        }
+
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Case Studies")
+
+        XLSX.writeFile(workbook, "Case_Studies_Report.xlsx")
+
+        loadingSwal.close()
+
+        Swal.fire({
+          icon: "success",
+          title: "Export Successful!",
+          text: "Your Excel file has been created successfully.",
+          confirmButtonColor: "#6362e7",
+          confirmButtonText: "Great!",
+        })
+      } catch (error) {
+        console.error("Error exporting to Excel:", error)
+
+        loadingSwal.close()
+
+        Swal.fire({
+          icon: "error",
+          title: "Export Failed",
+          text: "There was an error creating your Excel file. Please try again.",
+          confirmButtonColor: "#6362e7",
+        })
+      }
+    }, 1000)
+  }
+
+  const exportVideoCasesToExcel = () => {
+    const loadingSwal = Swal.fire({
+      title: "Preparing Export",
+      html: "Creating your Excel file with enhanced formatting...",
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+      },
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+    })
+
+    setTimeout(() => {
+      try {
+        const exportData = videoCases.map((videoCase, index) => ({
+          Rank: index + 1,
+          "Video Name": videoCase.name,
+          Format: videoCase.format,
+          Area: videoCase.area,
+          Department: videoCase.department,
+          Location: videoCase.location,
+          Systems: videoCase.systems.join(", "),
+          "Video URL": videoCase.videoUrl,
+          "Download URL": videoCase.downloadUrl,
+        }))
+
+        const worksheet = XLSX.utils.json_to_sheet(exportData)
+
+        const columnWidths = [
+          { wch: 10 },
+          { wch: 30 },
+          { wch: 10 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 30 },
+          { wch: 40 },
+          { wch: 40 },
+        ]
+        worksheet["!cols"] = columnWidths
+
+        const range = XLSX.utils.decode_range(worksheet["!ref"])
+
+        const headerStyle = {
+          fill: { fgColor: { rgb: "6362E7" } },
+          font: { color: { rgb: "FFFFFF" }, bold: true, sz: 12 },
+          alignment: { horizontal: "center", vertical: "center" },
+          border: {
+            top: { style: "thin", color: { rgb: "CCCCCC" } },
+            bottom: { style: "thin", color: { rgb: "CCCCCC" } },
+            left: { style: "thin", color: { rgb: "CCCCCC" } },
+            right: { style: "thin", color: { rgb: "CCCCCC" } },
+          },
+        }
+
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+          const cell = worksheet[XLSX.utils.encode_cell({ r: 0, c: C })]
+          if (!cell) continue
+          cell.s = headerStyle
+        }
+
+        for (let R = 1; R <= range.e.r; ++R) {
+          const rowBgColor = R % 2 === 0 ? "F9FAFC" : "FFFFFF"
+
+          for (let C = range.s.c; C <= range.e.c; ++C) {
+            const cell = worksheet[XLSX.utils.encode_cell({ r: R, c: C })]
+            if (!cell) continue
+
+            cell.s = {
+              font: { sz: 11 },
+              alignment: { vertical: "center" },
+              fill: { fgColor: { rgb: rowBgColor } },
+              border: {
+                top: { style: "thin", color: { rgb: "EEEEEE" } },
+                bottom: { style: "thin", color: { rgb: "EEEEEE" } },
+                left: { style: "thin", color: { rgb: "EEEEEE" } },
+                right: { style: "thin", color: { rgb: "EEEEEE" } },
+              },
+            }
+          }
+        }
+
+        XLSX.utils.sheet_add_aoa(
+          worksheet,
+          [
+            ["Video Cases Report"],
+            ["Generated on: " + new Date().toLocaleString()],
+            [""],
+          ],
+          { origin: -1 },
+        )
+
+        const titleCell = worksheet[XLSX.utils.encode_cell({ r: 0, c: 0 })]
+        if (titleCell) {
+          titleCell.s = {
+            font: { bold: true, sz: 16, color: { rgb: "6362E7" } },
+            alignment: { horizontal: "center" },
+          }
+          if (!worksheet["!merges"]) worksheet["!merges"] = []
+          worksheet["!merges"].push({ s: { r: 0, c: 0 }, e: { r: 0, c: 8 } })
+        }
+
+        const dateCell = worksheet[XLSX.utils.encode_cell({ r: 1, c: 0 })]
+        if (dateCell) {
+          dateCell.s = {
+            font: { italic: true, sz: 11, color: { rgb: "666666" } },
+            alignment: { horizontal: "center" },
+          }
+          worksheet["!merges"].push({ s: { r: 1, c: 0 }, e: { r: 1, c: 8 } })
+        }
+
+        const workbook = XLSX.utils.book_new()
+
+        workbook.Props = {
+          Title: "Video Cases Report",
+          Subject: "Video Case Metrics",
+          Author: "Automation Company",
+          CreatedDate: new Date(),
+        }
+
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Video Cases")
+
+        XLSX.writeFile(workbook, "Video_Cases_Report.xlsx")
+
+        loadingSwal.close()
+
+        Swal.fire({
+          icon: "success",
+          title: "Export Successful!",
+          text: "Your Excel file has been created successfully.",
+          confirmButtonColor: "#6362e7",
+          confirmButtonText: "Great!",
+        })
+      } catch (error) {
+        console.error("Error exporting to Excel:", error)
+
+        loadingSwal.close()
+
+        Swal.fire({
+          icon: "error",
+          title: "Export Failed",
+          text: "There was an error creating your Excel file. Please try again.",
+          confirmButtonColor: "#6362e7",
+        })
+      }
+    }, 1000)
+  }
+
   const handleExportToExcel = () => {
-    alert("Exporting case studies to Excel...")
+    exportToExcel()
   }
 
   const handleExportVideosToExcel = () => {
-    alert("Exporting video cases to Excel...")
+    exportVideoCasesToExcel()
   }
 
   const toggleFilters = () => {

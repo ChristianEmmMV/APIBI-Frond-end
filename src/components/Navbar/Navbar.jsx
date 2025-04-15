@@ -1,22 +1,55 @@
 "use client"
 
-import React from "react"
-import { AppBar, IconButton, Avatar, Badge, Tooltip, Menu, MenuItem, ListItemIcon, Divider } from "@mui/material"
+import { useState, useEffect, useRef } from "react"
+import { AppBar, IconButton, Avatar, Badge, Tooltip, Menu, MenuItem, ListItemIcon, Divider, Paper } from "@mui/material"
 import {
   Menu as MenuIcon,
   Search as SearchIcon,
-  Bookmark as BookmarkIcon,
   NotificationsNone as NotificationsIcon,
-  Settings as SettingsIcon,
   Person as PersonIcon,
   Logout as LogoutIcon,
-  Help as HelpIcon,
+  Close as CloseIcon,
+  ArrowForward as ArrowForwardIcon,
 } from "@mui/icons-material"
 import styles from "./navbar.module.css"
+import ThemeToggle from "../ThemeToggle"
 
 const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const [notificationsAnchor, setNotificationsAnchor] = React.useState(null)
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [notificationsAnchor, setNotificationsAnchor] = useState(null)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [showSearchResults, setShowSearchResults] = useState(false)
+  const [filteredRoutes, setFilteredRoutes] = useState([])
+  const searchContainerRef = useRef(null)
+
+  const availableRoutes = [
+    { path: "/", name: "Home", description: "Main application homepage" },
+    { path: "/profile", name: "Profile", description: "User profile settings" },
+    { path: "/dashboard", name: "Dashboard", description: "Main dashboard" },
+    { path: "/projects", name: "Projects", description: "Projects management" },
+    { path: "/pocs", name: "POCs", description: "Proof of concepts information" },
+    { path: "/client-survey", name: "Client Survey", description: "Client survey management" },
+    { path: "/add-client-survey", name: "Add Client Survey", description: "Create new client survey" },
+    { path: "/presales-information", name: "Presales Information", description: "Presales information dashboard" },
+    { path: "/agents-information", name: "Agents Information", description: "Agents information management" },
+    { path: "/potential-agents", name: "Potential Agents", description: "Potential agents tracking" },
+    { path: "/project-tracking", name: "Project Tracking", description: "Track project progress" },
+    { path: "/register-user", name: "Register User", description: "Register new users" },
+    { path: "/home-bi", name: "BI Home", description: "Business Intelligence home" },
+    { path: "/register-panel", name: "Register Panel", description: "Registration panel" },
+    { path: "/dashboard-bi", name: "BI Dashboard", description: "Business Intelligence dashboard" },
+    { path: "/clients-dashboard", name: "Clients Dashboard", description: "Client management dashboard" },
+    { path: "/client-information", name: "Client Information", description: "Detailed client information" },
+    { path: "/demo", name: "Demo", description: "Application demonstration" },
+    { path: "/bi-agents", name: "BI Agents", description: "Business Intelligence agents" },
+    { path: "/bi-case-studies", name: "BI Case Studies", description: "Business Intelligence case studies" },
+    { path: "/bi-industries", name: "BI Industries", description: "Business Intelligence industries" },
+    { path: "/bi-video-cases", name: "BI Video Cases", description: "Business Intelligence video cases" },
+    { path: "/bi-case-studies-dashboard", name: "Case Studies Dashboard", description: "Case studies dashboard" },
+    { path: "/projects-bi", name: "BI Projects", description: "Business Intelligence projects" },
+    { path: "/marketing-portal", name: "Marketing Portal", description: "Marketing portal" },
+    { path: "/learning-panel", name: "Learning Panel", description: "Learning resources panel" },
+  ]
 
   const handleProfileClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -33,6 +66,58 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
   const handleNotificationsClose = () => {
     setNotificationsAnchor(null)
   }
+
+  const navigateToProfile = () => {
+    window.location.href = "/profile"
+    handleClose()
+  }
+
+  const handleLogout = () => {
+    console.log("Logging out...")
+    handleClose()
+  }
+
+  const handleSearchChange = (e) => {
+    const query = e.target.value
+    setSearchQuery(query)
+
+    if (query.trim() === "") {
+      setShowSearchResults(false)
+      return
+    }
+
+    const filtered = availableRoutes.filter(
+      (route) =>
+        route.name.toLowerCase().includes(query.toLowerCase()) ||
+        route.description.toLowerCase().includes(query.toLowerCase()),
+    )
+
+    setFilteredRoutes(filtered)
+    setShowSearchResults(true)
+  }
+
+  const clearSearch = () => {
+    setSearchQuery("")
+    setShowSearchResults(false)
+  }
+
+  const navigateToRoute = (path) => {
+    window.location.href = path
+    clearSearch()
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+        setShowSearchResults(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
 
   const notifications = [
     { id: 1, text: "New comment on your post", time: "5 min ago" },
@@ -59,13 +144,57 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
               <MenuIcon />
             </IconButton>
           </div>
-          <div className={styles.searchContainer}>
-            <input type="text" placeholder="Search here..." className={styles.searchInput} />
+          <div className={styles.searchContainer} ref={searchContainerRef}>
+            <input
+              type="text"
+              placeholder="Search interfaces..."
+              className={styles.searchInput}
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
             <SearchIcon className={styles.searchIcon} />
+            {searchQuery && (
+              <IconButton className={styles.clearSearchButton} onClick={clearSearch} size="small">
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            )}
+
+            {showSearchResults && filteredRoutes.length > 0 && (
+              <Paper className={styles.searchResults}>
+                <div className={styles.searchResultsHeader}>
+                  <span>Search Results</span>
+                  <span className={styles.resultCount}>{filteredRoutes.length} found</span>
+                </div>
+                <div className={styles.searchResultsList}>
+                  {filteredRoutes.map((route) => (
+                    <div
+                      key={route.path}
+                      className={styles.searchResultItem}
+                      onClick={() => navigateToRoute(route.path)}
+                    >
+                      <div className={styles.searchResultContent}>
+                        <div className={styles.searchResultName}>{route.name}</div>
+                        <div className={styles.searchResultDescription}>{route.description}</div>
+                      </div>
+                      <ArrowForwardIcon className={styles.searchResultIcon} fontSize="small" />
+                    </div>
+                  ))}
+                </div>
+              </Paper>
+            )}
+
+            {showSearchResults && filteredRoutes.length === 0 && (
+              <Paper className={styles.searchResults}>
+                <div className={styles.noResults}>No interfaces found matching "{searchQuery}"</div>
+              </Paper>
+            )}
           </div>
         </div>
 
         <div className={styles.navbarRightItems}>
+          <div className={styles.navbarItem}>
+            <ThemeToggle />
+          </div>
           <div className={styles.navbarItem}>
             <Tooltip title="Notifications">
               <IconButton onClick={handleNotificationsClick} className={styles.iconButton}>
@@ -168,14 +297,14 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
             <div style={{ fontSize: "12px", color: "#64748b" }}>Administrator</div>
           </div>
         </div>
-        <MenuItem onClick={handleClose} className={styles.menuItem}>
+        <MenuItem onClick={navigateToProfile} className={styles.menuItem}>
           <ListItemIcon>
             <PersonIcon fontSize="small" className={styles.menuIcon} />
           </ListItemIcon>
           Profile
         </MenuItem>
         <Divider sx={{ margin: "4px 0", borderColor: "rgba(99, 98, 231, 0.1)" }} />
-        <MenuItem onClick={handleClose} className={styles.menuItem}>
+        <MenuItem onClick={handleLogout} className={styles.menuItem}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" className={styles.menuIcon} />
           </ListItemIcon>
@@ -187,4 +316,3 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
 }
 
 export default Navbar
-

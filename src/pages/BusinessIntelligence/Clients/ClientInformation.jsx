@@ -39,6 +39,8 @@ import {
   FilterList,
 } from "@mui/icons-material"
 import styles from "./client-information.module.css"
+import Swal from "sweetalert2"
+import * as XLSX from "xlsx"
 
 const ClientInformation = () => {
   const clients = [
@@ -422,7 +424,142 @@ const ClientInformation = () => {
   }
 
   const handleExportToExcel = () => {
-    alert("Exporting client information to Excel...")
+    const loadingSwal = Swal.fire({
+      title: "Preparing Export",
+      html: "Creating your Excel file with enhanced formatting...",
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+      },
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+    })
+
+    setTimeout(() => {
+      try {
+        const exportData = clients.map((client, index) => ({
+          Rank: index + 1,
+          Name: client.name,
+          Industry: client.industry,
+          Location: client.location,
+        }))
+
+        const worksheet = XLSX.utils.json_to_sheet(exportData)
+
+        const columnWidths = [
+          { wch: 10 },
+          { wch: 30 },
+          { wch: 20 },
+          { wch: 15 },
+        ]
+        worksheet["!cols"] = columnWidths
+
+        const range = XLSX.utils.decode_range(worksheet["!ref"])
+
+        const headerStyle = {
+          fill: { fgColor: { rgb: "6362E7" } },
+          font: { color: { rgb: "FFFFFF" }, bold: true, sz: 12 },
+          alignment: { horizontal: "center", vertical: "center" },
+          border: {
+            top: { style: "thin", color: { rgb: "CCCCCC" } },
+            bottom: { style: "thin", color: { rgb: "CCCCCC" } },
+            left: { style: "thin", color: { rgb: "CCCCCC" } },
+            right: { style: "thin", color: { rgb: "CCCCCC" } },
+          },
+        }
+
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+          const cell = worksheet[XLSX.utils.encode_cell({ r: 0, c: C })]
+          if (!cell) continue
+          cell.s = headerStyle
+        }
+
+        for (let R = 1; R <= range.e.r; ++R) {
+          const rowBgColor = R % 2 === 0 ? "F9FAFC" : "FFFFFF"
+
+          for (let C = range.s.c; C <= range.e.c; ++C) {
+            const cell = worksheet[XLSX.utils.encode_cell({ r: R, c: C })]
+            if (!cell) continue
+
+            cell.s = {
+              font: { sz: 11 },
+              alignment: { vertical: "center" },
+              fill: { fgColor: { rgb: rowBgColor } },
+              border: {
+                top: { style: "thin", color: { rgb: "EEEEEE" } },
+                bottom: { style: "thin", color: { rgb: "EEEEEE" } },
+                left: { style: "thin", color: { rgb: "EEEEEE" } },
+                right: { style: "thin", color: { rgb: "EEEEEE" } },
+              },
+            }
+          }
+        }
+
+        XLSX.utils.sheet_add_aoa(
+          worksheet,
+          [
+            ["Client Information Report"],
+            ["Generated on: " + new Date().toLocaleString()],
+            [""],
+          ],
+          { origin: -1 },
+        )
+
+        const titleCell = worksheet[XLSX.utils.encode_cell({ r: 0, c: 0 })]
+        if (titleCell) {
+          titleCell.s = {
+            font: { bold: true, sz: 16, color: { rgb: "6362E7" } },
+            alignment: { horizontal: "center" },
+          }
+          if (!worksheet["!merges"]) worksheet["!merges"] = []
+          worksheet["!merges"].push({ s: { r: 0, c: 0 }, e: { r: 0, c: 3 } })
+        }
+
+        const dateCell = worksheet[XLSX.utils.encode_cell({ r: 1, c: 0 })]
+        if (dateCell) {
+          dateCell.s = {
+            font: { italic: true, sz: 11, color: { rgb: "666666" } },
+            alignment: { horizontal: "center" },
+          }
+          worksheet["!merges"].push({ s: { r: 1, c: 0 }, e: { r: 1, c: 3 } })
+        }
+
+        const workbook = XLSX.utils.book_new()
+
+        workbook.Props = {
+          Title: "Client Information Report",
+          Subject: "Client Metrics",
+          Author: "Automation Company",
+          CreatedDate: new Date(),
+        }
+
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Client Information")
+
+        XLSX.writeFile(workbook, "Client_Information_Report.xlsx")
+
+        loadingSwal.close()
+
+        Swal.fire({
+          icon: "success",
+          title: "Export Successful!",
+          text: "Your Excel file has been created successfully.",
+          confirmButtonColor: "#6362e7",
+          confirmButtonText: "Great!",
+        })
+      } catch (error) {
+        console.error("Error exporting to Excel:", error)
+
+        loadingSwal.close()
+
+        Swal.fire({
+          icon: "error",
+          title: "Export Failed",
+          text: "There was an error creating your Excel file. Please try again.",
+          confirmButtonColor: "#6362e7",
+        })
+      }
+    }, 1000)
   }
 
   const toggleFilters = () => {

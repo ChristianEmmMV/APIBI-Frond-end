@@ -1,0 +1,259 @@
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    background-color: #f9fafc;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    color: #1e2f65;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .headerLeft {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #757575;
+  }
+  
+  .breadcrumb a {
+    color: #1e2f65;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .breadcrumb a:hover {
+    color: #6362e7;
+    text-decoration: underline;
+  }
+  
+  .breadcrumb .MuiTypography-root {
+    color: #1e2f65;
+  }
+  
+  .sectionCard {
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+    height: 100%;
+  }
+  
+  .sectionTitle {
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    font-size: 1.1rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+  
+  .sectionTitle::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: #6362e7;
+    border-radius: 3px;
+  }
+  
+  /* Profile specific styles */
+  .profileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+  }
+  
+  .avatarContainer {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  
+  .profileAvatar {
+    width: 120px !important;
+    height: 120px !important;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 12px rgba(99, 98, 231, 0.15);
+  }
+  
+  .editAvatarButton {
+    position: absolute !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    background-color: #6362e7 !important;
+    color: white !important;
+    width: 36px !important;
+    height: 36px !important;
+    box-shadow: 0 2px 8px rgba(99, 98, 231, 0.3) !important;
+    transition: all 0.2s ease !important;
+  }
+  
+  .editAvatarButton:hover {
+    background-color: #5251c5 !important;
+    transform: scale(1.1) !important;
+  }
+  
+  .profileInfo {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+  
+  .profileName {
+    font-weight: 600;
+    color: #1e2f65;
+    margin-bottom: 0.25rem;
+  }
+  
+  .profileLabel {
+    color: #757575;
+    font-size: 0.75rem;
+  }
+  
+  .profileEmail {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .emailText {
+    color: #6362e7;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  /* Form styles */
+  .formGroup {
+    margin-bottom: 1rem;
+  }
+  
+  .formLabel {
+    margin-bottom: 0.5rem;
+    color: #546e7a;
+    font-weight: 500;
+  }
+  
+  .formInput {
+    background-color: #f9fafc;
+  }
+  
+  .formInput input {
+    font-size: 0.875rem;
+  }
+  
+  .inputWithButton {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  
+  .updateButton {
+    background-color: #6362e7 !important;
+    color: #fff !important;
+    text-transform: none !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1rem !important;
+    font-weight: 500 !important;
+    box-shadow: 0 2px 8px rgba(99, 98, 231, 0.2) !important;
+    transition: all 0.2s ease !important;
+  }
+  
+  .updateButton:hover {
+    background-color: #5251c5 !important;
+    box-shadow: 0 4px 12px rgba(99, 98, 231, 0.3) !important;
+    transform: translateY(-2px) !important;
+  }
+  
+  .updateButton:disabled {
+    background-color: #e0e0e0 !important;
+    color: #9e9e9e !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  
+  .passwordUpdateContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
+  
+  .submitButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+  
+  .submitButton {
+    background-color: #6362e7 !important;
+    color: #fff !important;
+    text-transform: none !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1.5rem !important;
+    font-weight: 500 !important;
+    box-shadow: 0 2px 8px rgba(99, 98, 231, 0.2) !important;
+    transition: all 0.2s ease !important;
+  }
+  
+  .submitButton:hover {
+    background-color: #5251c5 !important;
+    box-shadow: 0 4px 12px rgba(99, 98, 231, 0.3) !important;
+    transform: translateY(-2px) !important;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 960px) {
+    .container {
+      padding: 1rem;
+    }
+  
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  
+    .inputWithButton {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .updateButton {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .profileAvatar {
+      width: 100px !important;
+      height: 100px !important;
+    }
+  
+    .editAvatarButton {
+      width: 32px !important;
+      height: 32px !important;
+    }
+  
+    .submitButtonContainer {
+      justify-content: center;
+    }
+  
+    .submitButton {
+      width: 100%;
+    }
+  }
+  

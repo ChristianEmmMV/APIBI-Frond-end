@@ -942,7 +942,7 @@ const ProjectStats = () => {
               chartHeight={400}
               icon={<TrendingUpIcon fontSize="small" sx={{ color: "#6362e7", marginRight: "8px" }} />}
             />
-            <div className={styles.statsGrid}>
+            <div className={styles.statsGridPC}>
               <MetricCard
                 title="Accuracy"
                 value={`${project?.botMetrics.accuracy}%`}

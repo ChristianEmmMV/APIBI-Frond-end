@@ -638,7 +638,24 @@
     box-shadow: 0 3px 10px rgba(99, 98, 231, 0.3) !important;
   }
   
-  /* Estilos para el modal de registro */
+  .exportButton {
+    background-color: #fff !important;
+    color: #6362e7 !important;
+    border: 1px solid #6362e7 !important;
+    border-radius: 8px !important;
+    text-transform: none !important;
+    padding: 8px 16px !important;
+    font-weight: 500 !important;
+    box-shadow: 0 2px 8px rgba(99, 98, 231, 0.1) !important;
+    transition: all 0.2s ease !important;
+  }
+  
+  .exportButton:hover {
+    background-color: rgba(99, 98, 231, 0.04) !important;
+    box-shadow: 0 4px 12px rgba(99, 98, 231, 0.15) !important;
+    transform: translateY(-2px) !important;
+  }
+  
   .modalTitle {
     background-color: #6362e7;
     color: white;
@@ -802,4 +819,3 @@
       width: 80%;
     }
   }
-  

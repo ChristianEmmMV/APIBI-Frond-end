@@ -45,7 +45,6 @@ import styles from "./learningpanel.module.css"
 import * as XLSX from "xlsx"
 import Swal from "sweetalert2"
 
-// Datos de ejemplo para el Learning Portal
 const videoData = [
   {
     id: 1,
@@ -54,6 +53,7 @@ const videoData = [
       "Learn the fundamentals of cloud computing and how it's transforming businesses worldwide. This video covers basic concepts, service models, and deployment strategies.",
     duration: "45 min",
     category: "Technology",
+    link: "https://example.com/videos/1",
     tags: ["Cloud", "Beginner"],
     thumbnail: "/placeholder.svg?height=160&width=300",
   },
@@ -64,6 +64,7 @@ const videoData = [
       "Dive deep into data analytics techniques used by professionals. Learn how to extract meaningful insights from complex datasets and make data-driven decisions.",
     duration: "38 min",
     category: "Data Science",
+    link: "https://example.com/videos/2",
     tags: ["Analytics", "Advanced"],
     thumbnail: "/placeholder.svg?height=160&width=300",
   },
@@ -74,6 +75,7 @@ const videoData = [
       "Protect your organization with the latest cybersecurity strategies. This tutorial covers threat detection, prevention, and response protocols for modern security challenges.",
     duration: "52 min",
     category: "Security",
+    link: "https://example.com/videos/3",
     tags: ["Security", "IT"],
     thumbnail: "/placeholder.svg?height=160&width=300",
   },
@@ -84,6 +86,7 @@ const videoData = [
       "Master the agile methodology for efficient project delivery. Learn about sprints, stand-ups, and how to implement agile in your team for better collaboration.",
     duration: "41 min",
     category: "Management",
+    link: "https://example.com/videos/4",
     tags: ["Agile", "Teams"],
     thumbnail: "/placeholder.svg?height=160&width=300",
   },
@@ -94,6 +97,7 @@ const videoData = [
       "Understand the core concepts of artificial intelligence and machine learning. This video provides a solid foundation for understanding how AI is changing industries.",
     duration: "49 min",
     category: "Technology",
+    link: "https://example.com/videos/5",
     tags: ["AI", "ML"],
     thumbnail: "/placeholder.svg?height=160&width=300",
   },
@@ -104,6 +108,7 @@ const videoData = [
       "Learn how to lead digital transformation initiatives in your organization. This video covers strategy development, implementation, and change management approaches.",
     duration: "35 min",
     category: "Business",
+    link: "https://example.com/videos/6",
     tags: ["Digital", "Strategy"],
     thumbnail: "/placeholder.svg?height=160&width=300",
   },
@@ -114,6 +119,7 @@ const videoData = [
       "Explore the world of DevOps and how it bridges development and operations. Learn about continuous integration, delivery, and the tools that make it possible.",
     duration: "47 min",
     category: "Development",
+    link: "https://example.com/videos/7",
     tags: ["DevOps", "CI/CD"],
     thumbnail: "/placeholder.svg?height=160&width=300",
   },
@@ -124,6 +130,7 @@ const videoData = [
       "Demystify blockchain technology and understand its potential beyond cryptocurrencies. This video explains the core concepts and business applications.",
     duration: "56 min",
     category: "Technology",
+    link: "https://example.com/videos/8",
     tags: ["Blockchain", "Crypto"],
     thumbnail: "/placeholder.svg?height=160&width=300",
   },
@@ -134,6 +141,7 @@ const videoData = [
       "Learn the principles of effective user experience and interface design. This video covers user research, wireframing, prototyping, and design systems.",
     duration: "39 min",
     category: "Design",
+    link: "https://example.com/videos/9",
     tags: ["UX", "UI"],
     thumbnail: "/placeholder.svg?height=160&width=300",
   },
@@ -144,13 +152,13 @@ const videoData = [
       "Understand how to build secure cloud environments. This video covers security models, identity management, and best practices for cloud security.",
     duration: "51 min",
     category: "Security",
+    link: "https://example.com/videos/10",
     tags: ["Cloud", "Security"],
     thumbnail: "/placeholder.svg?height=160&width=300",
   },
 ]
 
 const LearningPanel = () => {
-  // State variables
   const [searchQuery, setSearchQuery] = useState("")
   const [activeFilter, setActiveFilter] = useState("all")
   const [isTableLoading, setIsTableLoading] = useState(false)
@@ -221,6 +229,9 @@ const LearningPanel = () => {
           valueA = a.category
           valueB = b.category
           break
+        case "link":
+          valueA = a.link
+          valueB = b.link
         default:
           valueA = a.title
           valueB = b.title
@@ -247,6 +258,7 @@ const LearningPanel = () => {
         video.title.toLowerCase().includes(query) ||
         video.description.toLowerCase().includes(query) ||
         video.category.toLowerCase().includes(query) ||
+        video.link.toLowerCase().includes(query) ||
         video.tags.some((tag) => tag.toLowerCase().includes(query))
       )
     }
@@ -312,35 +324,157 @@ const LearningPanel = () => {
   }
 
   const handleExportToExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(
-      videoData.map((video) => ({
-        Title: video.title,
-        Description: video.description,
-        Duration: video.duration,
-        Category: video.category,
-        Tags: video.tags.join(", "),
-      })),
-    )
-
-    const workbook = XLSX.utils.book_new()
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Learning Videos")
-
-    XLSX.writeFile(workbook, "learning_videos.xlsx")
-
-    Swal.fire({
-      title: "Export Successful",
-      text: "The video list has been exported to Excel",
-      icon: "success",
-      confirmButtonText: "OK",
-      confirmButtonColor: "#6362e7",
+    const loadingSwal = Swal.fire({
+      title: "Preparing Export",
+      html: "Creating your Excel file with enhanced formatting...",
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+      },
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
     })
+
+    setTimeout(() => {
+      try {
+        const exportData = videoData.map((video, index) => ({
+          Rank: index + 1,
+          Title: video.title,
+          Description: video.description,
+          Duration: video.duration,
+          Category: video.category,
+          Link: `https://example.com/videos/${video.id}`,
+          Tags: video.tags.join(", "),
+        }))
+
+        const worksheet = XLSX.utils.json_to_sheet(exportData)
+
+        const columnWidths = [
+          { wch: 10 },
+          { wch: 30 },
+          { wch: 50 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 30 },
+        ]
+        worksheet["!cols"] = columnWidths
+
+        const range = XLSX.utils.decode_range(worksheet["!ref"])
+
+        const headerStyle = {
+          fill: { fgColor: { rgb: "6362E7" } },
+          font: { color: { rgb: "FFFFFF" }, bold: true, sz: 12 },
+          alignment: { horizontal: "center", vertical: "center" },
+          border: {
+            top: { style: "thin", color: { rgb: "CCCCCC" } },
+            bottom: { style: "thin", color: { rgb: "CCCCCC" } },
+            left: { style: "thin", color: { rgb: "CCCCCC" } },
+            right: { style: "thin", color: { rgb: "CCCCCC" } },
+          },
+        }
+
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+          const cell = worksheet[XLSX.utils.encode_cell({ r: 0, c: C })]
+          if (!cell) continue
+          cell.s = headerStyle
+        }
+
+        for (let R = 1; R <= range.e.r; ++R) {
+          const rowBgColor = R % 2 === 0 ? "F9FAFC" : "FFFFFF"
+
+          for (let C = range.s.c; C <= range.e.c; ++C) {
+            const cell = worksheet[XLSX.utils.encode_cell({ r: R, c: C })]
+            if (!cell) continue
+
+            cell.s = {
+              font: { sz: 11 },
+              alignment: { vertical: "center" },
+              fill: { fgColor: { rgb: rowBgColor } },
+              border: {
+                top: { style: "thin", color: { rgb: "EEEEEE" } },
+                bottom: { style: "thin", color: { rgb: "EEEEEE" } },
+                left: { style: "thin", color: { rgb: "EEEEEE" } },
+                right: { style: "thin", color: { rgb: "EEEEEE" } },
+              },
+            }
+          }
+        }
+
+        XLSX.utils.sheet_add_aoa(
+          worksheet,
+          [
+            ["Learning Videos Report"],
+            ["Generated on: " + new Date().toLocaleString()],
+            [""],
+          ],
+          { origin: -1 },
+        )
+
+        const titleCell = worksheet[XLSX.utils.encode_cell({ r: 0, c: 0 })]
+        if (titleCell) {
+          titleCell.s = {
+            font: { bold: true, sz: 16, color: { rgb: "6362E7" } },
+            alignment: { horizontal: "center" },
+          }
+          if (!worksheet["!merges"]) worksheet["!merges"] = []
+          worksheet["!merges"].push({ s: { r: 0, c: 0 }, e: { r: 0, c: 5 } })
+        }
+
+        const dateCell = worksheet[XLSX.utils.encode_cell({ r: 1, c: 0 })]
+        if (dateCell) {
+          dateCell.s = {
+            font: { italic: true, sz: 11, color: { rgb: "666666" } },
+            alignment: { horizontal: "center" },
+          }
+          worksheet["!merges"].push({ s: { r: 1, c: 0 }, e: { r: 1, c: 5 } })
+        }
+
+        const workbook = XLSX.utils.book_new()
+
+        workbook.Props = {
+          Title: "Learning Videos Report",
+          Subject: "Learning Portal Metrics",
+          Author: "Automation Company",
+          CreatedDate: new Date(),
+        }
+
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Learning Videos")
+
+        XLSX.writeFile(workbook, "Learning_Videos_Report.xlsx")
+
+        loadingSwal.close()
+
+        Swal.fire({
+          icon: "success",
+          title: "Export Successful!",
+          text: "Your Excel file has been created successfully.",
+          confirmButtonColor: "#6362e7",
+          confirmButtonText: "Great!",
+        })
+      } catch (error) {
+        console.error("Error exporting to Excel:", error)
+
+        loadingSwal.close()
+
+        Swal.fire({
+          icon: "error",
+          title: "Export Failed",
+          text: "There was an error creating your Excel file. Please try again.",
+          confirmButtonColor: "#6362e7",
+        })
+      }
+    }, 1000)
   }
 
   const handlePlayVideo = (videoId) => {
     const video = videoData.find((v) => v.id === videoId)
     Swal.fire({
       title: video.title,
-      text: `Playing video: ${video.description}`,
+      html: `
+        <p>${video.description}</p>
+        <p><a href="${video.link}" target="_blank" style="color: #6362e7; text-decoration: underline;">Watch Video</a></p>
+      `,
       icon: "info",
       confirmButtonText: "Close",
       confirmButtonColor: "#6362e7",

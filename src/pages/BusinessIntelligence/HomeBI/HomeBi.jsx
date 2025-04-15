@@ -419,21 +419,23 @@ function HomeBi() {
           <Paper elevation={0} className={styles.quickAccessCard}>
             <Assessment className={styles.quickAccessIcon} />
             <Typography variant="h6" className={styles.quickAccessTitle}>
-              Reports
+              Projects Reports
             </Typography>
             <Typography
               variant="body2"
               className={styles.quickAccessDescription}
             >
-              Access all your business reports and analytics dashboards in one
+              Access all projects and analytics dashboards in one
               place
             </Typography>
             <Button
+              component={Link}
               variant="contained"
               endIcon={<ArrowForward />}
+              to="/projects-bi"
               className={styles.quickAccessButton}
             >
-              View Reports
+              View Projects
             </Button>
           </Paper>
         </Grid>
@@ -441,15 +443,17 @@ function HomeBi() {
           <Paper elevation={0} className={styles.quickAccessCard}>
             <Dashboard className={styles.quickAccessIcon} />
             <Typography variant="h6" className={styles.quickAccessTitle}>
-              Dashboards
+            Case Studies Dashboard
             </Typography>
             <Typography
               variant="body2"
               className={styles.quickAccessDescription}
             >
-              Explore interactive dashboards with real-time data visualizations
+              Explore interactive Case Studies Dashboard with real-time data visualizations
             </Typography>
             <Button
+              component={Link}
+              to="/bi-case-studies-dashboard"
               variant="contained"
               endIcon={<ArrowForward />}
               className={styles.quickAccessButton}
@@ -462,13 +466,13 @@ function HomeBi() {
           <Paper elevation={0} className={styles.quickAccessCard}>
             <Storage className={styles.quickAccessIcon} />
             <Typography variant="h6" className={styles.quickAccessTitle}>
-              Data Sources
+              Agents
             </Typography>
             <Typography
               variant="body2"
               className={styles.quickAccessDescription}
             >
-              Manage your connected data sources and integration settings
+              Explore our catalog of intelligent agents designed to automate and optimize business processes.
             </Typography>
             <Button
               variant="contained"
@@ -483,15 +487,17 @@ function HomeBi() {
           <Paper elevation={0} className={styles.quickAccessCard}>
             <MenuBook className={styles.quickAccessIcon} />
             <Typography variant="h6" className={styles.quickAccessTitle}>
-              User Guides
+              Learning Portal
             </Typography>
             <Typography
               variant="body2"
               className={styles.quickAccessDescription}
             >
-              Access comprehensive documentation and video tutorials
+              Browse and watch educational videos across different categories
             </Typography>
             <Button
+              component={Link}
+              to="/learning-panel"
               variant="contained"
               endIcon={<ArrowForward />}
               className={styles.quickAccessButton}
