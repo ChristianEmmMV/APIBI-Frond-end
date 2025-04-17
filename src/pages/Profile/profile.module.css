@@ -6,7 +6,8 @@
     width: 100%;
     padding: 1.5rem;
     box-sizing: border-box;
-    background-color: #f9fafc;
+    background-color: var(--container-bg, #f9fafc); /* Usa una variable CSS */
+    transition: background-color 0.3s ease; /* Transición suave */
   }
   
   .header {

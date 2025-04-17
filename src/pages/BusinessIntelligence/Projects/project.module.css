@@ -6,13 +6,14 @@
     width: 100%;
     padding: 1.5rem;
     box-sizing: border-box;
-    background-color: #f9fafc;
+    background-color: var(--container-bg, #f9fafc); /* Usa una variable CSS */
+    transition: background-color 0.3s ease; /* Transición suave */
   }
   
   .header {
     display: flex;
     justify-content: space-between;
-    color: #1e2f65;
+    color: #6c5ce7;
     align-items: center;
     margin-bottom: 2rem;
   }
@@ -30,7 +31,7 @@
   }
   
   .breadcrumb a {
-    color: #1e2f65;
+    color: #6c5ce7;
     text-decoration: none;
     transition: color 0.2s ease;
   }
@@ -41,7 +42,7 @@
   }
   
   .breadcrumb .MuiTypography-root {
-    color: #1e2f65;
+    color: #6c5ce7;
   }
   
   .sectionCard {

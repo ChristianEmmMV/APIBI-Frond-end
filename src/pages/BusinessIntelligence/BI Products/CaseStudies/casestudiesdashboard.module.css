@@ -1,5 +1,6 @@
 .dashboardWrapper {
-    background-color: #f9fafc;
+  background-color: var(--container-bg, #f9fafc); /* Usa una variable CSS */
+  transition: background-color 0.3s ease; /* Transición suave */
     min-height: 100vh;
     width: 100%;
   }

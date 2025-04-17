@@ -1,13 +1,14 @@
 .container {
   padding: 24px;
-  background-color: #f8f9fa;
+  background-color: var(--container-bg, #f9fafc); /* Usa una variable CSS */
+  transition: background-color 0.3s ease; /* Transición suave */
   min-height: 100vh;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  color: #1e2f65;
+  color: #6c5ce7;
   align-items: center;
   margin-bottom: 2rem;
 }
@@ -93,7 +94,7 @@
 }
 
 .breadcrumb a {
-  color: #1e2f65;
+  color: #6c5ce7;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -104,7 +105,7 @@
 }
 
 .breadcrumb .MuiTypography-root {
-  color: #1e2f65;
+  color: #6c5ce7;
 }
 
 
@@ -157,19 +158,22 @@
 }
 
 .statCard {
-  background-color: white;
+  background-color: var(--container-bg, #f9fafc); /* Usa una variable CSS */
+  transition: background-color 0.3s ease; /* Transición suave */
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #6c5ce7;
+  
 }
 
 .statCard:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border: #6c5ce7 2px solid;
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(99, 98, 231, 0.1) !important;
 }
 
 .statHeader {
@@ -231,13 +235,14 @@
 }
 
 .chartCard {
-  background-color: white;
+  background-color: var(--container-bg, #f9fafc); /* Usa una variable CSS */
+  transition: background-color 0.3s ease; /* Transición suave */
   border-radius: 12px;
   padding: 60px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #6c5ce7;
   transition: box-shadow 0.3s ease;
 }
 
@@ -346,7 +351,7 @@
 .loadingBar {
   width: 200px;
   height: 6px;
-  background-color: #e9ecef;
+  background-color: #e9ecef0a;
   border-radius: 3px;
   margin-bottom: 12px;
   overflow: hidden;

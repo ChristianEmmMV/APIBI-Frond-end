@@ -31,6 +31,7 @@ button {
   font-size: inherit;
 }
 
+/* Estilos para el botón de cambio de tema */
 .theme-toggle-button {
   background-color: rgba(99, 98, 231, 0.1);
   border-radius: 10px;
@@ -42,6 +43,7 @@ button {
   background-color: rgba(99, 98, 231, 0.2);
 }
 
+/* Estilos para el modo oscuro */
 [data-mui-color-scheme="dark"] body {
   background-color: #121212;
   color: #f8fafc;
@@ -56,13 +58,19 @@ button {
   background-color: rgba(130, 129, 255, 0.3);
 }
 
+/* Mejoras para la transición entre temas */
 .MuiPaper-root,
 .MuiCard-root,
 .MuiAppBar-root,
-.MuiDrawer-paper {
-  transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
+.MuiDrawer-paper,
+.MuiTableContainer-root,
+.MuiTable-root,
+.MuiTableCell-root,
+.MuiTableRow-root {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
 }
 
+/* Ajustes para el modo oscuro en componentes específicos */
 [data-mui-color-scheme="dark"] .MuiAppBar-root {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -74,10 +82,13 @@ button {
 [data-mui-color-scheme="dark"] input.searchInput {
   background-color: rgba(255, 255, 255, 0.05);
   color: #f8fafc;
+  border-color: #444444;
 }
 
 [data-mui-color-scheme="dark"] input.searchInput:focus {
   background-color: rgba(255, 255, 255, 0.1);
+  border-color: #8281ff;
+  box-shadow: 0 0 0 3px rgba(130, 129, 255, 0.1);
 }
 
 /* Ajustes para mantener la legibilidad en modo oscuro */
@@ -87,4 +98,324 @@ button {
 
 [data-mui-color-scheme="dark"] .MuiTypography-colorTextSecondary {
   color: #a1a1aa;
+}
+
+/* Estilos específicos para tablas en modo oscuro */
+[data-mui-color-scheme="dark"] .MuiTableContainer-root {
+  background-color: #1e1e1e;
+}
+
+[data-mui-color-scheme="dark"] .MuiTableHead-root {
+  background-color: #2d2d2d;
+}
+
+[data-mui-color-scheme="dark"] .MuiTableCell-head {
+  background-color: #2d2d2d;
+  color: #a1a1aa;
+}
+
+[data-mui-color-scheme="dark"] .MuiTableCell-body {
+  color: #f8fafc;
+  border-bottom-color: #333333;
+}
+
+[data-mui-color-scheme="dark"] .MuiTableRow-root:hover {
+  background-color: rgba(130, 129, 255, 0.1);
+}
+
+/* Estilos para los componentes personalizados en modo oscuro */
+[data-mui-color-scheme="dark"] .sectionCard {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+[data-mui-color-scheme="dark"] .sectionTitle {
+  color: #f8fafc;
+}
+
+[data-mui-color-scheme="dark"] .sectionTitle::after {
+  background-color: #8281ff;
+}
+
+[data-mui-color-scheme="dark"] .breadcrumb a {
+  color: #f8fafc;
+}
+
+[data-mui-color-scheme="dark"] .breadcrumb a:hover {
+  color: #8281ff;
+}
+
+[data-mui-color-scheme="dark"] .filterTab {
+  color: #a1a1aa;
+}
+
+[data-mui-color-scheme="dark"] .filterTab:hover {
+  color: #8281ff;
+}
+
+[data-mui-color-scheme="dark"] .filterTab.active {
+  color: #8281ff;
+}
+
+[data-mui-color-scheme="dark"] .filterTab.active::after {
+  background-color: #8281ff;
+}
+
+[data-mui-color-scheme="dark"] .filterContainer {
+  border-bottom-color: #333333;
+}
+
+[data-mui-color-scheme="dark"] .searchInput {
+  background-color: #2d2d2d;
+  border-color: #444444;
+  color: #f8fafc;
+}
+
+[data-mui-color-scheme="dark"] .searchInput:focus {
+  border-color: #8281ff;
+  background-color: #3d3d3d;
+  box-shadow: 0 0 0 3px rgba(130, 129, 255, 0.1);
+}
+
+[data-mui-color-scheme="dark"] .searchIcon {
+  color: #a1a1aa;
+}
+
+[data-mui-color-scheme="dark"] .searchInput:focus + .searchIcon {
+  color: #8281ff;
+}
+
+[data-mui-color-scheme="dark"] .searchClearButton {
+  color: #a1a1aa;
+}
+
+[data-mui-color-scheme="dark"] .searchClearButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #8281ff;
+}
+
+[data-mui-color-scheme="dark"] .tableContainer {
+  background-color: #1e1e1e;
+}
+
+[data-mui-color-scheme="dark"] .tableHeader {
+  background-color: #2d2d2d;
+}
+
+[data-mui-color-scheme="dark"] .tableHeaderCell {
+  color: #a1a1aa;
+}
+
+[data-mui-color-scheme="dark"] .sortIconActive {
+  color: #8281ff;
+}
+
+[data-mui-color-scheme="dark"] .sortIconInactive {
+  color: #666666;
+}
+
+[data-mui-color-scheme="dark"] .tableRow:hover {
+  background-color: rgba(130, 129, 255, 0.1);
+}
+
+[data-mui-color-scheme="dark"] .tableCell {
+  border-bottom-color: #333333;
+  color: #f8fafc;
+}
+
+[data-mui-color-scheme="dark"] .paginationContainer {
+  border-top-color: #333333;
+}
+
+[data-mui-color-scheme="dark"] .tableLengthLabel {
+  color: #a1a1aa;
+}
+
+[data-mui-color-scheme="dark"] .tableLengthSelect {
+  background-color: #2d2d2d;
+  border-color: #444444;
+  color: #f8fafc;
+}
+
+[data-mui-color-scheme="dark"] .tableLengthSelect:focus {
+  border-color: #8281ff;
+  box-shadow: 0 0 0 2px rgba(130, 129, 255, 0.1);
+}
+
+[data-mui-color-scheme="dark"] .paginationInfo {
+  color: #a1a1aa;
+}
+
+[data-mui-color-scheme="dark"] .paginationButton {
+  background-color: #2d2d2d;
+  border-color: #444444;
+  color: #a1a1aa;
+}
+
+[data-mui-color-scheme="dark"] .paginationButton:hover {
+  background-color: #3d3d3d;
+  border-color: #555555;
+}
+
+[data-mui-color-scheme="dark"] .paginationButton.active {
+  background-color: #8281ff;
+  color: #121212;
+  border-color: #8281ff;
+}
+
+[data-mui-color-scheme="dark"] .paginationEllipsis {
+  color: #a1a1aa;
+}
+
+/* Estilos para los chips de tipo de proyecto en modo oscuro */
+[data-mui-color-scheme="dark"] .typeAER {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #81c784;
+}
+
+[data-mui-color-scheme="dark"] .typeIXB {
+  background-color: rgba(33, 150, 243, 0.2);
+  color: #64b5f6;
+}
+
+[data-mui-color-scheme="dark"] .typeRaaS {
+  background-color: rgba(255, 152, 0, 0.2);
+  color: #ffb74d;
+}
+
+[data-mui-color-scheme="dark"] .typeChatbot {
+  background-color: rgba(156, 39, 176, 0.2);
+  color: #ba68c8;
+}
+
+[data-mui-color-scheme="dark"] .typeOther {
+  background-color: rgba(117, 117, 117, 0.2);
+  color: #bdbdbd;
+}
+
+/* Estilos para los botones de acción en modo oscuro */
+[data-mui-color-scheme="dark"] .viewButton {
+  background-color: rgba(33, 150, 243, 0.2);
+}
+
+[data-mui-color-scheme="dark"] .viewButton:hover {
+  background-color: rgba(33, 150, 243, 0.3);
+}
+
+[data-mui-color-scheme="dark"] .editButton {
+  background-color: rgba(255, 152, 0, 0.2);
+}
+
+[data-mui-color-scheme="dark"] .editButton:hover {
+  background-color: rgba(255, 152, 0, 0.3);
+}
+
+[data-mui-color-scheme="dark"] .deleteButton {
+  background-color: rgba(244, 67, 54, 0.2);
+}
+
+[data-mui-color-scheme="dark"] .deleteButton:hover {
+  background-color: rgba(244, 67, 54, 0.3);
+}
+
+[data-mui-color-scheme="dark"] .documentButton {
+  background-color: rgba(76, 175, 80, 0.2);
+}
+
+[data-mui-color-scheme="dark"] .documentButton:hover {
+  background-color: rgba(76, 175, 80, 0.3);
+}
+
+[data-mui-color-scheme="dark"] .successCaseButton {
+  background-color: rgba(156, 39, 176, 0.2);
+}
+
+[data-mui-color-scheme="dark"] .successCaseButton:hover {
+  background-color: rgba(156, 39, 176, 0.3);
+}
+
+/* Estilos para los botones principales en modo oscuro */
+[data-mui-color-scheme="dark"] .addButton {
+  background-color: #8281ff !important;
+  box-shadow: 0 4px 15px rgba(130, 129, 255, 0.25) !important;
+}
+
+[data-mui-color-scheme="dark"] .addButton::before {
+  background: linear-gradient(45deg, #6665e7, #9190ff);
+}
+
+[data-mui-color-scheme="dark"] .addButton:hover {
+  box-shadow: 0 6px 20px rgba(130, 129, 255, 0.4) !important;
+}
+
+[data-mui-color-scheme="dark"] .exportButton {
+  color: #8281ff !important;
+  border-color: #8281ff !important;
+  background-color: rgba(130, 129, 255, 0.1) !important;
+}
+
+[data-mui-color-scheme="dark"] .exportButton:hover {
+  background-color: rgba(130, 129, 255, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(130, 129, 255, 0.25) !important;
+}
+
+/* Estilos para los diálogos en modo oscuro */
+[data-mui-color-scheme="dark"] .MuiDialog-paper {
+  background-color: #1e1e1e;
+  color: #f8fafc;
+}
+
+[data-mui-color-scheme="dark"] .MuiDialogTitle-root {
+  color: #f8fafc;
+}
+
+[data-mui-color-scheme="dark"] .MuiDialogContent-root {
+  color: #a1a1aa;
+}
+
+[data-mui-color-scheme="dark"] .MuiDialogActions-root {
+  background-color: #2d2d2d;
+}
+
+/* Estilos para los estados de carga en modo oscuro */
+[data-mui-color-scheme="dark"] .loadingOverlay {
+  background-color: rgba(30, 30, 30, 0.7);
+}
+
+[data-mui-color-scheme="dark"] .loadingSpinner {
+  border-color: #333333;
+  border-top-color: #8281ff;
+}
+
+[data-mui-color-scheme="dark"] .loadingBar {
+  background-color: #333333;
+}
+
+[data-mui-color-scheme="dark"] .loadingBarProgress {
+  background-color: #8281ff;
+}
+
+[data-mui-color-scheme="dark"] .loadingText {
+  color: #a1a1aa;
+}
+
+/* Estilos para los esqueletos de carga en modo oscuro */
+[data-mui-color-scheme="dark"] .skeletonCell {
+  background-color: #333333;
+}
+
+[data-mui-color-scheme="dark"] .skeletonAvatar {
+  background-color: #333333;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }

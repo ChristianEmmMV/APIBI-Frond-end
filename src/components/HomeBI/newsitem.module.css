@@ -1,0 +1,319 @@
+.newsItem {
+  border-radius: 16px !important;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(99, 98, 231, 0.08);
+  background-color: white;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.newsItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+.newsContent {
+  padding: 24px;
+}
+
+.newsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.newsHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.technologyIconWrapper,
+.informationalIconWrapper,
+.demoIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  margin-right: 4px;
+  transition: all 0.3s ease;
+}
+
+.technologyIconWrapper {
+  background-color: rgba(25, 118, 210, 0.1);
+  color: #1976d2;
+}
+
+.informationalIconWrapper {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #4caf50;
+}
+
+.demoIconWrapper {
+  background-color: rgba(156, 39, 176, 0.1);
+  color: #9c27b0;
+}
+
+.newsItem:hover .technologyIconWrapper,
+.newsItem:hover .informationalIconWrapper,
+.newsItem:hover .demoIconWrapper {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.newsIcon {
+  font-size: 24px !important;
+  transition: transform 0.3s ease;
+}
+
+.newsItem:hover .newsIcon {
+  transform: rotate(-5deg);
+}
+
+.newsTypeChip {
+  font-size: 0.7rem !important;
+  height: 24px !important;
+  font-weight: 600 !important;
+  margin-bottom: 4px !important;
+}
+
+.newsDate {
+  display: block;
+  color: #94a3b8 !important;
+  font-size: 0.75rem !important;
+}
+
+.newsActions {
+  display: flex;
+  gap: 8px;
+}
+
+.bookmarkButton,
+.moreButton {
+  color: #94a3b8 !important;
+  transition: all 0.2s ease !important;
+}
+
+.bookmarkButton:hover,
+.moreButton:hover {
+  color: #6362e7 !important;
+  background-color: rgba(99, 98, 231, 0.05) !important;
+}
+
+.bookmarkedIcon {
+  color: #6362e7 !important;
+}
+
+.moreActionsContainer {
+  position: relative;
+}
+
+.actionsMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 120px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.actionButton {
+  text-transform: none !important;
+  color: #64748b !important;
+  justify-content: flex-start !important;
+  padding: 6px 8px !important;
+  font-size: 0.8rem !important;
+  border-radius: 6px !important;
+}
+
+.actionButton:hover {
+  background-color: rgba(99, 98, 231, 0.05) !important;
+  color: #6362e7 !important;
+}
+
+.deleteButton {
+  text-transform: none !important;
+  color: #ef4444 !important;
+  justify-content: flex-start !important;
+  padding: 6px 8px !important;
+  font-size: 0.8rem !important;
+  border-radius: 6px !important;
+}
+
+.deleteButton:hover {
+  background-color: rgba(239, 68, 68, 0.05) !important;
+}
+
+.newsTitle {
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #1e2f65;
+  font-size: 1.25rem !important;
+  line-height: 1.4 !important;
+}
+
+.newsDescription {
+  color: #64748b;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.newsFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.authorAvatar {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.authorName {
+  font-weight: 500;
+  color: #64748b;
+  font-size: 0.85rem !important;
+}
+
+.readMoreButton {
+  color: #6362e7 !important;
+  font-weight: 600 !important;
+  padding: 4px 8px !important;
+  text-transform: none !important;
+  font-size: 0.85rem !important;
+  transition: all 0.2s ease !important;
+}
+
+.readMoreButton:hover {
+  background-color: rgba(99, 98, 231, 0.05) !important;
+}
+
+.readMoreButton .MuiButton-endIcon {
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+}
+
+.readMoreButton:hover .MuiButton-endIcon {
+  transform: translateX(4px);
+}
+
+[data-mui-color-scheme="dark"] .newsItem {
+  background-color: #1e1e1e;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-mui-color-scheme="dark"] .newsItem:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+[data-mui-color-scheme="dark"] .technologyIconWrapper {
+  background-color: rgba(25, 118, 210, 0.2);
+}
+
+[data-mui-color-scheme="dark"] .informationalIconWrapper {
+  background-color: rgba(76, 175, 80, 0.2);
+}
+
+[data-mui-color-scheme="dark"] .demoIconWrapper {
+  background-color: rgba(156, 39, 176, 0.2);
+}
+
+[data-mui-color-scheme="dark"] .newsTitle {
+  color: #f8fafc;
+}
+
+[data-mui-color-scheme="dark"] .newsDescription {
+  color: #a1a1aa;
+}
+
+[data-mui-color-scheme="dark"] .newsDate {
+  color: #a1a1aa !important;
+}
+
+[data-mui-color-scheme="dark"] .authorName {
+  color: #a1a1aa;
+}
+
+[data-mui-color-scheme="dark"] .bookmarkButton,
+[data-mui-color-scheme="dark"] .moreButton {
+  color: #a1a1aa !important;
+}
+
+[data-mui-color-scheme="dark"] .bookmarkButton:hover,
+[data-mui-color-scheme="dark"] .moreButton:hover {
+  color: #8281ff !important;
+  background-color: rgba(130, 129, 255, 0.1) !important;
+}
+
+[data-mui-color-scheme="dark"] .bookmarkedIcon {
+  color: #8281ff !important;
+}
+
+[data-mui-color-scheme="dark"] .actionsMenu {
+  background-color: #2d2d2d;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-mui-color-scheme="dark"] .actionButton {
+  color: #a1a1aa !important;
+}
+
+[data-mui-color-scheme="dark"] .actionButton:hover {
+  background-color: rgba(130, 129, 255, 0.1) !important;
+  color: #8281ff !important;
+}
+
+[data-mui-color-scheme="dark"] .readMoreButton {
+  color: #8281ff !important;
+}
+
+[data-mui-color-scheme="dark"] .readMoreButton:hover {
+  background-color: rgba(130, 129, 255, 0.1) !important;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .newsContent {
+    padding: 16px;
+  }
+
+  .newsHeader {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .newsActions {
+    align-self: flex-end;
+  }
+
+  .newsFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .readMoreButton {
+    align-self: flex-start;
+  }
+}

@@ -99,7 +99,8 @@
   
   .container {
     padding: 3rem 2rem;
-    background-color: #f8faff;
+    background-color: var(--container-bg, #f9fafc); /* Usa una variable CSS */
+    transition: background-color 0.3s ease; /* Transición suave */
     min-height: 100vh;
     position: relative;
     overflow: hidden;
@@ -154,7 +155,7 @@
   }
   
   .sectionTitle {
-    color: #1e293b;
+    color: #6362e7;
     font-weight: 700;
     position: relative;
     margin: 0;
@@ -264,7 +265,7 @@
   }
   
   .featureCardTitle {
-    color: #1e293b;
+    color: #6362e7;
     font-weight: 700;
     margin: 0;
     font-size: 1.5rem !important;
@@ -611,7 +612,7 @@
   }
   
   .newsTitle {
-    color: #1e293b;
+    color: #6362e7;
     font-weight: 700;
     margin-bottom: 1rem;
     font-size: 1.25rem !important;
@@ -708,7 +709,7 @@
   }
   
   .quickAccessTitle {
-    color: #1e293b;
+    color: #6362e7;
     font-weight: 700;
     margin-bottom: 1rem;
     font-size: 1.25rem !important;
@@ -937,6 +938,18 @@
     .statNumber {
       font-size: 2rem !important;
     }
+  }
+
+  .emptyNewsText {
+    color: #64748b;
+    font-size: 1.1rem !important;
+  }
+  .emptyNewsContainer {
+    padding: 40px;
+    text-align: center;
+    border-radius: 16px;
+    background-color: rgba(99, 98, 231, 0.05);
+    margin-bottom: 48px;
   }
   
   
