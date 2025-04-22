@@ -1,896 +1,891 @@
 :root {
-    --primary-color: #6366f1; /* Indigo */
-    --primary-light: #818cf8; /* Lighter indigo */
-    --primary-dark: #4f46e5; /* Darker indigo */
-    --secondary-color: #ec4899; /* Pink */
-    --secondary-light: #f472b6; /* Lighter pink */
-    --secondary-dark: #db2777; /* Darker pink */
-    --background-color: #ffffff; /* White background */
-    --card-background: #f8fafc; /* Light gray for cards */
-    --text-primary: #0f172a; /* Dark slate for text */
-    --text-secondary: #64748b; /* Medium slate for secondary text */
-    --text-light: #ffffff; /* White text */
-  
-    /* Updated compliance colors */
-    --high-compliance: #10b981; /* Emerald green */
-    --good-compliance: #f59e0b; /* Amber yellow */
-    --medium-compliance: #f97316; /* Orange */
-    --low-compliance: #ef4444; /* Red */
-  
-    /* Shadows and effects */
-    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
-    --hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    --active-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  
-    /* Transitions */
-    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  
-    /* Borders */
-    --border-radius-sm: 8px;
-    --border-radius-md: 12px;
-    --border-radius-lg: 16px;
-    --border-radius-xl: 24px;
-    --border-radius-full: 9999px;
-  }
-  
-  /* Estilos para glassmorphism */
-  .glassmorphism {
-    background: rgba(255, 255, 255, 0.7) !important;
-    backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  }
-  
-  .modernContainer {
-    padding: 1.5rem;
-    border-radius: var(--border-radius-lg);
-    border: none;
-    box-shadow: var(--card-shadow);
-    margin-bottom: 1.5rem;
-    background-color: var(--background-color);
-    position: relative;
-    min-height: 450px;
-    overflow: hidden;
-    transition: all var(--transition-normal);
-  }
-  
-  .modernContainer:hover {
-    box-shadow: var(--hover-shadow);
-  }
-  
-  .darkContainer {
-    background-color: #0f172a;
-    color: #f8fafc;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-  }
-  
-  .darkContainer.glassmorphism {
-    background: rgba(15, 23, 42, 0.8) !important;
-    backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(30, 41, 59, 0.4) !important;
-  }
-  
-  .darkText {
-    color: #f8fafc !important;
-  }
-  
-  .darkTextSecondary {
-    color: #94a3b8 !important;
-  }
-  
-  .darkIcon {
-    color: #94a3b8 !important;
-  }
-  
-  .darkSection {
-    background-color: #1e293b;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .darkLegend {
-    background-color: #1e293b;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .darkTooltip {
-    background-color: rgba(30, 41, 59, 0.95) !important;
-    color: #f8fafc;
-  }
-  
-  .darkMenu {
-    background-color: #1e293b;
-    color: #f8fafc;
-  }
-  
-  .darkTabs {
-    background-color: rgba(30, 41, 59, 0.5);
-  }
-  
-  .darkTab {
-    color: #94a3b8 !important;
-  }
-  
-  .darkLoading {
-    background-color: rgba(15, 23, 42, 0.9);
-  }
-  
-  .darkLoadingProgress {
-    background: linear-gradient(90deg, var(--primary-light), var(--primary-color));
-  }
-  
-  .darkLegendItem {
-    color: #f8fafc;
-  }
-  
-  .darkControlButton {
-    background-color: rgba(255, 255, 255, 0.05);
-  }
-  
-  .headerContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  
-  .titleContainer {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex: 1;
-  }
-  
-  .modernTitle {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    font-size: 1.5rem;
-    position: relative;
-    padding-bottom: 0.5rem;
-    color: var(--text-primary);
-    letter-spacing: -0.5px;
-     
-  }
+  --primary-color: #6366f1; /* Indigo */
+  --primary-light: #818cf8; /* Lighter indigo */
+  --primary-dark: #4f46e5; /* Darker indigo */
+  --secondary-color: #ec4899; /* Pink */
+  --secondary-light: #f472b6; /* Lighter pink */
+  --secondary-dark: #db2777; /* Darker pink */
+  --background-color: #ffffff; /* White background */
+  --card-background: #f8fafc; /* Light gray for cards */
+  --text-primary: #0f172a; /* Dark slate for text */
+  --text-secondary: #64748b; /* Medium slate for secondary text */
+  --text-light: #ffffff; /* White text */
 
-  .modernTitle::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background-color: #d65430;
-    border-radius: 3px;
-  }
-  
+  /* Updated compliance colors */
+  --high-compliance: #10b981; /* Emerald green */
+  --good-compliance: #f59e0b; /* Amber yellow */
+  --medium-compliance: #f97316; /* Orange */
+  --low-compliance: #ef4444; /* Red */
 
-  .modernSubtitle {
-    color: var(--text-secondary);
-    font-size: 0.875rem;
-    font-weight: 400;
-    letter-spacing: 0.2px;
+  /* Shadows and effects */
+  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  --hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --active-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Borders */
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 24px;
+  --border-radius-full: 9999px;
+}
+
+/* Estilos para glassmorphism */
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.modernContainer {
+  padding: 1.5rem;
+  border-radius: var(--border-radius-lg);
+  border: none;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 1.5rem;
+  background-color: var(--background-color);
+  position: relative;
+  min-height: 450px;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.modernContainer:hover {
+  box-shadow: var(--hover-shadow);
+}
+
+.darkContainer {
+  background-color: #0f172a;
+  color: #f8fafc;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+}
+
+.darkContainer.glassmorphism {
+  background: rgba(15, 23, 42, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(30, 41, 59, 0.4) !important;
+}
+
+.darkText {
+  color: #f8fafc !important;
+}
+
+.darkTextSecondary {
+  color: #94a3b8 !important;
+}
+
+.darkIcon {
+  color: #94a3b8 !important;
+}
+
+.darkSection {
+  background-color: #1e293b;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.darkLegend {
+  background-color: #1e293b;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.darkTooltip {
+  background-color: rgba(30, 41, 59, 0.95) !important;
+  color: #f8fafc;
+}
+
+.darkMenu {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+.darkTabs {
+  background-color: rgba(30, 41, 59, 0.5);
+}
+
+.darkTab {
+  color: #94a3b8 !important;
+}
+
+.darkLoading {
+  background-color: rgba(15, 23, 42, 0.9);
+}
+
+.darkLoadingProgress {
+  background: linear-gradient(90deg, var(--primary-light), var(--primary-color));
+}
+
+.darkLegendItem {
+  color: #f8fafc;
+}
+
+.darkControlButton {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.modernTitle {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.modernTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #d65430;
+  border-radius: 3px;
+}
+
+.modernSubtitle {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}
+
+.infoButton {
+  margin-left: 0.5rem;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+  opacity: 0.7;
+}
+
+.infoButton:hover {
+  color: var(--primary-color);
+  opacity: 1;
+}
+
+.chartContainer {
+  background-color: transparent;
+  border-radius: var(--border-radius-md);
+  padding: 1rem;
+  min-height: 350px;
+}
+
+.modernLegendContainer {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.legendItems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.modernLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.modernLegendItem:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.legendIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.legendIconRed {
+  color: var(--low-compliance);
+}
+
+.legendIconOrange {
+  color: var(--medium-compliance);
+}
+
+.legendIconYellow {
+  color: var(--good-compliance);
+}
+
+.legendIconGreen {
+  color: var(--high-compliance);
+}
+
+.legendColorBox {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.legendContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.legendHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legendValue {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+.legendProgressBar {
+  width: 100%;
+  height: 3px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 1.5px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.legendProgressFill {
+  height: 100%;
+  border-radius: 1.5px;
+  transition: width var(--transition-normal);
+}
+
+.legendComparison {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  margin-top: 2px;
+}
+
+.legendComparisonLabel {
+  color: var(--text-secondary);
+}
+
+.legendComparisonValue {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.legendText {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.sectionContainer {
+  height: 300px;
+  padding: 1.5rem;
+  border-radius: var(--border-radius-lg);
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: box-shadow var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.sectionContainer:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.sectionTitle {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  position: relative;
+  padding-left: 0;
+  letter-spacing: 0.5px;
+}
+
+.backButton {
+  color: var(--text-secondary);
+  background-color: rgba(0, 0, 0, 0.03);
+  transition: all var(--transition-fast);
+}
+
+.backButton:hover {
+  color: var(--primary-color);
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+/* Estilos para detalles de tendencia */
+.detailsContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.detailsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.detailsValue {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.currentValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.targetIndicator {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.targetMet {
+  color: var(--high-compliance);
+}
+
+.targetNotMet {
+  color: var(--low-compliance);
+}
+
+.incidentsInfo {
+  display: flex;
+  gap: 1rem;
+}
+
+.incidentItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.incidentLabel {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.incidentValue {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.modernLoadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-radius: var(--border-radius-lg);
+  backdrop-filter: blur(4px);
+}
+
+.loadingSpinner {
+  color: var(--primary-color) !important;
+  margin-bottom: 15px;
+}
+
+.modernLoadingBar {
+  width: 60%;
+  height: 6px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  position: relative;
+}
+
+.modernLoadingBarProgress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-light), var(--primary-color));
+  border-radius: 3px;
+  transition: width 0.3s ease-in-out;
+}
+
+.loadingText {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.modernPie {
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.pieCell {
+  transition: all var(--transition-normal);
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.pieCell:hover {
+  opacity: 0.9;
+  filter: brightness(1.05) drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
+  transform: scale(1.02);
+}
+
+.selectedPieCell {
+  filter: brightness(1.1) drop-shadow(0px 6px 12px rgba(0, 0, 0, 0.2));
+  transform: scale(1.05);
+}
+
+.activePieSector {
+  filter: drop-shadow(0px 6px 12px rgba(0, 0, 0, 0.15));
+}
+
+.modernBar {
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.05));
+}
+
+.barCell {
+  transition: all var(--transition-normal);
+}
+
+.barCell:hover {
+  opacity: 0.9;
+  filter: brightness(1.05);
+  transform: scaleX(1.01);
+}
+
+.selectedBarCell {
+  filter: brightness(1.1) drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
+  transform: scaleX(1.02);
+}
+
+.comparisonBar {
+  opacity: 0.6;
+}
+
+.radialBarCell {
+  transition: all var(--transition-normal);
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.radialBarCell:hover {
+  opacity: 0.9;
+  filter: brightness(1.05) drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+.modernRadialBar {
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.customTooltip {
+  background-color: rgba(255, 255, 255, 0.98);
+  border-radius: var(--border-radius-md);
+  padding: 0.75rem 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: none;
+  max-width: 250px;
+}
+
+.tooltipLabel {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.tooltipValue {
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.tooltipTrend {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.tooltipComparison {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+  padding: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: var(--border-radius-sm);
+}
+
+.tooltipComparisonLabel {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.tooltipComparisonValue {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tooltipTarget {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.tooltipTargetLabel {
+  color: var(--text-secondary);
+}
+
+.tooltipTargetValue {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tooltipTargetStatus {
+  margin-left: auto;
+  font-weight: 700;
+}
+
+.trendUp {
+  color: var(--high-compliance);
+}
+
+.trendDown {
+  color: var(--low-compliance);
+}
+
+.trendFlat {
+  color: var(--text-secondary);
+}
+
+.barLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.barTrend {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.customLegend {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.selectedLegendItem {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: translateX(-2px);
+}
+
+.controlsContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controlButton {
+  color: var(--text-secondary);
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 50%;
+  padding: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.controlButton:hover {
+  color: var(--primary-color);
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.viewTabs {
+  margin-bottom: 1rem;
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+}
+
+.viewTab {
+  text-transform: none;
+  font-weight: 500;
+  min-height: 48px;
+}
+
+.timeRangeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: var(--border-radius-md);
+}
+
+.timeRangeTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.comparisonChip {
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.menuItemWithIcon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notificationBadge span {
+  font-size: 0.7rem;
+  height: 16px;
+  min-width: 16px;
+}
+
+.notificationItem {
+  padding: 0.75rem 1rem;
+}
+
+.notificationContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.notificationHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notificationIconAlert {
+  color: var(--low-compliance);
+  font-size: 1.25rem;
+}
+
+.notificationIconSuccess {
+  color: var(--high-compliance);
+  font-size: 1.25rem;
+}
+
+.notificationIconInfo {
+  color: var(--primary-color);
+  font-size: 1.25rem;
+}
+
+.notificationText {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.notificationTime {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.viewAllText {
+  color: var(--primary-color);
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  .infoButton {
-    margin-left: 0.5rem;
-    color: var(--text-secondary);
-    transition: color var(--transition-fast);
-    opacity: 0.7;
-  }
-  
-  .infoButton:hover {
-    color: var(--primary-color);
+  to {
     opacity: 1;
+    transform: translateY(0);
   }
-  
-  .chartContainer {
-    background-color: transparent;
-    border-radius: var(--border-radius-md);
-    padding: 1rem;
-    min-height: 350px;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .modernLegendContainer {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    background-color: var(--background-color);
-    border-radius: var(--border-radius-md);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
+}
+
+.kpiCard:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.kpiCard:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.kpiCard:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.kpiCard:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+.kpiCardContent {
+  padding: 1rem !important;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.kpiIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-sm);
+  margin-right: 0.75rem;
+}
+
+.kpiInfo {
+  flex: 1;
+}
+
+.kpiTitle {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.kpiValue {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem !important;
+}
+
+.kpiTrend {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.kpiSparkline {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80px;
+  height: 30px;
+  opacity: 0.5;
+}
+
+@media (max-width: 960px) {
+  .modernContainer {
+    padding: 1.25rem;
+  }
+
+  .headerContainer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .legendItems {
-    display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    justify-content: flex-start;
   }
-  
-  .modernLegendItem {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: var(--border-radius-sm);
-    transition: all var(--transition-fast);
-    cursor: pointer;
-  }
-  
-  .modernLegendItem:hover {
-    background-color: rgba(0, 0, 0, 0.03);
-  }
-  
-  .legendIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .legendIconRed {
-    color: var(--low-compliance);
-  }
-  
-  .legendIconOrange {
-    color: var(--medium-compliance);
-  }
-  
-  .legendIconYellow {
-    color: var(--good-compliance);
-  }
-  
-  .legendIconGreen {
-    color: var(--high-compliance);
-  }
-  
-  .legendColorBox {
-    width: 12px;
-    height: 12px;
-    border-radius: 3px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .legendContent {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .legendHeader {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .legendValue {
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: var(--text-primary);
-  }
-  
-  .legendProgressBar {
-    width: 100%;
-    height: 3px;
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 1.5px;
-    margin-top: 4px;
-    overflow: hidden;
-  }
-  
-  .legendProgressFill {
-    height: 100%;
-    border-radius: 1.5px;
-    transition: width var(--transition-normal);
-  }
-  
-  .legendComparison {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.7rem;
-    margin-top: 2px;
-  }
-  
-  .legendComparisonLabel {
-    color: var(--text-secondary);
-  }
-  
-  .legendComparisonValue {
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-  
-  .legendText {
-    color: var(--text-secondary);
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.2px;
-  }
-  
-  .sectionContainer {
-    height: 300px;
-    padding: 1.5rem;
-    border-radius: var(--border-radius-lg);
-    background-color: var(--background-color);
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: box-shadow var(--transition-normal);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .sectionContainer:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  }
-  
-  .sectionHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .sectionTitle {
-    font-weight: 600;
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    position: relative;
-    padding-left: 0;
-    letter-spacing: 0.5px;
-  }
-  
-  .backButton {
-    color: var(--text-secondary);
-    background-color: rgba(0, 0, 0, 0.03);
-    transition: all var(--transition-fast);
-  }
-  
-  .backButton:hover {
-    color: var(--primary-color);
-    background-color: rgba(99, 102, 241, 0.1);
-  }
-  
-  /* Estilos para detalles de tendencia */
-  .detailsContainer {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .detailsHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .detailsValue {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-  
-  .currentValue {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-  
-  .targetIndicator {
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
-  
-  .targetMet {
-    color: var(--high-compliance);
-  }
-  
-  .targetNotMet {
-    color: var(--low-compliance);
-  }
-  
-  .incidentsInfo {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .incidentItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .incidentLabel {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-  }
-  
-  .incidentValue {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-  
-  .modernLoadingOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    border-radius: var(--border-radius-lg);
-    backdrop-filter: blur(4px);
-  }
-  
-  .loadingSpinner {
-    color: var(--primary-color) !important;
-    margin-bottom: 15px;
-  }
-  
-  .modernLoadingBar {
-    width: 60%;
-    height: 6px;
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 3px;
-    margin-bottom: 15px;
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .modernLoadingBarProgress {
-    height: 100%;
-    background: linear-gradient(90deg, var(--primary-light), var(--primary-color));
-    border-radius: 3px;
-    transition: width 0.3s ease-in-out;
-  }
-  
-  .loadingText {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    font-weight: 500;
-    letter-spacing: 0.3px;
-  }
-  
-  .modernPie {
-    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1));
-  }
-  
-  .pieCell {
-    transition: all var(--transition-normal);
-    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.1));
-  }
-  
-  .pieCell:hover {
-    opacity: 0.9;
-    filter: brightness(1.05) drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
-    transform: scale(1.02);
-  }
-  
-  .selectedPieCell {
-    filter: brightness(1.1) drop-shadow(0px 6px 12px rgba(0, 0, 0, 0.2));
-    transform: scale(1.05);
-  }
-  
-  .activePieSector {
-    filter: drop-shadow(0px 6px 12px rgba(0, 0, 0, 0.15));
-  }
-  
-  .modernBar {
-    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.05));
-  }
-  
-  .barCell {
-    transition: all var(--transition-normal);
-  }
-  
-  .barCell:hover {
-    opacity: 0.9;
-    filter: brightness(1.05);
-    transform: scaleX(1.01);
-  }
-  
-  .selectedBarCell {
-    filter: brightness(1.1) drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
-    transform: scaleX(1.02);
-  }
-  
-  .comparisonBar {
-    opacity: 0.6;
-  }
-  
-  .radialBarCell {
-    transition: all var(--transition-normal);
-    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.1));
-  }
-  
-  .radialBarCell:hover {
-    opacity: 0.9;
-    filter: brightness(1.05) drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
-  }
-  
-  .modernRadialBar {
-    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1));
-  }
-  
-  .customTooltip {
-    background-color: rgba(255, 255, 255, 0.98);
-    border-radius: var(--border-radius-md);
-    padding: 0.75rem 1rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    border: none;
-    max-width: 250px;
-  }
-  
-  .tooltipLabel {
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 0.25rem;
-    font-size: 0.875rem;
-  }
-  
-  .tooltipValue {
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-  }
-  
-  .tooltipTrend {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.75rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .tooltipComparison {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0.5rem;
-    padding: 0.25rem;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-radius: var(--border-radius-sm);
-  }
-  
-  .tooltipComparisonLabel {
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-  }
-  
-  .tooltipComparisonValue {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-  
-  .tooltipTarget {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.75rem;
-    padding-top: 0.25rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-  }
-  
-  .tooltipTargetLabel {
-    color: var(--text-secondary);
-  }
-  
-  .tooltipTargetValue {
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-  
-  .tooltipTargetStatus {
-    margin-left: auto;
-    font-weight: 700;
-  }
-  
-  .trendUp {
-    color: var(--high-compliance);
-  }
-  
-  .trendDown {
-    color: var(--low-compliance);
-  }
-  
-  .trendFlat {
-    color: var(--text-secondary);
-  }
-  
-  .barLabel {
-    font-size: 0.875rem;
-    font-weight: 600;
-  }
-  
-  .barTrend {
-    font-size: 0.75rem;
-    font-weight: 500;
-  }
-  
-  .customLegend {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  
-  .selectedLegendItem {
-    background-color: rgba(0, 0, 0, 0.05);
-    transform: translateX(-2px);
-  }
-  
+
   .controlsContainer {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .controlButton {
-    color: var(--text-secondary);
-    background-color: rgba(0, 0, 0, 0.03);
-    border-radius: 50%;
-    padding: 0.5rem;
-    transition: all var(--transition-fast);
-  }
-  
-  .controlButton:hover {
-    color: var(--primary-color);
-    background-color: rgba(99, 102, 241, 0.1);
-  }
-  
-  .viewTabs {
-    margin-bottom: 1rem;
-    background-color: rgba(0, 0, 0, 0.02);
-    border-radius: var(--border-radius-md);
-    overflow: hidden;
-  }
-  
-  .viewTab {
-    text-transform: none;
-    font-weight: 500;
-    min-height: 48px;
-  }
-  
-  .timeRangeHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.02);
-    border-radius: var(--border-radius-md);
-  }
-  
-  .timeRangeTitle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .comparisonChip {
-    background-color: rgba(99, 102, 241, 0.1);
-  }
-  
-  .menuItemWithIcon {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .notificationBadge span {
-    font-size: 0.7rem;
-    height: 16px;
-    min-width: 16px;
-  }
-  
-  .notificationItem {
-    padding: 0.75rem 1rem;
-  }
-  
-  .notificationContent {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-  
-  .notificationHeader {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .notificationIconAlert {
-    color: var(--low-compliance);
-    font-size: 1.25rem;
-  }
-  
-  .notificationIconSuccess {
-    color: var(--high-compliance);
-    font-size: 1.25rem;
-  }
-  
-  .notificationIconInfo {
-    color: var(--primary-color);
-    font-size: 1.25rem;
-  }
-  
-  .notificationText {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-  }
-  
-  .notificationTime {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    opacity: 0.7;
-  }
-  
-  .viewAllText {
-    color: var(--primary-color);
-    font-weight: 500;
-    text-align: center;
     width: 100%;
+    justify-content: flex-end;
   }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .kpiCard:nth-child(1) {
-    animation-delay: 0.05s;
-  }
-  .kpiCard:nth-child(2) {
-    animation-delay: 0.1s;
-  }
-  .kpiCard:nth-child(3) {
-    animation-delay: 0.15s;
-  }
-  .kpiCard:nth-child(4) {
-    animation-delay: 0.2s;
-  }
-  
+
   .kpiCardContent {
-    padding: 1rem !important;
-    display: flex;
-    position: relative;
-    overflow: hidden;
+    flex-direction: column;
   }
-  
+
   .kpiIconContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: var(--border-radius-sm);
-    margin-right: 0.75rem;
+    margin-bottom: 0.5rem;
+    margin-right: 0;
   }
-  
-  .kpiInfo {
-    flex: 1;
-  }
-  
-  .kpiTitle {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    margin-bottom: 0.25rem;
-  }
-  
-  .kpiValue {
-    font-size: 1.25rem !important;
-    font-weight: 700 !important;
-    color: var(--text-primary);
-    margin-bottom: 0.25rem !important;
-  }
-  
-  .kpiTrend {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.75rem;
-  }
-  
+
   .kpiSparkline {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 80px;
-    height: 30px;
-    opacity: 0.5;
+    display: none;
   }
-  
-  @media (max-width: 960px) {
-    .modernContainer {
-      padding: 1.25rem;
-    }
-  
-    .headerContainer {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .legendItems {
-      flex-wrap: wrap;
-      justify-content: flex-start;
-    }
-  
-    .controlsContainer {
-      width: 100%;
-      justify-content: flex-end;
-    }
-  
-    .kpiCardContent {
-      flex-direction: column;
-    }
-  
-    .kpiIconContainer {
-      margin-bottom: 0.5rem;
-      margin-right: 0;
-    }
-  
-    .kpiSparkline {
-      display: none;
-    }
+}
+
+@media (max-width: 600px) {
+  .sectionContainer {
+    height: 350px;
   }
-  
-  @media (max-width: 600px) {
-    .sectionContainer {
-      height: 350px;
-    }
-  
-    .legendItems {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-  
-    .viewTabs {
-      margin-bottom: 0.75rem;
-    }
-  
-    .timeRangeHeader {
-      flex-direction: column;
-      gap: 0.5rem;
-      align-items: flex-start;
-    }
-  
-    .detailsHeader {
-      flex-direction: column;
-      gap: 1rem;
-    }
-  
-    .incidentsInfo {
-      width: 100%;
-      justify-content: space-between;
-    }
+
+  .legendItems {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
-  
-  
+
+  .viewTabs {
+    margin-bottom: 0.75rem;
+  }
+
+  .timeRangeHeader {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .detailsHeader {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .incidentsInfo {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

@@ -45,8 +45,9 @@ import SummaryCharts from "../../../components/GlobalPerformance/SummaryCharts"
 import Graphics from "../../../components/ResponseTime/Graphics"
 import PipeLine from "../../../components/PipiLine/PipLine"
 import Compliance from "../../../components/Compliance/Compliance"
+import PreSalesByCommercial from "../../../components/PreSalesByCommercial/PreSalesByCommercial"
 import Poc from "../../../components/Poc/Poc"
-import { FileDownload, PictureAsPdf, TableChart } from "@mui/icons-material"
+import { PictureAsPdf, TableChart } from "@mui/icons-material"
 import { Menu, MenuItem, ListItemIcon, ListItemText } from "@mui/material"
 
 const Dashboard = () => {
@@ -1067,12 +1068,20 @@ const Dashboard = () => {
 
       <SummaryCharts />
       <Graphics />
-      <Compliance/>
+
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={6}>
+          <Compliance />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <PreSalesByCommercial />
+        </Grid>
+      </Grid>
+
       <PipeLine />
-      <Poc/>
+      <Poc />
     </Container>
   )
 }
 
 export default Dashboard
-

@@ -1105,7 +1105,7 @@ const FlowDiagram = () => {
                 </IconButton>
               </MuiTooltip>
             </Typography>
-            
+
             <Typography
               variant="body2"
               className={`${styles.modernSubtitle} ${darkMode ? styles.darkTextSecondary : ""}`}
@@ -1129,8 +1129,8 @@ const FlowDiagram = () => {
         </div>
       ) : (
         <div className={styles.chartContainer}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
+          <Grid container spacing={3} direction="column">
+            <Grid item xs={12}>
               <RegionSection
                 isLoading={isLoading}
                 viewType="default"
@@ -1139,7 +1139,7 @@ const FlowDiagram = () => {
                 comparisonMode={false}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12}>
               <ServiceSection
                 isLoading={isLoading}
                 viewType="default"
@@ -1156,4 +1156,3 @@ const FlowDiagram = () => {
 }
 
 export default FlowDiagram
-

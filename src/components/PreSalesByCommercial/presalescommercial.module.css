@@ -1,0 +1,220 @@
+.container {
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+  background-color: #ffffff;
+  position: relative;
+  min-height: 450px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 97%;
+}
+
+.container:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+}
+
+.sectionTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #6366f1;
+  border-radius: 3px;
+}
+
+.tableContainer {
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tableHeaderCell {
+  font-weight: 600;
+  color: #546e7a;
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  background-color: #f5f7fa;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tableRow {
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: rgba(99, 102, 241, 0.04);
+}
+
+.tableCell {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.875rem;
+}
+
+.commercialInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border: 2px solid #f0f0f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.commercialName {
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.preSalesCount {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.percentageContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.progressContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
+}
+
+.progressBar {
+  flex-grow: 1;
+  height: 8px;
+  border-radius: 4px;
+  background-color: #e0e0e0;
+  border: 1px solid #6366f1;
+}
+
+.progressBarFill {
+  background-color: #10b981;
+  border-radius: 4px;
+}
+
+.percentageText {
+  min-width: 60px;
+  font-weight: 600;
+  color: #0f172a;
+  text-align: right;
+}
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+}
+
+.loadingSpinner {
+  color: #6366f1 !important;
+  margin-bottom: 15px;
+}
+
+.loadingBar {
+  width: 60%;
+  height: 6px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loadingBarProgress {
+  height: 100%;
+  background: linear-gradient(90deg, #818cf8, #6366f1);
+  border-radius: 3px;
+  transition: width 0.3s ease-in-out;
+}
+
+.loadingText {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 960px) {
+  .container {
+    padding: 1.25rem;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .tableHeaderCell {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .tableCell {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .tableContainer {
+    overflow-x: auto;
+  }
+
+  .progressContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .percentageText {
+    text-align: left;
+  }
+}
