@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react"
 import {
   Box,
   Container,
-  Paper,
   Typography,
   Button,
   Breadcrumbs,
@@ -16,6 +15,10 @@ import {
   MenuItem,
   useMediaQuery,
   useTheme,
+  IconButton,
+  Card,
+  CardContent,
+  Tooltip,
 } from "@mui/material"
 import {
   Home as HomeIcon,
@@ -24,6 +27,7 @@ import {
   ArrowBack as ArrowBackIcon,
   Check as CheckIcon,
   Send as SendIcon,
+  Close as CloseIcon,
 } from "@mui/icons-material"
 import Swal from "sweetalert2"
 import styles from "./addclientsurveymodal.module.css"
@@ -34,7 +38,6 @@ const AddClientSurvey = () => {
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"))
 
   const [language, setLanguage] = useState("")
-
   const [currentStep, setCurrentStep] = useState(0)
 
   const formCardRef = useRef(null)
@@ -58,6 +61,9 @@ const AddClientSurvey = () => {
   })
 
   const [errors, setErrors] = useState({})
+
+  // Añadir un nuevo estado para controlar el modo de visualización de la barra de progreso
+  const [progressMode, setProgressMode] = useState("full") // 'full' o 'compact'
 
   const texts = {
     en: {
@@ -123,6 +129,7 @@ const AddClientSurvey = () => {
         next: "Next",
         previous: "Previous",
         submit: "Submit Survey",
+        close: "Close",
       },
       summary: {
         title: "Summary of Your Responses",
@@ -143,6 +150,8 @@ const AddClientSurvey = () => {
           text: "There was an error submitting the survey. Please try again.",
         },
       },
+      step: "Step",
+      of: "of",
     },
     es: {
       title: "Agregar Encuesta de Cliente",
@@ -208,6 +217,7 @@ const AddClientSurvey = () => {
         next: "Siguiente",
         previous: "Anterior",
         submit: "Enviar Encuesta",
+        close: "Cerrar",
       },
       summary: {
         title: "Resumen de Sus Respuestas",
@@ -228,19 +238,25 @@ const AddClientSurvey = () => {
           text: "Hubo un error al enviar la encuesta. Por favor intente de nuevo.",
         },
       },
+      step: "Paso",
+      of: "de",
     },
   }
 
   const t = language ? texts[language] : texts.en
 
+  // Modificar el useEffect existente para manejar la transición de la barra de progreso
   useEffect(() => {
     if (currentStep > 0) {
+      // Mostrar la barra completa durante la transición
+      setProgressMode("full")
+
       setTimeout(() => {
         if (timelineRef.current) {
-          const stepElements = timelineRef.current.querySelectorAll(`.${styles.timelineStep}`)
+          const stepElements = timelineRef.current.querySelectorAll(`.${styles.progressStep}`)
           if (stepElements.length > 0 && stepElements[currentStep]) {
             const stepElement = stepElements[currentStep]
-            const timelineContainer = stepElement.closest(`.${styles.timelineContainer}`)
+            const timelineContainer = stepElement.closest(`.${styles.progressContainer}`)
 
             if (timelineContainer) {
               const containerWidth = timelineContainer.offsetWidth
@@ -255,6 +271,13 @@ const AddClientSurvey = () => {
             }
           }
         }
+
+        // Cambiar a modo compacto después de la transición
+        const timer = setTimeout(() => {
+          setProgressMode("compact")
+        }, 1000)
+
+        return () => clearTimeout(timer)
       }, 100)
     }
   }, [currentStep])
@@ -366,14 +389,41 @@ const AddClientSurvey = () => {
     return Object.keys(newErrors).length === 0
   }
 
+  // Modificar la función handleNext para mostrar la barra completa durante la transición
   const handleNext = () => {
     if (validateStep()) {
+      setProgressMode("full")
       setCurrentStep(currentStep + 1)
     }
   }
 
+  // Modificar la función handlePrevious para mostrar la barra completa durante la transición
   const handlePrevious = () => {
+    setProgressMode("full")
     setCurrentStep(currentStep - 1)
+  }
+
+  const handleClose = () => {
+    // This would typically navigate back or close the modal
+    console.log("Survey closed")
+    // For demonstration purposes, reset the form
+    setFormData({
+      email: "",
+      company: "",
+      processName: "",
+      department: "",
+      participants: "",
+      hoursPerDay: "",
+      frequency: "",
+      employees: "",
+      risks: "",
+      impact: "",
+      delayRisks: "",
+      transactions: "",
+      transactionTime: "",
+    })
+    setCurrentStep(0)
+    setLanguage("")
   }
 
   const handleSubmit = () => {
@@ -645,7 +695,7 @@ const AddClientSurvey = () => {
           </div>
         )
 
-      case 10: 
+      case 10:
         return (
           <div className={styles.formStep + " " + styles.active}>
             <div className={styles.formGroup}>
@@ -762,7 +812,7 @@ const AddClientSurvey = () => {
 
       case 15:
         return (
-          <div className={styles.formStep + " " + styles.active}>
+          <div className={`${styles.formStep} ${styles.active} ${styles.summaryStep}`}>
             <Typography variant="h6" align="center" sx={{ mb: 1 }}>
               {t.summary.title}
             </Typography>
@@ -847,7 +897,11 @@ const AddClientSurvey = () => {
                 className={styles.buttonSecondary}
                 startIcon={<ArrowBackIcon />}
               >
-                {language ? t.buttons.previous : "Previous / Anterior"}
+                {language === "en"
+                  ? t.buttons.previous
+                  : language === "es"
+                    ? t.buttons.previous
+                    : "Previous / Anterior"}
               </Button>
 
               <Button
@@ -857,7 +911,7 @@ const AddClientSurvey = () => {
                 className={styles.buttonPrimary}
                 endIcon={<SendIcon />}
               >
-                {language ? t.buttons.submit : "Submit / Enviar"}
+                {language === "en" ? t.buttons.submit : language === "es" ? t.buttons.submit : "Submit / Enviar"}
               </Button>
             </div>
           </div>
@@ -868,78 +922,101 @@ const AddClientSurvey = () => {
     }
   }
 
-  const renderTimelineSteps = () => {
+  // Modificar la función renderProgressBar para aplicar la clase de modo compacto
+  const renderProgressBar = () => {
     if (currentStep === 0) return null
 
-    const visibleSteps = t.steps.map((step, index) => ({
-      label: step,
-      index: index,
-    }))
+    const totalSteps = t.steps.length
+    const currentStepNumber = currentStep
+    const currentStepName = t.steps[currentStep]
 
     return (
-      <div className={styles.timelineContainer} ref={timelineRef}>
-        <div className={styles.timeline}>
-          <div className={styles.timelineProgress} style={{ width: calculateProgress() }}></div>
+      <div
+        className={`${styles.progressContainer} ${progressMode === "compact" ? styles.progressCompact : ""}`}
+        ref={timelineRef}
+      >
+        <div className={styles.progressBar}>
+          <div className={styles.progressFill} style={{ width: calculateProgress() }}></div>
 
-          {visibleSteps.map((step) => (
-            <div
-              key={step.index}
-              className={`${styles.timelineStep} ${
-                currentStep === step.index ? styles.active : ""
-              } ${currentStep > step.index ? styles.completed : ""}`}
-            >
-              {currentStep > step.index ? <CheckIcon fontSize="small" /> : step.index + 1}
-              <span className={styles.timelineStepLabel}>{step.label}</span>
-            </div>
-          ))}
+          {t.steps.map((step, index) => {
+            const isActive = currentStep === index
+            const isCompleted = currentStep > index
+            const isClickable = index < currentStep
+
+            return (
+              <Tooltip key={index} title={step} placement="top" arrow disableHoverListener={isActive}>
+                <div
+                  className={`${styles.progressStep} ${isActive ? styles.active : ""} ${isCompleted ? styles.completed : ""}`}
+                  onClick={
+                    isClickable
+                      ? () => {
+                          setProgressMode("full")
+                          setCurrentStep(index)
+                        }
+                      : undefined
+                  }
+                  style={{ cursor: isClickable ? "pointer" : "default" }}
+                >
+                  {isCompleted ? <CheckIcon fontSize="small" /> : <span>{index + 1}</span>}
+
+                  {isActive && <div className={styles.activeStepLabel}>{step}</div>}
+                </div>
+              </Tooltip>
+            )
+          })}
+        </div>
+
+        <div className={styles.stepCounter}>
+          {t.step} {currentStepNumber} {t.of} {totalSteps - 1}
         </div>
       </div>
     )
   }
 
   return (
-    <Container maxWidth={false} className={styles.container} disableGutters={!isMobile}>
+    <Container maxWidth="lg" className={styles.container} disableGutters={!isMobile}>
 
-      <Paper elevation={0} className={styles.formCard} ref={formCardRef}>
-        <Typography variant="h6" className={styles.formTitle}>
-          {language ? t.formTitle : "Client Process Survey"}
-        </Typography>
+      <Card elevation={2} className={styles.formCard} ref={formCardRef} sx={{ maxWidth: 900, mx: "auto" }}>
+        <CardContent sx={{ p: 0 }}>
+          <Typography variant="h6" className={styles.formTitle}>
+            {language ? t.formTitle : "Client Process Survey"}
+          </Typography>
 
-        {renderTimelineSteps()}
+          {renderProgressBar()}
 
-        <div className={styles.formContent} ref={formContentRef}>
-          {renderStep()}
-        </div>
-
-        {currentStep > 0 && currentStep < 15 && (
-          <div className={styles.formActions}>
-            {currentStep > 1 && (
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={handlePrevious}
-                className={styles.buttonSecondary}
-                startIcon={<ArrowBackIcon />}
-              >
-                {language ? t.buttons.previous : "Previous / Anterior"}
-              </Button>
-            )}
-
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleNext}
-              className={styles.buttonPrimary}
-              endIcon={<ArrowForwardIcon />}
-            >
-              {language ? t.buttons.next : "Next / Siguiente"}
-            </Button>
+          <div className={styles.formContent} ref={formContentRef}>
+            {renderStep()}
           </div>
-        )}
-      </Paper>
+
+          {currentStep > 0 && currentStep < 15 && (
+            <div className={styles.formActions}>
+              {currentStep > 1 && (
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={handlePrevious}
+                  className={styles.buttonSecondary}
+                  startIcon={<ArrowBackIcon />}
+                >
+                  {language ? t.buttons.previous : "Previous / Anterior"}
+                </Button>
+              )}
+
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleNext}
+                className={styles.buttonPrimary}
+                endIcon={<ArrowForwardIcon />}
+              >
+                {language ? t.buttons.next : "Next / Siguiente"}
+              </Button>
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </Container>
   )
 }
 
 export default AddClientSurvey
-

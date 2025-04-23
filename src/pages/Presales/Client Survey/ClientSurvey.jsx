@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import {
   Box,
   Container,
@@ -23,7 +23,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from "@mui/material"
+} from "@mui/material";
 import {
   ArrowDownward,
   ArrowUpward,
@@ -44,8 +44,9 @@ import {
   Assignment as AssignmentIcon,
   Inventory as InventoryIcon,
   Timer as TimerIcon,
-} from "@mui/icons-material"
-import styles from "./clientsurvey.module.css"
+} from "@mui/icons-material";
+import styles from "./clientsurvey.module.css";
+import { useNavigate } from "react-router-dom";
 
 const ClientSurvey = () => {
   const surveys = [
@@ -249,209 +250,220 @@ const ClientSurvey = () => {
       timeTransactions: "30h aproximadas por ciclo",
       dateRegister: "2024-03-01",
     },
-  ]
+  ];
 
-  const [searchQuery, setSearchQuery] = useState("")
-  const [activeFilter, setActiveFilter] = useState("all")
-  const [isTableLoading, setIsTableLoading] = useState(false)
-  const [tableLoadingProgress, setTableLoadingProgress] = useState(0)
-  const [tableLoadingText, setTableLoadingText] = useState("Loading data...")
-  const [orderBy, setOrderBy] = useState("client")
-  const [orderDirection, setOrderDirection] = useState("asc")
-  const [currentPage, setCurrentPage] = useState(1)
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [surveyToDelete, setSurveyToDelete] = useState(null)
-  const [surveysData, setSurveysData] = useState([...surveys])
-  const [itemsPerPage, setItemsPerPage] = useState(5)
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [isTableLoading, setIsTableLoading] = useState(false);
+  const [tableLoadingProgress, setTableLoadingProgress] = useState(0);
+  const [tableLoadingText, setTableLoadingText] = useState("Loading data...");
+  const [orderBy, setOrderBy] = useState("client");
+  const [orderDirection, setOrderDirection] = useState("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [surveyToDelete, setSurveyToDelete] = useState(null);
+  const [surveysData, setSurveysData] = useState([...surveys]);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const navigate = useNavigate();
+  const handleAddSurveyClick = () => {
+    navigate("/add-client-survey");
+  };
 
   const calculateDaysPassed = (dateString) => {
-    const creationDate = new Date(dateString)
-    const today = new Date()
-    const diffTime = Math.abs(today - creationDate)
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-    return diffDays
-  }
+    const creationDate = new Date(dateString);
+    const today = new Date();
+    const diffTime = Math.abs(today - creationDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
 
   const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "short", day: "numeric" }
-    return new Date(dateString).toLocaleDateString("en-US", options)
-  }
+    const options = { year: "numeric", month: "short", day: "numeric" };
+    return new Date(dateString).toLocaleDateString("en-US", options);
+  };
 
   const simulateTableLoading = () => {
-    setIsTableLoading(true)
-    setTableLoadingProgress(0)
-    setTableLoadingText("Loading data...")
+    setIsTableLoading(true);
+    setTableLoadingProgress(0);
+    setTableLoadingText("Loading data...");
 
     const interval = setInterval(() => {
       setTableLoadingProgress((prevProgress) => {
-        const newProgress = prevProgress + 10
+        const newProgress = prevProgress + 10;
 
         if (newProgress >= 100) {
-          clearInterval(interval)
+          clearInterval(interval);
           setTimeout(() => {
-            setIsTableLoading(false)
-            setTableLoadingText("Data loaded successfully!")
-          }, 500)
+            setIsTableLoading(false);
+            setTableLoadingText("Data loaded successfully!");
+          }, 500);
         }
 
-        return newProgress
-      })
-    }, 200)
-  }
+        return newProgress;
+      });
+    }, 200);
+  };
 
   const handleSort = (column) => {
-    const isAsc = orderBy === column && orderDirection === "asc"
-    setOrderDirection(isAsc ? "desc" : "asc")
-    setOrderBy(column)
-    simulateTableLoading()
-  }
+    const isAsc = orderBy === column && orderDirection === "asc";
+    setOrderDirection(isAsc ? "desc" : "asc");
+    setOrderBy(column);
+    simulateTableLoading();
+  };
 
   const sortSurveys = (surveys) => {
     return [...surveys].sort((a, b) => {
-      let valueA, valueB
+      let valueA, valueB;
 
       switch (orderBy) {
         case "client":
-          valueA = a.client.name
-          valueB = b.client.name
-          break
+          valueA = a.client.name;
+          valueB = b.client.name;
+          break;
         case "processName":
-          valueA = a.processName
-          valueB = b.processName
-          break
+          valueA = a.processName;
+          valueB = b.processName;
+          break;
         case "area":
-          valueA = a.area
-          valueB = b.area
-          break
+          valueA = a.area;
+          valueB = b.area;
+          break;
         case "participants":
-          valueA = a.participants
-          valueB = b.participants
-          break
+          valueA = a.participants;
+          valueB = b.participants;
+          break;
         case "timeProcess":
-          valueA = a.timeProcess
-          valueB = b.timeProcess
-          break
+          valueA = a.timeProcess;
+          valueB = b.timeProcess;
+          break;
         case "frequency":
-          valueA = a.frequency
-          valueB = b.frequency
-          break
+          valueA = a.frequency;
+          valueB = b.frequency;
+          break;
         case "ftesInvolved":
-          valueA = a.ftesInvolved
-          valueB = b.ftesInvolved
-          break
+          valueA = a.ftesInvolved;
+          valueB = b.ftesInvolved;
+          break;
         case "risky":
-          valueA = a.risky
-          valueB = b.risky
-          break
+          valueA = a.risky;
+          valueB = b.risky;
+          break;
         case "impact":
-          valueA = a.impact
-          valueB = b.impact
-          break
+          valueA = a.impact;
+          valueB = b.impact;
+          break;
         case "riskOfDelay":
-          valueA = a.riskOfDelay
-          valueB = b.riskOfDelay
-          break
+          valueA = a.riskOfDelay;
+          valueB = b.riskOfDelay;
+          break;
         case "numberTransactions":
-          valueA = a.numberTransactions
-          valueB = b.numberTransactions
-          break
+          valueA = a.numberTransactions;
+          valueB = b.numberTransactions;
+          break;
         case "timeTransactions":
-          valueA = a.timeTransactions
-          valueB = b.timeTransactions
-          break
+          valueA = a.timeTransactions;
+          valueB = b.timeTransactions;
+          break;
         case "dateRegister":
-          valueA = new Date(a.dateRegister)
-          valueB = new Date(b.dateRegister)
-          break
+          valueA = new Date(a.dateRegister);
+          valueB = new Date(b.dateRegister);
+          break;
         default:
-          valueA = a.client.name
-          valueB = b.client.name
+          valueA = a.client.name;
+          valueB = b.client.name;
       }
 
       if (valueA instanceof Date && valueB instanceof Date) {
-        return orderDirection === "asc" ? valueA - valueB : valueB - valueA
+        return orderDirection === "asc" ? valueA - valueB : valueB - valueA;
       } else if (typeof valueA === "string" && typeof valueB === "string") {
-        return orderDirection === "asc" ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA)
+        return orderDirection === "asc"
+          ? valueA.localeCompare(valueB)
+          : valueB.localeCompare(valueA);
       } else {
-        return orderDirection === "asc" ? valueA - valueB : valueB - valueA
+        return orderDirection === "asc" ? valueA - valueB : valueB - valueA;
       }
-    })
-  }
+    });
+  };
 
   const filteredSurveys = surveysData.filter((survey) => {
     if (searchQuery.trim() !== "") {
-      const query = searchQuery.toLowerCase()
+      const query = searchQuery.toLowerCase();
       return (
         survey.client.name.toLowerCase().includes(query) ||
         survey.processName.toLowerCase().includes(query) ||
         survey.area.toLowerCase().includes(query)
-      )
+      );
     }
 
-    return true
-  })
+    return true;
+  });
 
-  const sortedSurveys = sortSurveys(filteredSurveys)
-  const totalPages = Math.ceil(sortedSurveys.length / itemsPerPage)
-  const currentSurveys = sortedSurveys.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+  const sortedSurveys = sortSurveys(filteredSurveys);
+  const totalPages = Math.ceil(sortedSurveys.length / itemsPerPage);
+  const currentSurveys = sortedSurveys.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const handlePageChange = (page) => {
-    setCurrentPage(page)
-    simulateTableLoading()
-  }
+    setCurrentPage(page);
+    simulateTableLoading();
+  };
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1)
-      simulateTableLoading()
+      setCurrentPage(currentPage - 1);
+      simulateTableLoading();
     }
-  }
+  };
 
   const goToNextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1)
-      simulateTableLoading()
+      setCurrentPage(currentPage + 1);
+      simulateTableLoading();
     }
-  }
+  };
 
   const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value)
-  }
+    setSearchQuery(e.target.value);
+  };
 
   const clearSearch = () => {
-    setSearchQuery("")
-    simulateTableLoading()
-  }
+    setSearchQuery("");
+    simulateTableLoading();
+  };
 
   const handleDeleteClick = (survey) => {
-    setSurveyToDelete(survey)
-    setDeleteDialogOpen(true)
-  }
+    setSurveyToDelete(survey);
+    setDeleteDialogOpen(true);
+  };
 
   const handleDeleteConfirm = () => {
     if (surveyToDelete) {
-      setSurveysData(surveysData.filter((survey) => survey.id !== surveyToDelete.id))
-      setDeleteDialogOpen(false)
-      setSurveyToDelete(null)
-      simulateTableLoading()
+      setSurveysData(
+        surveysData.filter((survey) => survey.id !== surveyToDelete.id)
+      );
+      setDeleteDialogOpen(false);
+      setSurveyToDelete(null);
+      simulateTableLoading();
     }
-  }
+  };
 
   const handleDeleteCancel = () => {
-    setDeleteDialogOpen(false)
-    setSurveyToDelete(null)
-  }
+    setDeleteDialogOpen(false);
+    setSurveyToDelete(null);
+  };
 
   const handleItemsPerPageChange = (e) => {
-    const newItemsPerPage = Number.parseInt(e.target.value, 10)
-    setItemsPerPage(newItemsPerPage)
-    setCurrentPage(1)
-    simulateTableLoading()
-  }
+    const newItemsPerPage = Number.parseInt(e.target.value, 10);
+    setItemsPerPage(newItemsPerPage);
+    setCurrentPage(1);
+    simulateTableLoading();
+  };
 
   useEffect(() => {
-    simulateTableLoading()
-  }, [])
+    simulateTableLoading();
+  }, []);
 
   const SkeletonRows = () => {
     return Array(5)
@@ -504,50 +516,52 @@ const ClientSurvey = () => {
             <div className={`${styles.skeletonCell} ${styles.small}`}></div>
           </TableCell>
         </TableRow>
-      ))
-  }
+      ));
+  };
 
   const renderSortIcon = (column) => {
     if (orderBy !== column) {
-      return <UnfoldMoreIcon fontSize="small" className={styles.sortIconInactive} />
+      return (
+        <UnfoldMoreIcon fontSize="small" className={styles.sortIconInactive} />
+      );
     }
     return orderDirection === "asc" ? (
       <ArrowUpward fontSize="small" className={styles.sortIconActive} />
     ) : (
       <ArrowDownward fontSize="small" className={styles.sortIconActive} />
-    )
-  }
+    );
+  };
 
   const renderRiskChip = (risk) => {
-    let className = ""
+    let className = "";
 
     if (
       risk.toLowerCase().includes("alto") ||
       risk.toLowerCase().includes("high") ||
       risk.toLowerCase().includes("crítico")
     ) {
-      className = styles.riskHigh
+      className = styles.riskHigh;
     } else if (
       risk.toLowerCase().includes("medio") ||
       risk.toLowerCase().includes("medium") ||
       risk.toLowerCase().includes("moderate")
     ) {
-      className = styles.riskMedium
+      className = styles.riskMedium;
     } else if (
       risk.toLowerCase().includes("bajo") ||
       risk.toLowerCase().includes("low") ||
       risk.toLowerCase().includes("mínimo")
     ) {
-      className = styles.riskLow
+      className = styles.riskLow;
     } else {
-      className = styles.riskMedium
+      className = styles.riskMedium;
     }
 
-    return <span className={`${styles.riskChip} ${className}`}>{risk}</span>
-  }
+    return <span className={`${styles.riskChip} ${className}`}>{risk}</span>;
+  };
 
   const renderImpactChip = (impact) => {
-    let className = ""
+    let className = "";
 
     if (
       impact.toLowerCase().includes("alto") ||
@@ -555,25 +569,27 @@ const ClientSurvey = () => {
       impact.toLowerCase().includes("crítico") ||
       impact.toLowerCase().includes("severo")
     ) {
-      className = styles.impactHigh
+      className = styles.impactHigh;
     } else if (
       impact.toLowerCase().includes("medio") ||
       impact.toLowerCase().includes("medium") ||
       impact.toLowerCase().includes("moderate")
     ) {
-      className = styles.impactMedium
+      className = styles.impactMedium;
     } else if (
       impact.toLowerCase().includes("bajo") ||
       impact.toLowerCase().includes("low") ||
       impact.toLowerCase().includes("mínimo")
     ) {
-      className = styles.impactLow
+      className = styles.impactLow;
     } else {
-      className = styles.impactMedium
+      className = styles.impactMedium;
     }
 
-    return <span className={`${styles.impactChip} ${className}`}>{impact}</span>
-  }
+    return (
+      <span className={`${styles.impactChip} ${className}`}>{impact}</span>
+    );
+  };
 
   return (
     <Container maxWidth="xl" className={styles.container}>
@@ -592,7 +608,13 @@ const ClientSurvey = () => {
           </Breadcrumbs>
         </div>
         <div>
-          <Button variant="contained" color="primary" startIcon={<AddIcon />} className={styles.addButton}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            className={styles.addButton}
+            onClick={handleAddSurveyClick}
+          >
             Add Survey
           </Button>
         </div>
@@ -616,7 +638,11 @@ const ClientSurvey = () => {
           />
           <SearchIcon className={styles.searchIcon} />
           {searchQuery && (
-            <button className={styles.searchClearButton} onClick={clearSearch} aria-label="Clear search">
+            <button
+              className={styles.searchClearButton}
+              onClick={clearSearch}
+              aria-label="Clear search"
+            >
               <ClearIcon fontSize="small" />
             </button>
           )}
@@ -627,7 +653,10 @@ const ClientSurvey = () => {
             <div className={styles.loadingOverlay}>
               <div className={styles.loadingSpinner}></div>
               <div className={styles.loadingBar}>
-                <div className={styles.loadingBarProgress} style={{ width: `${tableLoadingProgress}%` }}></div>
+                <div
+                  className={styles.loadingBarProgress}
+                  style={{ width: `${tableLoadingProgress}%` }}
+                ></div>
               </div>
               <div className={styles.loadingText}>{tableLoadingText}</div>
             </div>
@@ -640,7 +669,11 @@ const ClientSurvey = () => {
                   <div className={styles.tableHeaderContent}>
                     Client
                     <Tooltip title="Sort by client">
-                      <IconButton size="small" onClick={() => handleSort("client")} className={styles.sortButton}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleSort("client")}
+                        className={styles.sortButton}
+                      >
                         {renderSortIcon("client")}
                       </IconButton>
                     </Tooltip>
@@ -650,7 +683,11 @@ const ClientSurvey = () => {
                   <div className={styles.tableHeaderContent}>
                     Process Name
                     <Tooltip title="Sort by process name">
-                      <IconButton size="small" onClick={() => handleSort("processName")} className={styles.sortButton}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleSort("processName")}
+                        className={styles.sortButton}
+                      >
                         {renderSortIcon("processName")}
                       </IconButton>
                     </Tooltip>
@@ -660,7 +697,11 @@ const ClientSurvey = () => {
                   <div className={styles.tableHeaderContent}>
                     Area
                     <Tooltip title="Sort by area">
-                      <IconButton size="small" onClick={() => handleSort("area")} className={styles.sortButton}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleSort("area")}
+                        className={styles.sortButton}
+                      >
                         {renderSortIcon("area")}
                       </IconButton>
                     </Tooltip>
@@ -670,7 +711,11 @@ const ClientSurvey = () => {
                   <div className={styles.tableHeaderContent}>
                     Participants
                     <Tooltip title="Sort by participants">
-                      <IconButton size="small" onClick={() => handleSort("participants")} className={styles.sortButton}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleSort("participants")}
+                        className={styles.sortButton}
+                      >
                         {renderSortIcon("participants")}
                       </IconButton>
                     </Tooltip>
@@ -680,7 +725,11 @@ const ClientSurvey = () => {
                   <div className={styles.tableHeaderContent}>
                     Time Process
                     <Tooltip title="Sort by time process">
-                      <IconButton size="small" onClick={() => handleSort("timeProcess")} className={styles.sortButton}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleSort("timeProcess")}
+                        className={styles.sortButton}
+                      >
                         {renderSortIcon("timeProcess")}
                       </IconButton>
                     </Tooltip>
@@ -690,7 +739,11 @@ const ClientSurvey = () => {
                   <div className={styles.tableHeaderContent}>
                     Frequency
                     <Tooltip title="Sort by frequency">
-                      <IconButton size="small" onClick={() => handleSort("frequency")} className={styles.sortButton}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleSort("frequency")}
+                        className={styles.sortButton}
+                      >
                         {renderSortIcon("frequency")}
                       </IconButton>
                     </Tooltip>
@@ -700,7 +753,11 @@ const ClientSurvey = () => {
                   <div className={styles.tableHeaderContent}>
                     FTEs Involved
                     <Tooltip title="Sort by FTEs involved">
-                      <IconButton size="small" onClick={() => handleSort("ftesInvolved")} className={styles.sortButton}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleSort("ftesInvolved")}
+                        className={styles.sortButton}
+                      >
                         {renderSortIcon("ftesInvolved")}
                       </IconButton>
                     </Tooltip>
@@ -710,7 +767,11 @@ const ClientSurvey = () => {
                   <div className={styles.tableHeaderContent}>
                     Risky
                     <Tooltip title="Sort by risky">
-                      <IconButton size="small" onClick={() => handleSort("risky")} className={styles.sortButton}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleSort("risky")}
+                        className={styles.sortButton}
+                      >
                         {renderSortIcon("risky")}
                       </IconButton>
                     </Tooltip>
@@ -720,7 +781,11 @@ const ClientSurvey = () => {
                   <div className={styles.tableHeaderContent}>
                     Impact
                     <Tooltip title="Sort by impact">
-                      <IconButton size="small" onClick={() => handleSort("impact")} className={styles.sortButton}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleSort("impact")}
+                        className={styles.sortButton}
+                      >
                         {renderSortIcon("impact")}
                       </IconButton>
                     </Tooltip>
@@ -730,7 +795,11 @@ const ClientSurvey = () => {
                   <div className={styles.tableHeaderContent}>
                     Risk of Delay
                     <Tooltip title="Sort by risk of delay">
-                      <IconButton size="small" onClick={() => handleSort("riskOfDelay")} className={styles.sortButton}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleSort("riskOfDelay")}
+                        className={styles.sortButton}
+                      >
                         {renderSortIcon("riskOfDelay")}
                       </IconButton>
                     </Tooltip>
@@ -768,7 +837,11 @@ const ClientSurvey = () => {
                   <div className={styles.tableHeaderContent}>
                     Date Register
                     <Tooltip title="Sort by date register">
-                      <IconButton size="small" onClick={() => handleSort("dateRegister")} className={styles.sortButton}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleSort("dateRegister")}
+                        className={styles.sortButton}
+                      >
                         {renderSortIcon("dateRegister")}
                       </IconButton>
                     </Tooltip>
@@ -787,11 +860,20 @@ const ClientSurvey = () => {
                       <Box className={styles.clientContainer}>
                         <Avatar
                           className={styles.clientAvatar}
-                          sx={{ bgcolor: survey.client.color, width: 28, height: 28, fontSize: "0.7rem" }}
+                          sx={{
+                            bgcolor: survey.client.color,
+                            width: 28,
+                            height: 28,
+                            fontSize: "0.7rem",
+                          }}
                         >
                           {survey.client.avatar}
                         </Avatar>
-                        <Typography variant="body2" fontWeight="500" sx={{ fontSize: "0.75rem" }}>
+                        <Typography
+                          variant="body2"
+                          fontWeight="500"
+                          sx={{ fontSize: "0.75rem" }}
+                        >
                           {survey.client.name}
                         </Typography>
                       </Box>
@@ -800,60 +882,126 @@ const ClientSurvey = () => {
                       <Box sx={{ display: "flex", alignItems: "center" }}>
                         <AssignmentIcon
                           fontSize="small"
-                          sx={{ mr: 0.5, color: "text.secondary", fontSize: "0.875rem" }}
+                          sx={{
+                            mr: 0.5,
+                            color: "text.secondary",
+                            fontSize: "0.875rem",
+                          }}
                         />
-                        <Typography variant="body2" fontWeight="500" sx={{ fontSize: "0.75rem" }}>
+                        <Typography
+                          variant="body2"
+                          fontWeight="500"
+                          sx={{ fontSize: "0.75rem" }}
+                        >
                           {survey.processName}
                         </Typography>
                       </Box>
                     </TableCell>
-                    <TableCell className={styles.tableCell}>{survey.area}</TableCell>
+                    <TableCell className={styles.tableCell}>
+                      {survey.area}
+                    </TableCell>
                     <TableCell className={styles.tableCell}>
                       <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <PeopleIcon fontSize="small" sx={{ mr: 0.5, color: "#64748b", fontSize: "0.875rem" }} />
+                        <PeopleIcon
+                          fontSize="small"
+                          sx={{
+                            mr: 0.5,
+                            color: "#64748b",
+                            fontSize: "0.875rem",
+                          }}
+                        />
                         {survey.participants}
                       </Box>
                     </TableCell>
                     <TableCell className={styles.tableCell}>
                       <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <TimeIcon fontSize="small" sx={{ mr: 0.5, color: "#64748b", fontSize: "0.875rem" }} />
+                        <TimeIcon
+                          fontSize="small"
+                          sx={{
+                            mr: 0.5,
+                            color: "#64748b",
+                            fontSize: "0.875rem",
+                          }}
+                        />
                         {survey.timeProcess}
                       </Box>
                     </TableCell>
                     <TableCell className={styles.tableCell}>
                       <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <RepeatIcon fontSize="small" sx={{ mr: 0.5, color: "#64748b", fontSize: "0.875rem" }} />
+                        <RepeatIcon
+                          fontSize="small"
+                          sx={{
+                            mr: 0.5,
+                            color: "#64748b",
+                            fontSize: "0.875rem",
+                          }}
+                        />
                         {survey.frequency}
                       </Box>
                     </TableCell>
                     <TableCell className={styles.tableCell}>
                       <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <WorkIcon fontSize="small" sx={{ mr: 0.5, color: "#64748b", fontSize: "0.875rem" }} />
+                        <WorkIcon
+                          fontSize="small"
+                          sx={{
+                            mr: 0.5,
+                            color: "#64748b",
+                            fontSize: "0.875rem",
+                          }}
+                        />
                         {survey.ftesInvolved}
                       </Box>
                     </TableCell>
-                    <TableCell className={styles.tableCell}>{renderRiskChip(survey.risky)}</TableCell>
-                    <TableCell className={styles.tableCell}>{renderImpactChip(survey.impact)}</TableCell>
-                    <TableCell className={styles.tableCell}>{renderRiskChip(survey.riskOfDelay)}</TableCell>
+                    <TableCell className={styles.tableCell}>
+                      {renderRiskChip(survey.risky)}
+                    </TableCell>
+                    <TableCell className={styles.tableCell}>
+                      {renderImpactChip(survey.impact)}
+                    </TableCell>
+                    <TableCell className={styles.tableCell}>
+                      {renderRiskChip(survey.riskOfDelay)}
+                    </TableCell>
                     <TableCell className={styles.tableCell}>
                       <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <InventoryIcon fontSize="small" sx={{ mr: 0.5, color: "#64748b", fontSize: "0.875rem" }} />
+                        <InventoryIcon
+                          fontSize="small"
+                          sx={{
+                            mr: 0.5,
+                            color: "#64748b",
+                            fontSize: "0.875rem",
+                          }}
+                        />
                         {survey.numberTransactions}
                       </Box>
                     </TableCell>
                     <TableCell className={styles.tableCell}>
                       <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <TimerIcon fontSize="small" sx={{ mr: 0.5, color: "#64748b", fontSize: "0.875rem" }} />
+                        <TimerIcon
+                          fontSize="small"
+                          sx={{
+                            mr: 0.5,
+                            color: "#64748b",
+                            fontSize: "0.875rem",
+                          }}
+                        />
                         {survey.timeTransactions}
                       </Box>
                     </TableCell>
                     <TableCell className={styles.tableCell}>
                       <div className={styles.timeContainer}>
                         <div className={styles.dateRegister}>
-                          <CalendarToday sx={{ fontSize: "0.7rem", mr: 0.5, verticalAlign: "middle" }} />
+                          <CalendarToday
+                            sx={{
+                              fontSize: "0.7rem",
+                              mr: 0.5,
+                              verticalAlign: "middle",
+                            }}
+                          />
                           {formatDate(survey.dateRegister)}
                         </div>
-                        <div className={styles.daysPassed}>{calculateDaysPassed(survey.dateRegister)} days ago</div>
+                        <div className={styles.daysPassed}>
+                          {calculateDaysPassed(survey.dateRegister)} days ago
+                        </div>
                       </div>
                     </TableCell>
                     <TableCell className={styles.tableCell}>
@@ -876,15 +1024,17 @@ const ClientSurvey = () => {
 
         {!isTableLoading && sortedSurveys.length === 0 && (
           <Box sx={{ textAlign: "center", py: 4, color: "text.secondary" }}>
-            <Typography variant="body1">No surveys found matching your criteria</Typography>
+            <Typography variant="body1">
+              No surveys found matching your criteria
+            </Typography>
             <Button
               variant="text"
               color="primary"
               sx={{ mt: 1 }}
               onClick={() => {
-                setSearchQuery("")
-                setActiveFilter("all")
-                simulateTableLoading()
+                setSearchQuery("");
+                setActiveFilter("all");
+                simulateTableLoading();
               }}
             >
               Clear filters
@@ -920,7 +1070,11 @@ const ClientSurvey = () => {
             <div className={styles.paginationWrapper}>
               <div className={styles.tableLengthContainer}>
                 <span className={styles.tableLengthLabel}>Show</span>
-                <select value={itemsPerPage} onChange={handleItemsPerPageChange} className={styles.tableLengthSelect}>
+                <select
+                  value={itemsPerPage}
+                  onChange={handleItemsPerPageChange}
+                  className={styles.tableLengthSelect}
+                >
                   <option value={5}>5</option>
                   <option value={10}>10</option>
                   <option value={25}>25</option>
@@ -932,7 +1086,8 @@ const ClientSurvey = () => {
               <div className={styles.paginationInfo}>
                 Showing{" "}
                 <strong>
-                  {(currentPage - 1) * itemsPerPage + 1}-{Math.min(currentPage * itemsPerPage, sortedSurveys.length)}
+                  {(currentPage - 1) * itemsPerPage + 1}-
+                  {Math.min(currentPage * itemsPerPage, sortedSurveys.length)}
                 </strong>{" "}
                 of <strong>{sortedSurveys.length}</strong> surveys
               </div>
@@ -940,7 +1095,9 @@ const ClientSurvey = () => {
 
             <div className={styles.paginationControls}>
               <button
-                className={`${styles.paginationButton} ${currentPage === 1 ? styles.disabled : ""}`}
+                className={`${styles.paginationButton} ${
+                  currentPage === 1 ? styles.disabled : ""
+                }`}
                 onClick={goToPreviousPage}
                 disabled={currentPage === 1}
                 aria-label="Go to previous page"
@@ -949,40 +1106,49 @@ const ClientSurvey = () => {
               </button>
 
               {[...Array(totalPages)].map((_, index) => {
-                const pageNumber = index + 1
+                const pageNumber = index + 1;
 
                 if (
                   pageNumber === 1 ||
                   pageNumber === totalPages ||
-                  (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                  (pageNumber >= currentPage - 1 &&
+                    pageNumber <= currentPage + 1)
                 ) {
                   return (
                     <button
                       key={pageNumber}
-                      className={`${styles.paginationButton} ${currentPage === pageNumber ? styles.active : ""}`}
+                      className={`${styles.paginationButton} ${
+                        currentPage === pageNumber ? styles.active : ""
+                      }`}
                       onClick={() => handlePageChange(pageNumber)}
                     >
                       {pageNumber}
                     </button>
-                  )
+                  );
                 }
 
                 if (
                   (pageNumber === 2 && currentPage > 3) ||
-                  (pageNumber === totalPages - 1 && currentPage < totalPages - 2)
+                  (pageNumber === totalPages - 1 &&
+                    currentPage < totalPages - 2)
                 ) {
                   return (
-                    <span key={pageNumber} className={styles.paginationEllipsis}>
+                    <span
+                      key={pageNumber}
+                      className={styles.paginationEllipsis}
+                    >
                       ...
                     </span>
-                  )
+                  );
                 }
 
-                return null
+                return null;
               })}
 
               <button
-                className={`${styles.paginationButton} ${currentPage === totalPages ? styles.disabled : ""}`}
+                className={`${styles.paginationButton} ${
+                  currentPage === totalPages ? styles.disabled : ""
+                }`}
                 onClick={goToNextPage}
                 disabled={currentPage === totalPages}
                 aria-label="Go to next page"
@@ -1004,8 +1170,10 @@ const ClientSurvey = () => {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Are you sure you want to delete the survey for{" "}
-            <strong>{surveyToDelete ? surveyToDelete.client.name : ""}</strong> regarding{" "}
-            <strong>{surveyToDelete ? surveyToDelete.processName : ""}</strong>? This action cannot be undone.
+            <strong>{surveyToDelete ? surveyToDelete.client.name : ""}</strong>{" "}
+            regarding{" "}
+            <strong>{surveyToDelete ? surveyToDelete.processName : ""}</strong>?
+            This action cannot be undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -1018,8 +1186,7 @@ const ClientSurvey = () => {
         </DialogActions>
       </Dialog>
     </Container>
-  )
-}
+  );
+};
 
-export default ClientSurvey
-
+export default ClientSurvey;

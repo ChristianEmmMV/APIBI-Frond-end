@@ -2,11 +2,11 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   width: 100%;
-  padding: 0.5rem;
+  padding: 1rem;
   box-sizing: border-box;
   background-color: #f9fafc;
+  min-height: auto;
 }
 
 .header {
@@ -46,19 +46,20 @@
 }
 
 .formCard {
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 12px;
   border: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   margin-bottom: 1.5rem;
   background-color: white;
   width: 100%;
-  max-width: 100%;
+  max-width: 900px;
   margin: 0 auto;
   position: relative;
-  min-height: calc(100vh - 150px);
+  min-height: auto;
   display: flex;
   flex-direction: column;
+  height: auto;
 }
 
 .formTitle {
@@ -82,91 +83,56 @@
   border-radius: 3px;
 }
 
-.timelineContainer {
-  margin-top: 10px;
-  margin-bottom: 4rem;
+.progressContainer {
+  margin: 1.5rem 0 2.5rem;
   position: relative;
   padding: 0 1rem;
-  overflow-x: auto;
-  scrollbar-width: thin;
-  scroll-behavior: smooth;
+  overflow: visible;
+  transition: all 0.5s ease;
 }
 
-.timelineContainer::-webkit-scrollbar {
-  height: 10px;
-}
-
-.timelineContainer::-webkit-scrollbar-thumb {
-  background-color: rgba(99, 98, 231, 0.6);
-  border-radius: 10px;
-  border: 3px solid transparent;
-  background-clip: padding-box;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
-}
-
-.timelineContainer::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(99, 98, 231, 0.8);
-}
-
-.timelineContainer::-webkit-scrollbar-track {
-  background-color: rgba(240, 240, 240, 0.5);
-  border-radius: 10px;
-  margin: 0 60px;
-}
-
-.timeline {
+.progressBar {
+  position: relative;
+  height: 4px;
+  background-color: #e0e0e0;
+  border-radius: 2px;
+  margin: 2rem 0;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  position: relative;
-  margin-bottom: 3rem;
-  min-width: 1800px;
-  padding:15px;
+  transition: opacity 0.5s ease;
 }
 
-.timeline::before {
-  content: "";
+.progressFill {
   position: absolute;
-  top: 50%;
-  left: 40px;
-  right: 40px;
-  height: 3px;
-  background-color: #e0e0e0;
-  transform: translateY(-50%);
-  z-index: 0;
-}
-
-.timelineProgress {
-  position: absolute;
-  top: 50%;
-  left: 40px;
-  height: 3px;
+  top: 0;
+  left: 0;
+  height: 100%;
   background-color: #6362e7;
-  transform: translateY(-50%);
-  z-index: 1;
+  border-radius: 2px;
   transition: width 0.5s ease;
+  z-index: 1;
 }
 
-.timelineStep {
-  width: 40px;
-  height: 40px;
+/* Estilos para el paso activo */
+.progressStep {
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background-color: white;
   border: 2px solid #e0e0e0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #757575;
   position: relative;
   z-index: 2;
   transition: all 0.3s ease;
-  margin: 0 35px;
-  scroll-margin: 0 50px;
+  margin-top: -14px;
 }
 
-.timelineStep.active {
+.progressStep.active {
   background-color: #6362e7;
   border-color: #6362e7;
   color: white;
@@ -174,28 +140,51 @@
   box-shadow: 0 0 0 5px rgba(99, 98, 231, 0.2);
 }
 
-.timelineStep.completed {
+.progressStep.completed {
   background-color: #6362e7;
   border-color: #6362e7;
   color: white;
 }
 
-.timelineStepLabel {
+/* Mejorar la animación de la burbuja flotante */
+.activeStepLabel {
   position: absolute;
-  top: 50px;
+  top: -30px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.8rem;
-  color: #757575;
-  white-space: nowrap;
-  text-align: center;
-  width: 130px;
+  background-color: #6362e7;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.75rem;
   font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(99, 98, 231, 0.3);
+  animation: bubbleAppear 0.4s cubic-bezier(0.18, 1.25, 0.4, 1); /* Animación mejorada con rebote suave */
+  z-index: 10;
 }
 
-.timelineStep.active .timelineStepLabel {
-  color: #6362e7;
-  font-weight: 600;
+.activeStepLabel::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #6362e7;
+}
+
+/* Ajustar la posición del contador de pasos */
+.stepCounter {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #757575;
+  margin-top: 0.5rem;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
 }
 
 .formContent {
@@ -203,18 +192,18 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-bottom: 2rem;
-  min-height: 400px;
+  margin-bottom: 1.5rem;
+  min-height: 300px;
 }
 
 .formStep {
   display: none;
   animation: fadeIn 0.5s ease;
-  position: absolute;
+  position: relative;
   width: 100%;
   left: 0;
   top: 0;
-  height: 50%;
+  height: auto;
 }
 
 .formStep.active {
@@ -223,18 +212,23 @@
   justify-content: center;
 }
 
+.summaryStep {
+  height: auto !important;
+  min-height: auto !important;
+}
+
 .formGroup {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   width: 100%;
-  max-width: 800px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .formLabel {
   display: block;
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
   font-weight: 500;
   color: #1e2f65;
   text-align: left;
@@ -254,34 +248,35 @@
 }
 
 .formInput {
-  height: 56px;
-  padding: 0 20px;
+  height: 50px;
+  padding: 0 16px;
 }
 
 .formTextarea {
-  min-height: 160px;
-  padding: 20px;
+  min-height: 120px;
+  padding: 16px;
   resize: vertical;
   line-height: 1.6;
 }
 
 .formSelect {
-  height: 56px;
-  padding: 0 20px;
+  height: 50px;
+  padding: 0 16px;
 }
 
 .formActions {
   display: flex;
-  justify-content:space-evenly;
+  justify-content: space-between;
   margin-top: 5px;
   padding-top: 10px;
   border-top: 1px solid #f0f0f0;
+  padding: 1rem 1.5rem;
 }
 
 .buttonPrimary,
 .buttonSecondary {
-  min-width: 180px;
-  font-size: 1rem !important;
+  min-width: 150px;
+  font-size: 0.9rem !important;
 }
 
 .buttonPrimary {
@@ -289,7 +284,7 @@
   color: white !important;
   border-radius: 10px !important;
   text-transform: none !important;
-  padding: 12px 28px !important;
+  padding: 10px 24px !important;
   font-weight: 500 !important;
   box-shadow: 0 4px 15px rgba(99, 98, 231, 0.25) !important;
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
@@ -331,7 +326,7 @@
   border: 2px solid #6362e7 !important;
   border-radius: 10px !important;
   text-transform: none !important;
-  padding: 11px 22px !important;
+  padding: 9px 20px !important;
   font-weight: 500 !important;
   box-shadow: 0 2px 8px rgba(99, 98, 231, 0.1) !important;
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
@@ -369,8 +364,8 @@
 .languageSelector {
   display: flex;
   justify-content: center;
-  gap: 3rem;
-  margin: 3rem auto;
+  gap: 2rem;
+  margin: 2rem auto;
   max-width: 500px;
 }
 
@@ -378,13 +373,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 16px;
   border: 2px solid #e0e0e0;
   background-color: white;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 180px;
+  width: 160px;
 }
 
 .languageButton:hover {
@@ -399,42 +394,42 @@
 }
 
 .languageIcon {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
   color: #6362e7;
 }
 
 .languageName {
   font-weight: 500;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #1e2f65;
 }
 
 .welcomeMessage {
   text-align: center;
-  margin: 3rem auto;
-  max-width: 700px;
+  margin: 2rem auto;
+  max-width: 600px;
 }
 
 .welcomeTitle {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #1e2f65;
   margin-bottom: 1.5rem;
 }
 
 .welcomeText {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #64748b;
-  max-width: 700px;
-  margin: 0 auto 2rem;
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
   line-height: 1.7;
 }
 
 .startButton {
-  margin-top: 2rem !important;
-  padding: 14px 32px !important;
-  font-size: 1.1rem !important;
+  margin-top: 1.5rem !important;
+  padding: 12px 28px !important;
+  font-size: 1rem !important;
 }
 
 .radioGroup {
@@ -498,27 +493,27 @@
 .summaryContainer {
   border: 1px solid #e0e0e0;
   border-radius: 12px;
-  padding: 2.5rem;
+  padding: 1.5rem;
   background-color: #f9fafc;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   width: 100%;
-  max-width: 900px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-  max-height: 500px;
+  max-height: 400px;
   overflow-y: auto;
   box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.03);
   scroll-behavior: smooth;
 }
 
 .summaryContainer::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 
 .summaryContainer::-webkit-scrollbar-thumb {
   background-color: rgba(99, 98, 231, 0.6);
   border-radius: 10px;
-  border: 4px solid #f9fafc;
+  border: 3px solid #f9fafc;
   background-clip: padding-box;
 }
 
@@ -532,16 +527,16 @@
 }
 
 .summaryTitle {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
   color: #1e2f65;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 
 .summaryItem {
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid #e0e0e0;
   scroll-margin-top: 1rem;
 }
@@ -555,30 +550,30 @@
 .summaryQuestion {
   font-weight: 600;
   color: #1e2f65;
-  margin-bottom: 1rem;
-  font-size: 1.05rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
   background-color: rgba(99, 98, 231, 0.08);
-  padding: 1rem;
+  padding: 0.75rem;
   border-radius: 8px;
   border-left: 4px solid #6362e7;
 }
 
 .summaryAnswer {
   color: #64748b;
-  padding: 0 1rem;
-  font-size: 1rem;
+  padding: 0 0.75rem;
+  font-size: 0.9rem;
   line-height: 1.7;
 }
 
 .summaryActions {
   display: flex;
   justify-content: space-between;
-  margin-top: 2.5rem;
-  padding-top: 1.5rem;
-  padding-bottom: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
   border-top: 1px solid #f0f0f0;
   width: 100%;
-  max-width: 900px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -600,16 +595,41 @@
   }
 }
 
-@keyframes scrollIndicator {
+/* Nueva animación con rebote suave para la burbuja */
+@keyframes bubbleAppear {
   0% {
     opacity: 0;
+    transform: translateX(-50%) translateY(10px) scale(0.8);
   }
-  50% {
+  70% {
     opacity: 1;
+    transform: translateX(-50%) translateY(-5px) scale(1.05);
   }
   100% {
-    opacity: 0;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
   }
+}
+
+/* Añadir clase para modo compacto (solo paso actual) */
+.progressCompact .progressBar {
+  opacity: 0.3;
+}
+
+.progressCompact .progressStep {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.progressCompact .progressStep.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1.3);
+}
+
+.progressCompact .stepCounter {
+  opacity: 1;
+  font-weight: 600;
 }
 
 @media (max-width: 1200px) {
@@ -618,32 +638,32 @@
   }
 
   .formGroup {
-    max-width: 700px;
+    max-width: 600px;
   }
 
   .summaryContainer,
   .summaryActions {
-    max-width: 700px;
+    max-width: 600px;
   }
 }
 
 @media (max-width: 992px) {
   .formGroup {
-    max-width: 600px;
+    max-width: 500px;
   }
 
   .summaryContainer,
   .summaryActions {
-    max-width: 600px;
+    max-width: 500px;
   }
 
   .languageSelector {
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .languageButton {
-    width: 160px;
-    padding: 1.5rem;
+    width: 140px;
+    padding: 1.25rem;
   }
 }
 
@@ -653,8 +673,8 @@
   }
 
   .formCard {
-    padding: 1.5rem;
-    min-height: calc(100vh - 120px);
+    padding: 1.25rem;
+    min-height: auto;
   }
 
   .formGroup {
@@ -664,40 +684,35 @@
   .summaryContainer,
   .summaryActions {
     max-width: 100%;
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
 
-  .timelineStep {
-    width: 32px;
-    height: 32px;
-    font-size: 0.8rem;
-  }
-
-  .timelineStepLabel {
-    font-size: 0.7rem;
-    width: 80px;
+  .progressStep {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
   }
 
   .languageSelector {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
     align-items: center;
   }
 
   .languageButton {
-    width: 200px;
+    width: 180px;
   }
 
   .welcomeMessage {
-    margin: 2rem auto;
+    margin: 1.5rem auto;
   }
 
   .welcomeTitle {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .welcomeText {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -713,29 +728,26 @@
 
   .formTitle {
     font-size: 1.1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
-  .timelineContainer {
-    margin-bottom: 2.5rem;
-  }
-
-  .timeline {
-    min-width: 800px;
+  .progressContainer {
+    margin-bottom: 1.5rem;
   }
 
   .formLabel {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .formInput,
   .formSelect {
-    height: 50px;
+    height: 45px;
   }
 
   .formActions {
     flex-direction: column-reverse;
-    gap: 1rem;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
   }
 
   .buttonPrimary,
@@ -745,22 +757,22 @@
   }
 
   .summaryContainer {
-    padding: 1.5rem 1rem;
+    padding: 1rem;
   }
 
   .summaryQuestion {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     padding: 0.75rem;
   }
 
   .summaryAnswer {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     padding: 0 0.5rem;
   }
 
   .summaryActions {
     flex-direction: column-reverse;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 }
 
@@ -769,20 +781,9 @@
     padding: 0.75rem;
   }
 
-  .timeline {
-    min-width: 600px;
-  }
-
-  .timelineStep {
-    width: 28px;
-    height: 28px;
-    font-size: 0.7rem;
-    margin: 0 25px;
-  }
-
-  .timelineStepLabel {
-    font-size: 0.6rem;
-    width: 60px;
+  .progressStep {
+    width: 24px;
+    height: 24px;
+    font-size: 0.65rem;
   }
 }
-
