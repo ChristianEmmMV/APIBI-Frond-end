@@ -113,7 +113,6 @@
   z-index: 1;
 }
 
-/* Estilos para el paso activo */
 .progressStep {
   width: 32px;
   height: 32px;
@@ -146,7 +145,6 @@
   color: white;
 }
 
-/* Mejorar la animación de la burbuja flotante */
 .activeStepLabel {
   position: absolute;
   top: -30px;
@@ -160,7 +158,7 @@
   font-weight: 500;
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(99, 98, 231, 0.3);
-  animation: bubbleAppear 0.4s cubic-bezier(0.18, 1.25, 0.4, 1); /* Animación mejorada con rebote suave */
+  animation: bubbleAppear 0.4s cubic-bezier(0.18, 1.25, 0.4, 1);
   z-index: 10;
 }
 
@@ -177,7 +175,6 @@
   border-top: 6px solid #6362e7;
 }
 
-/* Ajustar la posición del contador de pasos */
 .stepCounter {
   text-align: center;
   font-size: 0.85rem;
@@ -611,7 +608,6 @@
   }
 }
 
-/* Añadir clase para modo compacto (solo paso actual) */
 .progressCompact .progressBar {
   opacity: 0.3;
 }

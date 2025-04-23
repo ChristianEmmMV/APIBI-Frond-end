@@ -62,7 +62,6 @@ const AddClientSurvey = () => {
 
   const [errors, setErrors] = useState({})
 
-  // Añadir un nuevo estado para controlar el modo de visualización de la barra de progreso
   const [progressMode, setProgressMode] = useState("full") // 'full' o 'compact'
 
   const texts = {
@@ -245,10 +244,8 @@ const AddClientSurvey = () => {
 
   const t = language ? texts[language] : texts.en
 
-  // Modificar el useEffect existente para manejar la transición de la barra de progreso
   useEffect(() => {
     if (currentStep > 0) {
-      // Mostrar la barra completa durante la transición
       setProgressMode("full")
 
       setTimeout(() => {
@@ -272,7 +269,6 @@ const AddClientSurvey = () => {
           }
         }
 
-        // Cambiar a modo compacto después de la transición
         const timer = setTimeout(() => {
           setProgressMode("compact")
         }, 1000)
@@ -389,7 +385,6 @@ const AddClientSurvey = () => {
     return Object.keys(newErrors).length === 0
   }
 
-  // Modificar la función handleNext para mostrar la barra completa durante la transición
   const handleNext = () => {
     if (validateStep()) {
       setProgressMode("full")
@@ -397,16 +392,13 @@ const AddClientSurvey = () => {
     }
   }
 
-  // Modificar la función handlePrevious para mostrar la barra completa durante la transición
   const handlePrevious = () => {
     setProgressMode("full")
     setCurrentStep(currentStep - 1)
   }
 
   const handleClose = () => {
-    // This would typically navigate back or close the modal
     console.log("Survey closed")
-    // For demonstration purposes, reset the form
     setFormData({
       email: "",
       company: "",
@@ -922,7 +914,6 @@ const AddClientSurvey = () => {
     }
   }
 
-  // Modificar la función renderProgressBar para aplicar la clase de modo compacto
   const renderProgressBar = () => {
     if (currentStep === 0) return null
 
